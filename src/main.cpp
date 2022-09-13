@@ -4,8 +4,10 @@
 
 
 #include "main.h"
+#include <SDL2/SDL.h>
 
 
+// 이번 실습때, 쓸 요소 (2주차)
 SDL_Window*		g_pWindow = 0;
 SDL_Renderer*	g_pRenderer = 0;
 
@@ -28,7 +30,8 @@ void render();
 
 int main(int argc, char* argv[])
 {
-	if (!init())
+	// 기본 자료
+	/*if (!init())
 	{
 		return 1; // something's wrong
 	}
@@ -47,7 +50,35 @@ int main(int argc, char* argv[])
 	TTF_CloseFont(g_pFont);
 	TTF_Quit();
 	SDL_Quit();
+	*/
 
+	// 2주차 실습 내용, 0이면 정상, 음수면 오류
+	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0) {
+		// 윈도우를 생성, 중심 지점에 640, 480크기로 생성
+		g_pWindow = SDL_CreateWindow("Game Framework",
+			SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED,
+			1024, 768,
+			// SDL_WINDOW_BORDERLESS = 빈 공간을 여백으로 채워줌
+			// SDL_WINDOW_MAXIMIZED = 화면을 꽉 채워줌
+			SDL_WINDOW_BORDERLESS | SDL_WINDOW_MAXIMIZED);
+	}
+	// 제대로 윈도우가 생성되었다면, 실행 index는 -1로 설정
+	if (g_pWindow != NULL) {
+		g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, 0);
+	}
+	// 그게 아니면 종료
+	else
+		return 1;
+
+	// 색깔 지우기(채우기?) = rgb값 + 투명도 (255 : 불투명)
+	SDL_SetRenderDrawColor(g_pRenderer, 0, 0, 255, 255);
+	SDL_RenderClear(g_pRenderer);
+	SDL_RenderPresent(g_pRenderer);
+
+	// 밀리 세컨드 기준 1000 = 1초
+	SDL_Delay(10000);
+	SDL_Quit();
 	return 0;
 }
 
