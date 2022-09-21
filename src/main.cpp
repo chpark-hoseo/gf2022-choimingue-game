@@ -7,13 +7,13 @@
 
 int main(int argc, char* argv[])
 {
-	Game* game = NULL;
+	Game* game = new Game;
 	bool g_brunning;
 
 	int s_width = 640;				// 실행할 프로그램의 길이
 	int s_heigh = 480;				//					 높이
 
-	g_brunning = game->init("GameClass", 100, 100, s_width, s_heigh, 0);
+	g_brunning = game->init("GameClass", SDL_WINDOWPOS_CENTERED , SDL_WINDOWPOS_CENTERED , 640, 480, 0);
 
 	// 게임의 창이 띄워졌는지 확인
 	if (!g_brunning)

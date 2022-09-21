@@ -17,7 +17,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		else
 			return false;
 	}
-	else 
+	else
 		return false;
 
 	m_bRunning = true;				// 정상작동
@@ -45,11 +45,10 @@ void Game::handleEvent()
 {
 	SDL_Event gm_event;
 
-	if (SDL_PollEvent(&gm_event))			// 이벤트 진행시
-	{
+	if(SDL_PollEvent(&gm_event)){			// 이벤트 진행시
 		switch (gm_event.type)
 		{
-		case SDL_QUIT:						// 사용자가 종료를 원할시 종료
+		case SDL_QUIT:							// 사용자가 종료를 원할시 종료
 			m_bRunning = false;
 			break;
 		default:
