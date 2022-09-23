@@ -1,5 +1,3 @@
-#pragma once
-
 #include "GameClass.h"
 #include "main.h"
 
@@ -47,7 +45,7 @@ void GameClass::handleEvent()
 {
 	SDL_Event gm_event;
 
-	while (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
+	if (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
 		switch (gm_event.type)
 		{
 		case SDL_QUIT:							// 사용자가 종료를 원할시 종료
