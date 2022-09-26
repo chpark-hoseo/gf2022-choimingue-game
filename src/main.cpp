@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 {
     g_game = new Game();
 
-    g_game->init("Game Class", 100, 100, 640, 480, 0);
+    g_game->init("Breaking Up HelloSDL", 100, 100, 640, 480, 0);
 
     while (g_game->running())
     {
