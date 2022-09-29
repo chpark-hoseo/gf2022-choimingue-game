@@ -22,6 +22,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
+	// 이 부분을 바꾸었습니다.
 	m_pcTexture = Text_Maker(adr_Char, &m_srcChar, &m_disChar,1);
 	m_pbTexture = Text_Maker(adr_Bg, & m_srcBg, &m_disBg, 1);
 	m_pTexture =  Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
@@ -73,7 +74,7 @@ void Game::renderer()
 	SDL_RenderCopy(m_pRenderer, m_pcTexture, &m_srcChar, &m_disChar);		// 캐릭터
 	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect);		// 라이더
 	
-	if (nChgWay_Cnt > chgWay_Max) {
+	while (nChgWay_Cnt > chgWay_Max) {
 		obj_Speed = -obj_Speed;
 		nChgWay_Cnt = 0;
 	}
