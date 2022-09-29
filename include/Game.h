@@ -31,14 +31,6 @@ private:
 	SDL_Rect m_srcRect;			// 원본 사각형
 	SDL_Rect m_disRect;			// 대상 사각형
 
-	SDL_Texture* m_pbTexture;
-	SDL_Rect m_srcBg;			// 원본 배경
-	SDL_Rect m_disBg;			// 대상 배경
-
-	SDL_Texture* m_pcTexture;
-	SDL_Rect m_srcChar;			// 원본 캐릭터
-	SDL_Rect m_disChar;			// 대상 캐릭터
-
 	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
 	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
 

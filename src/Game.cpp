@@ -22,9 +22,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	m_pcTexture = Text_Maker(adr_Char, &m_srcChar, &m_disChar,1);
-	m_pbTexture = Text_Maker(adr_Bg, & m_srcBg, &m_disBg, 1);
-	m_pTexture =  Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
+	m_pTexture = Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
 
 	return m_bRunning;
 }
@@ -44,11 +42,17 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);					// 원본 그림의 크기를 가져오기
 
-	dis->w = scr->w;
-	dis->h = scr->h;
+	int wCut = 75;
+	int hCut = 40;
+
+	dis->w = scr->w - wCut;		// 123
+	dis->h = scr->h - hCut;		// 87
 
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
+
+	scr->x = - wCut;
+	scr->y = - hCut;
 
 	return texture;
 }
@@ -57,6 +61,7 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 void Game::update()
 {
+	SDL_Delay(10);
 	// 게임 진행 내용
 }
 
@@ -69,18 +74,8 @@ void Game::renderer()
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 0);
 
 	// 텍스처의 일부를 현재 렌더링 대상에 복사합니다.
-	SDL_RenderCopy(m_pRenderer, m_pbTexture, &m_srcBg, &m_disBg);			// 배경
-	SDL_RenderCopy(m_pRenderer, m_pcTexture, &m_srcChar, &m_disChar);		// 캐릭터
-	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect);		// 라이더
+	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect);
 	
-	if (nChgWay_Cnt > chgWay_Max) {
-		obj_Speed = -obj_Speed;
-		nChgWay_Cnt = 0;
-	}
-
-	m_disRect.x += obj_Speed;
-	nChgWay_Cnt++;
-
 	SDL_RenderPresent(m_pRenderer);
 	
 	/*
@@ -140,8 +135,6 @@ void Game::clean()
 	SDL_DestroyRenderer(m_pRenderer);
 
 	SDL_DestroyTexture(m_pTexture);
-	SDL_DestroyTexture(m_pbTexture);
-	SDL_DestroyTexture(m_pcTexture);
 	
 	SDL_Quit();
 }
