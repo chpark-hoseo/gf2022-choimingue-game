@@ -22,41 +22,27 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	Text_Maker(adr_Char, &m_srcChar, &m_disChar,1);
-	Text_Maker(adr_Bg, &m_srcBg, &m_disBg,1);
-	Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
+	m_pcTexture = Text_Maker(adr_Char, &m_srcChar, &m_disChar,1);
+	m_pbTexture = Text_Maker(adr_Bg, & m_srcBg, &m_disBg, 1);
+	m_pTexture =  Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
 
 	return m_bRunning;
 }
 
-void Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis, int extDif)
+SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis, int extDif)
 {
 	SDL_Surface* ptSurface = NULL;
+	SDL_Texture* texture = NULL;
 
 	if(extDif == ext_bmp)
 		ptSurface = SDL_LoadBMP(Par_Objname);							// 그림 데이터를 가져옴
-
 	else
 		ptSurface = IMG_Load(Par_Objname);
 
-	if (Par_Objname == adr_Rider) {
-		m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 가져온 그림 데이터를 가져옴
-		SDL_FreeSurface(ptSurface);
+	texture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 가져온 그림 데이터를 가져옴
+	SDL_FreeSurface(ptSurface);
 
-		SDL_QueryTexture(m_pTexture, NULL, NULL, &scr->w, &scr->h);					// 원본 그림의 크기를 가져오기
-	}
-	else if (Par_Objname == adr_Char) {
-		m_pcTexture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 캐릭터
-		SDL_FreeSurface(ptSurface);
-
-		SDL_QueryTexture(m_pcTexture, NULL, NULL, &scr->w, &scr->h);
-	}
-	else {
-		m_pbTexture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 배경
-		SDL_FreeSurface(ptSurface);
-
-		SDL_QueryTexture(m_pbTexture, NULL, NULL, &scr->w, &scr->h);
-	}
+	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);					// 원본 그림의 크기를 가져오기
 
 	dis->w = scr->w;
 	dis->h = scr->h;
@@ -64,6 +50,7 @@ void Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis, int
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
 
+	return texture;
 }
 
 // 참고 자료 : https://gamdekong.tistory.com/173

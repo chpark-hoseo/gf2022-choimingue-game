@@ -40,13 +40,13 @@ private:
 	SDL_Rect m_disChar;			// 대상 캐릭터
 
 	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
-	void Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
+	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
 
 	int ext_bmp = 0;
 	int ext_png = 1;
 
-	int obj_Speed = 1;									// 물체가 움직이는 속도 = 1
-	int nChgWay_Cnt = 0;								// 현재 방향이 바뀐 횟수
+	int obj_Speed = 1;										// 물체가 움직이는 속도 = 1
+	int nChgWay_Cnt = 0;									// 현재 방향이 바뀐 횟수
 
 	const char* adr_Char = "assets/Char.png";				// 캐릭터의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground.png";			// 배경 그림의 주소
