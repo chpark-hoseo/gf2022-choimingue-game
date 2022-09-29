@@ -23,6 +23,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	m_bRunning = true;				// 정상작동
 
 	m_pTexture = Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
+	m_pCutTexture = Text_Maker(adr_Rider, &m_srcCut, &m_disCut, 0);
 
 	return m_bRunning;
 }
@@ -42,8 +43,13 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);					// 원본 그림의 크기를 가져오기
 
+	/* 1번째 과제, 이렇게 진행할시 충돌은 어떻게 되는지? */
+	/*
 	int wCut = 75;
 	int hCut = 40;
+
+	int Texture_xPos = 40;
+	int Texture_yPos = 50;
 
 	dis->w = scr->w - wCut;		// 123
 	dis->h = scr->h - hCut;		// 87
@@ -53,6 +59,61 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 	scr->x = - wCut;
 	scr->y = - hCut;
+
+	dis->x = Texture_xPos;
+	dis->y = Texture_yPos;
+	*/
+
+	/* 2번째 과제 <임시> */
+	/*
+	int wCut = 50;
+	int hCut = 50;
+
+	int Texture_xPos = 50;
+	int Texture_yPos = 50;
+
+	if (IsCutText == true) {
+		wCut = 90;
+		Texture_xPos = 90;
+		std::cout << "Error";
+	}
+	dis->w = scr->w - wCut;		// 123
+	dis->h = scr->h - hCut;		// 87
+
+	dis->x = scr->x = 0;
+	dis->y = scr->y = 0;
+
+	scr->x = wCut;
+	scr->y = hCut;
+
+	dis->x = Texture_xPos;
+	dis->y = Texture_yPos;
+
+	if (IsCutText == false)
+		IsCutText = true;
+	else
+		IsCutText = false;
+	*/
+
+	/* 3번째 과제 */
+	/*
+	int full_imageW = SCREEN_WIDTH - scr->w;
+	int full_imageH = SCREEN_HEIGHT - scr->h;
+
+	dis->w = scr->w + full_imageW;		// 123
+	dis->h = scr->h + full_imageH;		// 87
+
+	dis->x = scr->x = 0;
+	dis->y = scr->y = 0;
+
+	*/
+
+	/* 4번째 과제 */
+	dis->w = scr->w;		// 123
+	dis->h = scr->h;		// 87
+
+	dis->x = scr->x = 0;
+	dis->y = scr->y = 0;
 
 	return texture;
 }
@@ -71,11 +132,33 @@ void Game::renderer()
 
 	SDL_RenderClear(m_pRenderer);
 
-	SDL_SetRenderDrawColor(m_pRenderer, 0, 255, 0, 0);
+	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 0);
 
-	// 텍스처의 일부를 현재 렌더링 대상에 복사합니다.
+	/* 2번째 실습 <임시> */
+	/*
+	SDL_RenderCopy(m_pRenderer, m_pCutTexture, &m_srcCut, &m_disCut);
+	SDL_SetTextureColorMod(m_pCutTexture,0,0,0);
+	*/
+
+	/* 4번째 과제 = SDL_RenderCopyEx 를 이용한 다양한 예제 만들기 */
+	/*
+	// 오른쪽으로 이동중
+	if(obj_Speed > 0)
+		SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect, 0, NULL, SDL_FLIP_HORIZONTAL);
+	else
+		SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect, 0, NULL, SDL_FLIP_NONE);
+
+	if (nChgWay_Cnt > chgWay_Max){
+		obj_Speed = -obj_Speed;
+		nChgWay_Cnt = 0;
+	}
+
+	m_disRect.x += obj_Speed;
+	nChgWay_Cnt++;
+	*/
+
 	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect);
-	
+
 	SDL_RenderPresent(m_pRenderer);
 	
 	/*
@@ -116,7 +199,7 @@ void Game::handleEvent()
 {
 	SDL_Event gm_event;
 
-	if (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
+	while (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
 		switch (gm_event.type)
 		{
 		case SDL_QUIT:							// 사용자가 종료를 원할시 종료

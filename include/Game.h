@@ -31,6 +31,11 @@ private:
 	SDL_Rect m_srcRect;			// 원본 사각형
 	SDL_Rect m_disRect;			// 대상 사각형
 
+	// 2번째 과제용 멤버 변수
+	SDL_Texture* m_pCutTexture;
+	SDL_Rect m_srcCut;
+	SDL_Rect m_disCut;
+
 	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
 	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
 
@@ -43,6 +48,8 @@ private:
 	const char* adr_Char = "assets/Char.png";				// 캐릭터의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground.png";			// 배경 그림의 주소
 	const char* adr_Rider = "assets/rider.bmp";				// 라이더 그림의 주소
+
+	bool IsCutText = false;					// 잘라야 하는 그림인지 확인
 
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 480;
