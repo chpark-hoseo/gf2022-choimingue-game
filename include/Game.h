@@ -4,6 +4,10 @@
 class Game
 {
 public:
+	// 윈도우 크기
+	const int SCREEN_WIDTH = 640;
+	const int SCREEN_HEIGHT = 480;
+
 	// 윈도우 생성
 	bool init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight, int flags);
 
@@ -48,7 +52,4 @@ private:
 	const char* adr_Char = "assets/Char.png";				// 캐릭터의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground.png";			// 배경 그림의 주소
 	const char* adr_Rider = "assets/rider.bmp";				// 라이더 그림의 주소
-
-	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 480;
 };

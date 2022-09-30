@@ -44,46 +44,14 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 	SDL_FreeSurface(ptSurface);
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
-	
-	/* 2번째 과제 <임시> */
-
-	// 공룡 다리가 나올 원본 상자의 크기
-	const int wlegCut = 80;
-	const int hlegCut = 45;
-
-	// 공룡 다리가 나올 원본 상자의 좌표
-	const int leg_xpos = 50;
-	const int leg_ypos = 50;
-
-	// 그림이 나올 좌표
-	const int Texture_xPos = 50;
-	const int Texture_yPos = 50;
-
-	// 공룡 다리 좌표
-	scr->x = leg_xpos;
-	scr->y = leg_ypos;
-
-	scr->w -= wlegCut;
-	scr->h -= hlegCut;
-
-	dis->w = scr->w;
-	dis->h = scr->h;
-
-	dis->x = Texture_xPos;
-	dis->y = Texture_yPos;
 
 	/* 3번째 과제 */
-	/*
-	int full_imageW = SCREEN_WIDTH - scr->w;
-	int full_imageH = SCREEN_HEIGHT - scr->h;
 
-	dis->w = scr->w + full_imageW;		// 123
-	dis->h = scr->h + full_imageH;		// 87
+	dis->w = SCREEN_WIDTH;
+	dis->h = SCREEN_HEIGHT;
 
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
-
-	*/
 
 	/* 4번째 과제 */
 	/*
