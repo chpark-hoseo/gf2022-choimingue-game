@@ -41,28 +41,20 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 	texture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 가져온 그림 데이터를 가져옴
 	SDL_FreeSurface(ptSurface);
 
-	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);					// 원본 그림의 크기를 가져오기
+	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
 
 	/* 1번째 과제, 이렇게 진행할시 충돌은 어떻게 되는지? */
-	/*
-	int wCut = 75;
-	int hCut = 40;
-
 	int Texture_xPos = 40;
 	int Texture_yPos = 50;
 
-	dis->w = scr->w - wCut;		// 123
-	dis->h = scr->h - hCut;		// 87
+	dis->w = scr->w = 50;		// 123
+	dis->h = scr->h = 50;		// 87
 
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
 
-	scr->x = - wCut;
-	scr->y = - hCut;
-
 	dis->x = Texture_xPos;
 	dis->y = Texture_yPos;
-	*/
 
 	/* 2번째 과제 <임시> */
 	/*
@@ -109,11 +101,13 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 	*/
 
 	/* 4번째 과제 */
+	/*
 	dis->w = scr->w;		// 123
 	dis->h = scr->h;		// 87
 
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
+	*/
 
 	return texture;
 }
@@ -134,9 +128,8 @@ void Game::renderer()
 
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 0);
 
-
 	// 1번째와 3번째 과제시, 사용
-	//SDL_RenderCopy(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect);
+	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect);
 
 	/* 2번째 실습 <임시> */
 	/*
@@ -146,6 +139,7 @@ void Game::renderer()
 	*/
 	
 	/* 4번째 과제 = SDL_RenderCopyEx 를 이용한 다양한 예제 만들기 */
+	/*
 	// 오른쪽으로 이동중
 	if(obj_Speed >= 0)
 		SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect, 0, NULL, SDL_FLIP_HORIZONTAL);
@@ -159,6 +153,7 @@ void Game::renderer()
 
 	m_disRect.x += obj_Speed;
 	nChgWay_Cnt++;
+	*/
 	SDL_RenderPresent(m_pRenderer);
 	
 	// 실행해보기
