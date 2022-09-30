@@ -23,7 +23,9 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	m_bRunning = true;				// 정상작동
 
 	m_pTexture = Text_Maker(adr_Rider, &m_srcRect, &m_disRect,0);
-	m_pCutTexture = Text_Maker(adr_Rider, &m_srcCut, &m_disCut, 0);
+
+	if (m_pTexture == nullptr)
+		std::cout << "1";
 
 	return m_bRunning;
 }
@@ -42,50 +44,33 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 	SDL_FreeSurface(ptSurface);
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
-
-	/* 1번째 과제, 이렇게 진행할시 충돌은 어떻게 되는지? */
-	int Texture_xPos = 40;
-	int Texture_yPos = 50;
-
-	dis->w = scr->w = 50;		// 123
-	dis->h = scr->h = 50;		// 87
-
-	dis->x = scr->x = 0;
-	dis->y = scr->y = 0;
-
-	dis->x = Texture_xPos;
-	dis->y = Texture_yPos;
-
+	
 	/* 2번째 과제 <임시> */
-	/*
-	int wCut = 50;
-	int hCut = 50;
 
-	int Texture_xPos = 50;
-	int Texture_yPos = 50;
+	// 공룡 다리가 나올 원본 상자의 크기
+	const int wlegCut = 80;
+	const int hlegCut = 45;
 
-	if (IsCutText == true) {
-		wCut = 90;
-		Texture_xPos = 90;
-		std::cout << "Error";
-	}
-	dis->w = scr->w - wCut;		// 123
-	dis->h = scr->h - hCut;		// 87
+	// 공룡 다리가 나올 원본 상자의 좌표
+	const int leg_xpos = 50;
+	const int leg_ypos = 50;
 
-	dis->x = scr->x = 0;
-	dis->y = scr->y = 0;
+	// 그림이 나올 좌표
+	const int Texture_xPos = 50;
+	const int Texture_yPos = 50;
 
-	scr->x = wCut;
-	scr->y = hCut;
+	// 공룡 다리 좌표
+	scr->x = leg_xpos;
+	scr->y = leg_ypos;
+
+	scr->w -= wlegCut;
+	scr->h -= hlegCut;
+
+	dis->w = scr->w;
+	dis->h = scr->h;
 
 	dis->x = Texture_xPos;
 	dis->y = Texture_yPos;
-
-	if (IsCutText == false)
-		IsCutText = true;
-	else
-		IsCutText = false;
-	*/
 
 	/* 3번째 과제 */
 	/*
@@ -154,7 +139,6 @@ void Game::renderer()
 	m_disRect.x += obj_Speed;
 	nChgWay_Cnt++;
 	*/
-	SDL_RenderPresent(m_pRenderer);
 	
 	// 실행해보기
 	/*

@@ -49,8 +49,6 @@ private:
 	const char* adr_Bg = "assets/Back_Ground.png";			// 배경 그림의 주소
 	const char* adr_Rider = "assets/rider.bmp";				// 라이더 그림의 주소
 
-	bool IsCutText = false;					// 잘라야 하는 그림인지 확인
-
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 480;
 };
