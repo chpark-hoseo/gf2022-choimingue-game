@@ -22,10 +22,10 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	m_pTexture = Text_Maker(adr_Rider, &m_srcRect, &m_disRect, 0);
-
-	if (m_pTexture == nullptr)
-		std::cout << "1";
+	m_pGdTexture = Text_Maker(adr_Char, &m_srcGd, &m_disGd, 1);
+	m_pBgTexture = Text_Maker(adr_Bg, &m_srcBg, &m_disBg, 1);
+	m_pKnTexture = Text_Maker(adr_Kskull, &m_srcKn, &m_disKn, 1);
+	m_pAxTexture = Text_Maker(adr_Askull, &m_srcAx, &m_disAx, 1);
 
 	return m_bRunning;
 }
@@ -41,6 +41,9 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 		ptSurface = IMG_Load(Par_Objname);
 
 	texture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 가져온 그림 데이터를 가져옴
+	if (texture == nullptr)
+		std::cout << "Error";
+
 	SDL_FreeSurface(ptSurface);
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
@@ -51,7 +54,35 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
 
+	Text_Ctrl(Par_Objname, scr, dis);
+
 	return texture;
+}
+void Game::Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis)
+{
+	if (Par_Objname == adr_Char) {
+		dis->w = scr->w * 2;
+		dis->h = scr->h * 2.3;
+
+		dis->y = 400;
+	}
+
+	else if (Par_Objname == adr_Askull) {
+		dis->w = scr->w * 1.3;
+		dis->h = dis->h * 1.3;
+
+		dis->x = 300;
+		dis->y = 380;
+	}
+
+	else if (Par_Objname == adr_Kskull) {
+		dis->w = scr->w * 1.3;
+		dis->h = dis->h * 1.3;
+
+		dis->x = 500;
+		dis->y = 380;
+	}
+	else return;
 }
 
 // 참고 자료 : https://gamdekong.tistory.com/173
@@ -64,28 +95,14 @@ void Game::update()
 
 void Game::renderer()
 {
-	const int chgWay_Max = 640 - m_srcRect.w;			// 물체의 방향이 바뀌는 횟수
 
 	SDL_RenderClear(m_pRenderer);
-
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 0);
 
-
-
-	/* 4번째 과제 = SDL_RenderCopyEx 를 이용한 다양한 예제 만들기 */
-	// 오른쪽으로 이동중
-	if (obj_Speed >= 0)
-		SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect, 0, NULL, SDL_FLIP_HORIZONTAL);
-	else
-		SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_srcRect, &m_disRect, 0, NULL, SDL_FLIP_NONE);
-
-	if (nChgWay_Cnt > chgWay_Max) {
-		obj_Speed = -obj_Speed;
-		nChgWay_Cnt = 0;
-	}
-
-	m_disRect.x += obj_Speed;
-	nChgWay_Cnt++;
+	SDL_RenderCopy(m_pRenderer, m_pBgTexture, &m_srcBg, &m_disBg);
+	SDL_RenderCopy(m_pRenderer, m_pGdTexture, &m_srcGd, &m_disGd);
+	SDL_RenderCopy(m_pRenderer, m_pKnTexture, &m_srcKn, &m_disKn);
+	SDL_RenderCopy(m_pRenderer, m_pAxTexture, &m_srcAx, &m_disAx);
 
 	SDL_RenderPresent(m_pRenderer);
 }
@@ -117,7 +134,10 @@ void Game::clean()
 
 	SDL_DestroyRenderer(m_pRenderer);
 
-	SDL_DestroyTexture(m_pTexture);
+	SDL_DestroyTexture(m_pBgTexture);
+	SDL_DestroyTexture(m_pGdTexture);
+	SDL_DestroyTexture(m_pAxTexture);
+	SDL_DestroyTexture(m_pKnTexture);
 
 	SDL_Quit();
 }

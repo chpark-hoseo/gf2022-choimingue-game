@@ -6,7 +6,7 @@ class Game
 {
 public:
 	// 윈도우 크기
-	const int SCREEN_WIDTH = 640;
+	const int SCREEN_WIDTH = 1024;
 	const int SCREEN_HEIGHT = 480;
 
 	// 윈도우 생성
@@ -32,20 +32,34 @@ private:
 	SDL_Renderer* m_pRenderer;
 	bool m_bRunning;
 
-	SDL_Texture* m_pTexture;
-	SDL_Rect m_srcRect;			// 원본 사각형
-	SDL_Rect m_disRect;			// 대상 사각형
+	SDL_Texture* m_pGdTexture;		// 플레이어(젤다)
+	SDL_Rect m_srcGd;
+	SDL_Rect m_disGd;
+
+	SDL_Texture* m_pBgTexture;		// 배경
+	SDL_Rect m_srcBg;
+	SDL_Rect m_disBg;
+
+	SDL_Texture* m_pKnTexture;		// 칼병 병사
+	SDL_Rect m_srcKn;
+	SDL_Rect m_disKn;
+
+	SDL_Texture* m_pAxTexture;		// 도끼 병사
+	SDL_Rect m_srcAx;
+	SDL_Rect m_disAx;
 
 	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
 	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis, int extDif);
+	void Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis);
 
 	int ext_bmp = 0;
 	int ext_png = 1;
 
-	int obj_Speed = 1;										// 물체가 움직이는 속도 = 1
-	int nChgWay_Cnt = 0;									// 현재 방향이 바뀐 횟수
+	int obj_Speed = 1;												// 물체가 움직이는 속도 = 1
+	int nChgWay_Cnt = 0;											// 현재 방향이 바뀐 횟수
 
-	const char* adr_Char = "assets/Char.png";				// 캐릭터의 그림 주소
-	const char* adr_Bg = "assets/Back_Ground.png";			// 배경 그림의 주소
-	const char* adr_Rider = "assets/rider.bmp";				// 라이더 그림의 주소
+	const char* adr_Char = "assets/Gelda_Idle.png";					// 젤다의 그림 주소
+	const char* adr_Bg = "assets/Back_Ground.png";					// 배경 그림의 주소
+	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
+	const char* adr_Askull = "assets/AxeSkull_Idle.png";			// 도끼 병사의 주소
 };
