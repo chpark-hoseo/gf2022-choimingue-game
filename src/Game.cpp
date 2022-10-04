@@ -22,6 +22,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
+	// <이 부분을 바꿨습니다.>
 	m_pTexture = Text_Maker(adr_Cat, &m_srcCat, &m_disCat, 1);
 
 	return m_bRunning;
@@ -42,6 +43,7 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
 
+	// <이 부분을 바꿨습니다.>
 	// 애니메이션 만드는 방법 : 원본과 대상을 크기에 따라 잘라줌 + 원본 상자의 x 좌표를 이동하면서 애니메이션을 진행
 	dis->w = scr->w = 128;
 	dis->h = scr->h;
@@ -56,6 +58,8 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 void Game::update()
 {
+	// <이 부분을 바꿨습니다.>
+
 	m_srcCat.x = 128 * ((SDL_GetTicks() / 100) % 6);
 
 	// 게임 진행 내용
