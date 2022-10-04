@@ -32,13 +32,8 @@ private:
 	bool m_bRunning;
 
 	SDL_Texture* m_pTexture;
-	SDL_Rect m_srcRect;			// 원본 사각형
-	SDL_Rect m_disRect;			// 대상 사각형
-
-	// 2번째 과제용 멤버 변수
-	SDL_Texture* m_pCutTexture;
-	SDL_Rect m_srcCut;
-	SDL_Rect m_disCut;
+	SDL_Rect m_srcCat;			// 원본 사각형
+	SDL_Rect m_disCat;			// 대상 사각형
 
 	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
 	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
@@ -49,7 +44,5 @@ private:
 	int obj_Speed = 1;										// 물체가 움직이는 속도 = 1
 	int nChgWay_Cnt = 0;									// 현재 방향이 바뀐 횟수
 
-	const char* adr_Char = "assets/Char.png";				// 캐릭터의 그림 주소
-	const char* adr_Bg = "assets/Back_Ground.png";			// 배경 그림의 주소
-	const char* adr_Rider = "assets/rider.bmp";				// 라이더 그림의 주소
+	const char* adr_Cat = "assets/animate.png";				// 캐릭터의 그림 주소
 };
