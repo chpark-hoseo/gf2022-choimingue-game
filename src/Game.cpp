@@ -50,8 +50,8 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
 
-	dis->w = scr->w;		// 123
-	dis->h = scr->h;		// 87
+	dis->w = scr->w;			// 123
+	dis->h = scr->h;			// 87
 
 	dis->x = scr->x = 0;
 	dis->y = scr->y = 0;
@@ -63,12 +63,15 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 void Game::Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis)
 {
 	if (Par_Objname == adr_Char) {
-		dis->y = 310;
+		dis->w = scr->w * 2;
+		dis->h = scr->h * 2.3;
+
+		dis->y = 400;
 	}
 
 	// 몬스터들은 1.3배 키움
 	else if (Par_Objname == adr_Askull) {
-		dis->w = scr->w * 1.3;
+		dis->w = scr->w * 1.6;
 		dis->h = dis->h * 1.3;
 
 		dis->x = 300;
