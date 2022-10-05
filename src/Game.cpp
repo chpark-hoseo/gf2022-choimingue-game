@@ -63,12 +63,12 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 void Game::Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis)
 {
 	if (Par_Objname == adr_Char) {
-		dis->y = 200;
+		dis->y = 310;
 	}
 
 	// 몬스터들은 1.3배 키움
 	else if (Par_Objname == adr_Askull) {
-		dis->w = scr->w * 1.6;
+		dis->w = scr->w * 1.3;
 		dis->h = dis->h * 1.3;
 
 		dis->x = 300;
