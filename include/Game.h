@@ -32,9 +32,9 @@ private:
 	SDL_Renderer* m_pRenderer;
 	bool m_bRunning;
 
-	SDL_Texture* m_pGdTexture;		// 플레이어(젤다)
-	SDL_Rect m_srcGd;
-	SDL_Rect m_disGd;
+	SDL_Texture* m_pZdTexture;		// 플레이어(젤다)
+	SDL_Rect m_srcZd;
+	SDL_Rect m_disZd;
 
 	SDL_Texture* m_pBgTexture;		// 배경
 	SDL_Rect m_srcBg;
@@ -55,10 +55,16 @@ private:
 	int ext_bmp = 0;
 	int ext_png = 1;
 
-	int obj_Speed = 1;												// 물체가 움직이는 속도 = 1
-	int nChgWay_Cnt = 0;											// 현재 방향이 바뀐 횟수
+	const int obj_pWSpeed = 3;										// 플레이어 속도
 
-	const char* adr_Char = "assets/Gelda_Idle.png";					// 젤다의 그림 주소
+	int obj_AniFrame = 0;											// 가만히 멈춰 있을땐, 정지
+	bool isRight = false;											// 오른쪽 방향인지 확인
+	bool isAttack = false;											// 플레이어가 공격하는지 확인
+
+	const int Pwalk_FrameW = 38;									// 플레이어의 이동 프레임 길이, 38
+	const int PAttack_FrameW = 75;									// 플레이어의 공격 프레임 길이, 75
+
+	const char* adr_Char = "assets/Zelda_Walk_ver2+Attack.png";		// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground.png";					// 배경 그림의 주소
 	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
 	const char* adr_Askull = "assets/AxeSkull_Idle.png";			// 도끼 병사의 주소
