@@ -63,7 +63,7 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 void Game::Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis)
 {
 	if (Par_Objname == adr_Char) {
-		dis->y = 310;
+		dis->y = Ground_yPos;
 	}
 
 	// 몬스터들은 1.3배 키움
@@ -72,7 +72,7 @@ void Game::Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis)
 		dis->h = dis->h * 1.3;
 
 		dis->x = 300;
-		dis->y = 310;
+		dis->y = Ground_yPos;
 	}
 
 	else if (Par_Objname == adr_Kskull) {
@@ -101,9 +101,25 @@ void Game::update()
 		m_srcZd.x = 0;
 		m_srcZd.x = Pwalk_FrameW * 8 + obj_AniFrame * (SDL_GetTicks() / 100 % 6);
 	}
-
 	else 
 		m_srcZd.x = 0;
+
+	if (isJump) {
+		if(m_disZd.y > Max_JumpH)
+			m_disZd.y -= obj_pJSpeed;
+
+		else {
+			obj_pJSpeed = -obj_pJSpeed;
+			m_disZd.y -= obj_pJSpeed;
+		}
+
+		if (m_disZd.y >= Ground_yPos) {
+			isJump = false;
+			obj_pJSpeed = -obj_pJSpeed;
+		}
+	}
+
+	std::cout << obj_pJSpeed << std::endl;
 }
 
 void Game::renderer()
@@ -157,9 +173,13 @@ void Game::handleEvent()
 				obj_AniFrame = Pwalk_FrameW;
 				break;
 
-			case SDLK_a:	// a키, 이동
+			case SDLK_a:	// a키, 공격
 				m_disZd.w = m_srcZd.w = PAttack_FrameW;
 				obj_AniFrame = PAttack_FrameW;
+				break;
+
+			case SDLK_SPACE:
+				isJump = true;
 				break;
 
 			default:

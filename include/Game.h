@@ -56,13 +56,18 @@ private:
 	int ext_png = 1;
 
 	const int obj_pWSpeed = 3;										// 플레이어 속도
-
+	float obj_pJSpeed = 1;											// 플레이어의 점프 속도
 	int obj_AniFrame = 0;											// 가만히 멈춰 있을땐, 정지
+
 	bool isRight = false;											// 오른쪽 방향인지 확인
 	bool isAttack = false;											// 플레이어가 공격하는지 확인
+	bool isJump = false;											// 플레이어가 점프하는지 확인
 
 	const int Pwalk_FrameW = 38;									// 플레이어의 이동 프레임 길이, 38
 	const int PAttack_FrameW = 75;									// 플레이어의 공격 프레임 길이, 75
+
+	const int Ground_yPos = 310;									// 지면의 y좌표
+	const int Max_JumpH = Ground_yPos - 45;							// 최대 점프 높이 (지면의 높이 : 310 - 최대 점프 높이 : 45 )
 
 	const char* adr_Char = "assets/Zelda_Walk_ver2+Attack.png";		// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground.png";					// 배경 그림의 주소
