@@ -31,13 +31,9 @@ private:
 	SDL_Renderer* m_pRenderer;
 	bool m_bRunning;
 
-	SDL_Texture* m_pTexture;
-	SDL_Rect m_srcChar;			// 원본 사각형
-	SDL_Rect m_disChar;			// 대상 사각형
-
-	SDL_Texture* m_pTexture_v2;
-	SDL_Rect m_srcChar_v2;			// 원본 사각형
-	SDL_Rect m_disChar_v2;			// 대상 사각형
+	SDL_Texture* m_pCTexture;
+	SDL_Rect m_srcCat;			// 원본 사각형
+	SDL_Rect m_disCat;			// 대상 사각형
 
 	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
 	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
@@ -48,8 +44,11 @@ private:
 	int obj_Speed = 1;										// 물체가 움직이는 속도 = 1
 	int nChgWay_Cnt = 0;									// 현재 방향이 바뀐 횟수
 
-	const char* adr_Char = "assets/Zelda_Walk.png";				// 캐릭터의 그림 주소
-	const char* adr_Char_ver2 = "assets/Zelda_Walk.png";
+	// 실습 1번
+	//const char* adr_Cat = "assets/animate.png";
+	
+	// 실습 2번
+	const char* adr_Cat = "assets/animate-alpha.png";				// 캐릭터의 그림 주소
 
 	int m_angle = 0;
 };
