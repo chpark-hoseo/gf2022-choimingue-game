@@ -22,8 +22,14 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	// <이 부분을 바꿨습니다.>
-	m_pCTexture = Text_Maker(adr_Cat, &m_srcCat, &m_disCat, 1);
+	m_pCTexture = Text_Maker(adr_Cat, &m_srcCat, &m_disCat, 1);		// 고양이 같은 개 사진
+	m_disCat.w = m_srcCat.w = 128;
+	m_disCat.y = 300;
+
+	m_pDTexture = Text_Maker(adr_Dog, &m_srcDog, &m_disDog, 1);		// 강아지 사진
+
+	m_pBgTexture = Text_Maker(adr_Bg, &m_srcBg, &m_disBg, 1);		// 배경 사진
+	m_disBg.w = m_srcBg.w = 640;
 
 	return m_bRunning;
 }
@@ -43,9 +49,7 @@ SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* 
 
 	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
 
-	// <이 부분을 바꿨습니다.>
-	// 애니메이션 만드는 방법 : 원본과 대상을 크기에 따라 잘라줌 + 원본 상자의 x 좌표를 이동하면서 애니메이션을 진행
-	dis->w = scr->w = 128;
+	dis->w = scr->w;
 	dis->h = scr->h;
 
 	dis->x = scr->x = 0;
@@ -62,9 +66,17 @@ void Game::update()
 
 	m_srcCat.x = 128 * ((SDL_GetTicks() / 100) % 6);
 
-	// <<산을 타는 움직임을 재현했습니다.>>
+	m_disCat.x += 2;
 
-	SDL_Delay(10);
+	if (m_disCat.x >= 30 && m_disCat.x <= 90) {
+		m_disCat.y = (float)1 / 5 * (m_disCat.x - 30) * (m_disCat.x - 90) + 300;
+	}
+
+	if (m_disDog.y < SCREEN_HEIGHT - m_disDog.h) {
+		m_disDog.y += 9.81 + (m_disDog.y / 100.0);
+	}
+
+	SDL_Delay(20);
 
 	// 게임 진행 내용
 }
@@ -73,9 +85,11 @@ void Game::renderer()
 {
 	SDL_RenderClear(m_pRenderer);
 
-	SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 0);
 
-	SDL_RenderCopy(m_pRenderer, m_pCTexture, &m_srcCat, &m_disCat);
+	SDL_RenderCopy(m_pRenderer, m_pBgTexture, &m_srcBg, &m_disBg);				// 배경
+	SDL_RenderCopy(m_pRenderer, m_pCTexture, &m_srcCat, &m_disCat);				// 움직이는 고양이
+	SDL_RenderCopy(m_pRenderer, m_pDTexture, &m_srcDog, &m_disDog);				// 떨어지는 강아지
 
 	SDL_RenderPresent(m_pRenderer);
 }
