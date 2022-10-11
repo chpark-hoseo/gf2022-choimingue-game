@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "TextManger.h"
 
 class Game
 {
@@ -27,29 +28,17 @@ public:
 	void clean();
 
 private:
+	TextManger m_textManger;
+
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 	bool m_bRunning;
 
-	SDL_Texture* m_pTexture;
-	SDL_Rect m_srcChar;			// 원본 사각형
-	SDL_Rect m_disChar;			// 대상 사각형
-
-	SDL_Texture* m_pTexture_v2;
-	SDL_Rect m_srcChar_v2;			// 원본 사각형
-	SDL_Rect m_disChar_v2;			// 대상 사각형
-
-	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
-	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect *scr, SDL_Rect *dis, int extDif);
-
-	int ext_bmp = 0;
-	int ext_png = 1;
-
 	int obj_Speed = 1;										// 물체가 움직이는 속도 = 1
 	int nChgWay_Cnt = 0;									// 현재 방향이 바뀐 횟수
 
-	const char* adr_Char = "assets/Zelda_Walk.png";				// 캐릭터의 그림 주소
-	const char* adr_Char_ver2 = "assets/Zelda_Walk.png";
-
-	int m_angle = 0;
+	const char* adr_Dog = "assets/animate-alpha.png";				// 캐릭터의 그림 주소
+	const int m_DogW = 128;
+	const int m_DogH = 98;
+	int m_DogCurrFrame = 0;
 };
