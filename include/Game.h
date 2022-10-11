@@ -41,4 +41,14 @@ private:
 	const int m_DogW = 128;
 	const int m_DogH = 98;
 	int m_DogCurrFrame = 0;
+
+	const char* adr_Char = "assets/Zelda_Walk+Attack.png";				// 캐릭터의 그림 주소
+
+	const int walk_CharW = 38;
+	const int att_CharW = 75;
+
+	const int m_CharH = 75;
+
+	int m_CharWalkFrame = 0;
+	int m_CharAttFrame = 0;
 };

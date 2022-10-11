@@ -25,6 +25,8 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	m_textManger.load(adr_Dog, "Dog", m_pRenderer);
 	m_textManger.load(adr_Dog, "Dog_ani", m_pRenderer);
 
+	m_textManger.load(adr_Char, "Player", m_pRenderer);
+
 	return m_bRunning;
 }
 
@@ -34,6 +36,9 @@ void Game::update()
 {
 	// 게임 진행 내용
 	m_DogCurrFrame = ((SDL_GetTicks() / 100) % 6);
+
+	m_CharWalkFrame = ((SDL_GetTicks() / 100) % 8);
+	m_CharAttFrame = ((SDL_GetTicks() / 100) % 6);
 }
 
 void Game::renderer()
@@ -44,6 +49,12 @@ void Game::renderer()
 
 	m_textManger.draw("Dog", 0, 0, m_DogW, m_DogH, m_pRenderer);
 	m_textManger.drawFrame("Dog_ani", 100, 100, m_DogW, m_DogH, 0, m_DogCurrFrame, m_pRenderer);
+
+	// 플레이어가 걷는 모습
+	m_textManger.drawFrame("Player", 200, 200, walk_CharW, m_CharH, 0, m_CharWalkFrame, m_pRenderer);
+	
+	// 플레이어가 공격하는 모습
+	m_textManger.drawFrame("Player", 300, 300, att_CharW, m_CharH, 1, m_CharAttFrame, m_pRenderer);
 
 	SDL_RenderPresent(m_pRenderer);
 }
