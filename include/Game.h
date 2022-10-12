@@ -1,6 +1,7 @@
 #pragma once
 #include"game.h"
 #include "main.h"
+#include "TextManger.h"
 
 class Game
 {
@@ -30,47 +31,55 @@ public:
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+	SDL_Texture* m_pTexture;
+
+	TextManger textManger;
+
 	bool m_bRunning;
 
-	SDL_Texture* m_pZdTexture;		// 플레이어(젤다)
-	SDL_Rect m_srcZd;
-	SDL_Rect m_disZd;
+	enum State
+	{
+		IDLE, WALK, ATTACK, HIT, DEAD
+	};
 
-	SDL_Texture* m_pBgTexture;		// 배경
-	SDL_Rect m_srcBg;
-	SDL_Rect m_disBg;
+	// <플레이어가 현재 어떤 상태인지에 따라 달라짐>
+	int m_objState = IDLE;											// 플레이어의 현재 상태
+	int m_objCurrFw = 38;											// 플레이어가 현재 어떤 프레임이고, 너비가 얼만지
+	int m_objCurrFh = 58;											//									길이가 얼만지
+	int m_Intv_pFrame = 75;											// 프레임 마다의 간격
+	int m_objCurrF = 0;												// 플레이어는 현재 몇번째 프레임인지
 
-	SDL_Texture* m_pKnTexture;		// 칼병 병사
-	SDL_Rect m_srcKn;
-	SDL_Rect m_disKn;
-
-	SDL_Texture* m_pAxTexture;		// 도끼 병사
-	SDL_Rect m_srcAx;
-	SDL_Rect m_disAx;
-
-	// 이미지를 받아오는 함수 + bmp는 0, png는 1이다.
-	SDL_Texture* Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis, int extDif);
-	void Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis);
-
-	int ext_bmp = 0;
-	int ext_png = 1;
-
-	const int obj_pWSpeed = 3;										// 플레이어 속도
+	// <플레이어의 속도 관련 변수>
+	int obj_pWSpeed = 0;											// 플레이어 속도
 	float obj_pJSpeed = 1;											// 플레이어의 점프 속도
-	int obj_AniFrame = 0;											// 가만히 멈춰 있을땐, 정지
 
 	bool isRight = false;											// 오른쪽 방향인지 확인
 	bool isAttack = false;											// 플레이어가 공격하는지 확인
 	bool isJump = false;											// 플레이어가 점프하는지 확인
 
+	// <플레이어의 이동 관련 변수>
 	const int Pwalk_FrameW = 38;									// 플레이어의 이동 프레임 길이, 38
-	const int PAttack_FrameW = 75;									// 플레이어의 공격 프레임 길이, 75
+	const int Pwalk_FrameH = 58;									//						  높이, 58
+	int m_CurrPxpos = 0;											// 현재 플레이어의 x좌표
 
+	// <플레이어의 공격 관련 변수>
+	const int PAtt_FrameW = 75;										// 플레이어의 공격 프레임 길이, 75
+	const int PAtt_FrameH = 75;										//						  높이, 75
+	int m_CurrPAttF = 0;											// 플레이어의 현재 공격 프레임
+
+	// <플레이어의 점프 관련 변수>
+	int Player_yPos = 310;											// 플레이어의 y좌표, 초기값 = 지면의 y좌표
 	const int Ground_yPos = 310;									// 지면의 y좌표
-	const int Max_JumpH = Ground_yPos - 45;							// 최대 점프 높이 (지면의 높이 : 310 - 최대 점프 높이 : 45 )
+	const int Max_JumpH = Ground_yPos - 60;							// 최대 점프 높이 (지면의 높이 : 310 - 최대 점프 높이 : 45 )
 
-	const char* adr_Char = "assets/Zelda_Walk_ver2+Attack.png";		// 젤다의 그림 주소
-	const char* adr_Bg = "assets/Back_Ground.png";					// 배경 그림의 주소
+	// <배경 이동>
+	const int m_BgStartP = SCREEN_WIDTH / 3.0;						// 배경이 움직이기 시작하는 시점
+	int m_BgMoveSpeed = 0;											// 배경이 움직이는 속도
+	int m_BgEndP = 5000;											// 배경이 끝나는 시점
+	int m_BgMoveEndP = m_BgEndP - SCREEN_WIDTH / 3.0;				// 끝나는 점
+
+	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
+	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소
 	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
 	const char* adr_Askull = "assets/AxeSkull_Idle.png";			// 도끼 병사의 주소
 };

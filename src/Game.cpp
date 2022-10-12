@@ -22,68 +22,12 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	m_pZdTexture = Text_Maker(adr_Char, &m_srcZd, &m_disZd, 1);
-	m_disZd.w = m_srcZd.w = Pwalk_FrameW;
-
-	m_pBgTexture = Text_Maker(adr_Bg, &m_srcBg, &m_disBg, 1);
-	m_pKnTexture = Text_Maker(adr_Kskull, &m_srcKn, &m_disKn, 1);
-	m_pAxTexture = Text_Maker(adr_Askull, &m_srcAx, &m_disAx, 1);
+	textManger.load(adr_Char, "Player", m_pRenderer);
+	textManger.load(adr_Bg, "BackGround", m_pRenderer);
+	textManger.load(adr_Kskull, "Kskull", m_pRenderer);
+	textManger.load(adr_Askull, "Askull", m_pRenderer);
 
 	return m_bRunning;
-}
-
-SDL_Texture* Game::Text_Maker(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis, int extDif)
-{
-	SDL_Surface* ptSurface = NULL;
-	SDL_Texture* texture = NULL;
-
-	if (extDif == ext_bmp)
-		ptSurface = SDL_LoadBMP(Par_Objname);							// 그림 데이터를 가져옴
-	else
-		ptSurface = IMG_Load(Par_Objname);
-
-	texture = SDL_CreateTextureFromSurface(m_pRenderer, ptSurface);			// 가져온 그림 데이터를 가져옴
-	if (texture == nullptr)
-		std::cout << "Error";
-
-	SDL_FreeSurface(ptSurface);
-
-	SDL_QueryTexture(texture, NULL, NULL, &scr->w, &scr->h);				// 원본 그림의 크기를 가져오기
-
-	dis->w = scr->w;			// 123
-	dis->h = scr->h;			// 87
-
-	dis->x = scr->x = 0;
-	dis->y = scr->y = 0;
-
-	Text_Ctrl(Par_Objname, scr, dis);
-
-	return texture;
-}
-void Game::Text_Ctrl(const char* Par_Objname, SDL_Rect* scr, SDL_Rect* dis)
-{
-	if (Par_Objname == adr_Char) {
-		dis->y = Ground_yPos;
-	}
-
-	// 몬스터들은 1.3배 키움
-	else if (Par_Objname == adr_Askull) {
-		dis->w = scr->w * 1.3;
-		dis->h = dis->h * 1.3;
-
-		dis->x = 300;
-		dis->y = Ground_yPos;
-	}
-
-	else if (Par_Objname == adr_Kskull) {
-		dis->w = scr->w * 1.3;
-		dis->h = dis->h * 1.3;
-
-		dis->x = 500;
-		dis->y = 300;
-	}
-	else
-		dis->y = 50;
 }
 
 // 참고 자료 : https://gamdekong.tistory.com/173
@@ -92,34 +36,69 @@ void Game::update()
 {
 	SDL_Delay(10);
 	// 게임 진행 내용
-	if (obj_AniFrame == Pwalk_FrameW) {
-		m_srcZd.x = 0;
-		m_srcZd.x = obj_AniFrame * (SDL_GetTicks() / 100 % 8);
+	if (m_objState == WALK) {
+		if (isRight) {
+			if (m_CurrPxpos + obj_pWSpeed >= m_BgStartP && m_BgMoveSpeed < m_BgEndP - SCREEN_WIDTH) {
+				m_BgMoveSpeed += 3;
+				obj_pWSpeed = 0;
+				std::cout << m_BgMoveSpeed << std::endl;
+			}
+
+			else if (m_BgMoveSpeed >= m_BgEndP - SCREEN_WIDTH && m_CurrPxpos < SCREEN_WIDTH - Pwalk_FrameW) {
+				m_BgMoveSpeed += 0;
+				obj_pWSpeed = 3;
+				std::cout << m_CurrPxpos << std::endl;
+			}
+			else if (m_CurrPxpos >= SCREEN_WIDTH - Pwalk_FrameW) {
+				obj_pWSpeed = 0;
+			}
+			else {
+				obj_pWSpeed = 3;
+			}
+		m_CurrPxpos += obj_pWSpeed;
+		m_objCurrF = (SDL_GetTicks() / 100) % 8;
+
+		}
+		else {
+
+			if (m_CurrPxpos + obj_pWSpeed <= 0)
+				obj_pWSpeed = 0;
+
+			else if (m_CurrPxpos > 0 && m_CurrPxpos <= m_BgStartP)
+				obj_pWSpeed = -3;
+
+			else if (m_CurrPxpos >= m_BgStartP) {
+				obj_pWSpeed = -3;
+				m_BgMoveSpeed += 0;
+			}
+			else
+				m_BgMoveSpeed -= 3;
+
+
+			m_CurrPxpos += obj_pWSpeed;
+			m_objCurrF = (SDL_GetTicks() / 100) % 8;
+		}
 	}
 
-	else if (obj_AniFrame == PAttack_FrameW) {
-		m_srcZd.x = 0;
-		m_srcZd.x = Pwalk_FrameW * 8 + obj_AniFrame * (SDL_GetTicks() / 100 % 6);
+	else if (m_objState == ATTACK) {
+		m_objCurrF = (SDL_GetTicks() / 100) % 6;
 	}
-	else 
-		m_srcZd.x = 0;
-
 	if (isJump) {
-		if(m_disZd.y > Max_JumpH)
-			m_disZd.y -= obj_pJSpeed;
+		// 점프하기
+		if(Player_yPos > Max_JumpH)
+			Player_yPos -= obj_pJSpeed;
 
+		// 떨구기
 		else {
 			obj_pJSpeed = -obj_pJSpeed;
-			m_disZd.y -= obj_pJSpeed;
+			Player_yPos -= obj_pJSpeed;
 		}
 
-		if (m_disZd.y >= Ground_yPos) {
+		if (Player_yPos >= Ground_yPos) {
 			isJump = false;
 			obj_pJSpeed = -obj_pJSpeed;
 		}
 	}
-
-	std::cout << obj_pJSpeed << std::endl;
 }
 
 void Game::renderer()
@@ -128,18 +107,17 @@ void Game::renderer()
 	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
+	textManger.drawMove("BackGround", m_BgMoveSpeed, 30, m_pRenderer);
 
-	SDL_RenderCopy(m_pRenderer, m_pBgTexture, &m_srcBg, &m_disBg);
+	if (isRight)
+		textManger.drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame, m_objCurrF, m_pRenderer, SDL_FLIP_HORIZONTAL);
 
-	if(isRight)
-		SDL_RenderCopyEx(m_pRenderer, m_pZdTexture, &m_srcZd, &m_disZd, 0, NULL,SDL_FLIP_HORIZONTAL);
-
-	else
-		SDL_RenderCopy(m_pRenderer, m_pZdTexture, &m_srcZd, &m_disZd);
+	else 
+		textManger.drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame , m_objCurrF, m_pRenderer, SDL_FLIP_NONE);
 	
-	SDL_RenderCopy(m_pRenderer, m_pKnTexture, &m_srcKn, &m_disKn);
-	SDL_RenderCopy(m_pRenderer, m_pAxTexture, &m_srcAx, &m_disAx);
-
+	textManger.draw("Kskull", 500, Ground_yPos, 100, 100, m_pRenderer);
+	textManger.draw("Askull", 300, Ground_yPos, 100, 100, m_pRenderer);
+	
 	SDL_RenderPresent(m_pRenderer);
 }
 
@@ -158,24 +136,38 @@ void Game::handleEvent()
 		case SDL_QUIT:							// 사용자가 종료를 원할시 종료
 			m_bRunning = false;
 			break;
+
 		case SDL_KEYDOWN:
 			switch (gm_event.key.keysym.sym)
 			{
 			case SDLK_LEFT: // 왼쪽키, 이동
-				m_disZd.x -= obj_pWSpeed;
+				m_objState = WALK;
+
+				obj_pWSpeed = -2;
 				isRight = false;
-				obj_AniFrame = Pwalk_FrameW;
+
+				m_objCurrFw = Pwalk_FrameW;
+				m_objCurrFh = Pwalk_FrameH;
+				m_objCurrF = 0;
 				break;
 
 			case SDLK_RIGHT: // 오른쪽키, 이동
-				m_disZd.x += obj_pWSpeed;
+				m_objState = WALK;
+				
+				obj_pWSpeed = 2;
 				isRight = true;
-				obj_AniFrame = Pwalk_FrameW;
+
+				m_objCurrFw = Pwalk_FrameW;
+				m_objCurrFh = Pwalk_FrameH;
+				m_objCurrF = 0;
 				break;
 
 			case SDLK_a:	// a키, 공격
-				m_disZd.w = m_srcZd.w = PAttack_FrameW;
-				obj_AniFrame = PAttack_FrameW;
+				m_objState = ATTACK;
+
+				m_objCurrFw = PAtt_FrameW;
+				m_objCurrFh = PAtt_FrameH;
+				m_objCurrF = 0;
 				break;
 
 			case SDLK_SPACE:
@@ -187,9 +179,13 @@ void Game::handleEvent()
 			}
 			break;
 		case SDL_KEYUP:
-			m_disZd.w = m_srcZd.w = Pwalk_FrameW;
-			obj_AniFrame = 0;
+			m_objState = IDLE;
+
+			m_objCurrFw = Pwalk_FrameW;
+			m_objCurrFh = Pwalk_FrameH;
+			m_objCurrF = 0;
 			break;
+
 		default:
 			break;
 		}
@@ -199,13 +195,12 @@ void Game::handleEvent()
 void Game::clean()
 {
 	SDL_DestroyWindow(m_pWindow);
-
 	SDL_DestroyRenderer(m_pRenderer);
 
-	SDL_DestroyTexture(m_pBgTexture);
-	SDL_DestroyTexture(m_pZdTexture);
-	SDL_DestroyTexture(m_pAxTexture);
-	SDL_DestroyTexture(m_pKnTexture);
+	textManger.Delet_Texture("Player");
+	textManger.Delet_Texture("Kskull");
+	textManger.Delet_Texture("Askull");
+	textManger.Delet_Texture("BackGround");
 
 	SDL_Quit();
 }
