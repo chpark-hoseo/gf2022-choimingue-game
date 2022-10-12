@@ -78,8 +78,10 @@ private:
 	int m_BgEndP = 5000;											// 배경이 끝나는 시점
 	int m_BgMoveEndP = m_BgEndP - SCREEN_WIDTH / 3.0;				// 끝나는 점
 
+	// <도끼병 관련 변수>
+
 	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소
 	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
-	const char* adr_Askull = "assets/AxeSkull_Idle.png";			// 도끼 병사의 주소
+	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
 };
