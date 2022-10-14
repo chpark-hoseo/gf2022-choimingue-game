@@ -5,10 +5,24 @@
 
 class TextManger
 {
-public:
-	TextManger() = default;
+
+private:
+	TextManger() {}
 	~TextManger() {}
 
+	static TextManger* instance;
+
+public:
+
+	// 싱글턴 패턴의 객체의 생성을 제어
+	static TextManger* get_Instance()
+	{
+		if (instance == NULL)
+			instance = new TextManger();
+
+		return instance;
+	}
+		
 	// 그림 파일을 가져오는 역할을 진행
 	bool load(const char* fileName, std::string id, SDL_Renderer* pRenderer);
 
@@ -21,7 +35,12 @@ public:
 		const int Frame_w,const int Frame_h, int CurrRow, int CurrFrame,
 		SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+	//void Destory_T(std::string id);
+
 private:
 	std::map<std::string, SDL_Texture*> m_textureMap;
-};
+
+
+
+}typedef TheTextureManager;
 

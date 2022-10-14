@@ -55,3 +55,10 @@ void TextManger::drawFrame(std::string id, const int Screen_xPos, const int Scre
 
 	SDL_RenderCopyEx(pRenderer, m_textureMap[id], &src, &dis, 0, NULL, flip);
 }
+
+/*void TextManger::Destory_T(std::string id)
+{
+	SDL_DestroyTexture(m_textureMap[id]);
+}*/
+
+TextManger* TextManger::instance = NULL;

@@ -28,27 +28,12 @@ public:
 	void clean();
 
 private:
-	TextManger m_textManger;
-
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 	bool m_bRunning;
-
-	int obj_Speed = 1;										// 물체가 움직이는 속도 = 1
-	int nChgWay_Cnt = 0;									// 현재 방향이 바뀐 횟수
 
 	const char* adr_Dog = "assets/animate-alpha.png";				// 캐릭터의 그림 주소
 	const int m_DogW = 128;
 	const int m_DogH = 98;
 	int m_DogCurrFrame = 0;
-
-	const char* adr_Char = "assets/Zelda_Walk+Attack.png";				// 캐릭터의 그림 주소
-
-	const int walk_CharW = 38;
-	const int att_CharW = 75;
-
-	const int m_CharH = 75;
-
-	int m_CharWalkFrame = 0;
-	int m_CharAttFrame = 0;
 };
