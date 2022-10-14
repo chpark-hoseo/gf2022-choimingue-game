@@ -73,7 +73,7 @@ void Game::clean()
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 
-	//TheTextureManager::get_Instance()->Destory_T("Dog");
+	TheTextureManager::get_Instance()->Destory_T("Dog");
 	//SDL_DestroyTexture(m_ptexture);
 
 	SDL_Quit();

@@ -35,7 +35,7 @@ public:
 		const int Frame_w,const int Frame_h, int CurrRow, int CurrFrame,
 		SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-	//void Destory_T(std::string id);
+	void Destory_T(std::string id);
 
 private:
 	std::map<std::string, SDL_Texture*> m_textureMap;
