@@ -80,6 +80,14 @@ private:
 	int m_BgMoveEndP = m_BgEndP - SCREEN_WIDTH / 3.0;				// 끝나는 점
 
 	// <도끼병 관련 변수>
+	int m_AxSk_Speed = 0;											// 도끼병의 다가오는 속도
+	int m_AxSk_xPos = 500;											// 도끼병의 x 좌표
+	int m_AxSk_State = 0;											// 현재 도끼병의 상태
+
+	int m_AxSkHp = 50;
+	int m_AxSkCurrFh = 47;											// 현재 프레임 간격
+	int m_AxSkCurrF = 0;											// 현재 몇번째 프레임
+
 
 	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소

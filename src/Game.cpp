@@ -48,8 +48,19 @@ void Game::update()
 {
 
 	SDL_Delay(8);
+
+	// IDLE
+	if (m_objState == IDLE) {
+	m_objCurrFw = Pwalk_FrameW;
+	m_objCurrFh = Pwalk_FrameH;
+	m_objCurrF = 0;
+
+	m_anit_Pw = 0;
+	m_anit_Pa = 0;
+	}
+
 	// 움직이기
-	if (m_objState == WALK) {
+	else if (m_objState == WALK) {
 
 		m_anit_Pw += m_anifSpeed;
 
@@ -60,13 +71,17 @@ void Game::update()
 				m_BgMoveSpeed += 3;
 				obj_pWSpeed = 0;
 				std::cout << m_BgMoveSpeed << std::endl;
+
+				// 몬스터의 이동
+				m_AxSk_Speed = 3;
+				m_AxSk_xPos -= m_AxSk_Speed;
 			}
 
 			// 배경 화면의 끝에 도닥했으나, 플레이어가 배경의 끝에 도달하지 않았을때
 			else if (m_BgMoveSpeed >= m_BgEndP - SCREEN_WIDTH && m_CurrPxpos < SCREEN_WIDTH - Pwalk_FrameW) {
 				m_BgMoveSpeed += 0;
 				obj_pWSpeed = 3;
-				std::cout << m_CurrPxpos << std::endl;
+				//std::cout << m_CurrPxpos << std::endl;
 			}
 
 			// 플레이어가 배경의 끝에 도달했을때
@@ -106,24 +121,25 @@ void Game::update()
 	}
 
 	// 공격하기
-	else if (m_objState == ATTACK) {
+	else {
+		if (m_CurrPxpos <= m_AxSk_xPos && m_CurrPxpos + PAtt_FrameW >= m_AxSk_xPos && m_objCurrF >= 3)
+		{
+			m_AxSk_State = HIT;
+			m_AxSkCurrF = (m_anit_Pa / 100) % 7;
+			m_AxSkHp--;
+
+			if (!m_AxSkHp)
+				The_TextMananger::Instance()->Delet_Texture("Askull");
+		}
+			
 
 		m_anit_Pa += m_anifSpeed;
 		m_objCurrF = (m_anit_Pa / 100) % 6;
 	}
 
-	// IDLE
-	else{
-		m_objCurrFw = Pwalk_FrameW;
-		m_objCurrFh = Pwalk_FrameH;
-		m_objCurrF = 0;
-
-		m_anit_Pw = 0;
-		m_anit_Pa = 0;
-	}
-
 	// 점프하기
 	if (isJump) {
+
 		// 최대 높이까지 도착하지 않았다면, 올라가기
 		if(Player_yPos > Max_JumpH)
 			Player_yPos -= obj_pJSpeed;
@@ -156,9 +172,10 @@ void Game::renderer()
 	else 
 		The_TextMananger::Instance()->drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame , m_objCurrF, m_pRenderer, SDL_FLIP_NONE);
 	
-	The_TextMananger::Instance()->draw("Kskull", 500, Ground_yPos, 100, 100, m_pRenderer);
-	The_TextMananger::Instance()->draw("Askull", 300, Ground_yPos, 100, 100, m_pRenderer);
-	
+	//The_TextMananger::Instance()->drawFrame("Kskull", 300, Ground_yPos - 48, 48, 48, 0, 0, m_pRenderer, SDL_FLIP_NONE);
+
+	The_TextMananger::Instance()->drawFrame("Askull", m_AxSk_xPos, Ground_yPos, m_AxSkCurrFh, 48, m_AxSk_State * 50, m_AxSkCurrF, m_pRenderer, SDL_FLIP_NONE);
+
 	SDL_RenderPresent(m_pRenderer);
 }
 
