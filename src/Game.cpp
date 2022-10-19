@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "main.h"
+#include "TextManger.h"
 
 bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight, int flags)
 {
@@ -22,10 +23,21 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	textManger.load(adr_Char, "Player", m_pRenderer);
-	textManger.load(adr_Bg, "BackGround", m_pRenderer);
-	textManger.load(adr_Kskull, "Kskull", m_pRenderer);
-	textManger.load(adr_Askull, "Askull", m_pRenderer);
+	// 플레이어
+	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
+		return false;
+
+	// 그림
+	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
+		return false;
+
+	// 칼든 병사
+	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
+		return false;
+
+	//도끼 병사
+	if (!The_TextMananger::Instance()->load(adr_Askull, "Askull", m_pRenderer))
+		return false;
 
 	return m_bRunning;
 }
@@ -34,9 +46,13 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 void Game::update()
 {
-	SDL_Delay(10);
+
+	SDL_Delay(8);
 	// 움직이기
 	if (m_objState == WALK) {
+
+		m_anit_Pw += m_anifSpeed;
+
 		// 오른쪽 이동일때
 		if (isRight) {
 			// 오른쪽 시작점에 도착했고, 끝이 아니라면
@@ -63,7 +79,7 @@ void Game::update()
 				obj_pWSpeed = 3;
 			}
 		m_CurrPxpos += obj_pWSpeed;
-		m_objCurrF = (SDL_GetTicks() / 100) % 8;
+		m_objCurrF = (m_anit_Pw / 100) % 8;
 
 		}
 
@@ -85,13 +101,25 @@ void Game::update()
 			}
 
 			m_CurrPxpos += obj_pWSpeed;
-			m_objCurrF = (SDL_GetTicks() / 100) % 8;
+			m_objCurrF = (m_anit_Pw / 100) % 8;
 		}
 	}
 
 	// 공격하기
 	else if (m_objState == ATTACK) {
-		m_objCurrF = (SDL_GetTicks() / 100) % 6;
+
+		m_anit_Pa += m_anifSpeed;
+		m_objCurrF = (m_anit_Pa / 100) % 6;
+	}
+
+	// IDLE
+	else{
+		m_objCurrFw = Pwalk_FrameW;
+		m_objCurrFh = Pwalk_FrameH;
+		m_objCurrF = 0;
+
+		m_anit_Pw = 0;
+		m_anit_Pa = 0;
 	}
 
 	// 점프하기
@@ -120,16 +148,16 @@ void Game::renderer()
 	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
-	textManger.drawMove("BackGround", m_BgMoveSpeed, 30, m_pRenderer);
+	The_TextMananger::Instance()->drawMove("BackGround", m_BgMoveSpeed, 30, m_pRenderer);
 
 	if (isRight)
-		textManger.drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame, m_objCurrF, m_pRenderer, SDL_FLIP_HORIZONTAL);
+		The_TextMananger::Instance()->drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame, m_objCurrF, m_pRenderer, SDL_FLIP_HORIZONTAL);
 
 	else 
-		textManger.drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame , m_objCurrF, m_pRenderer, SDL_FLIP_NONE);
+		The_TextMananger::Instance()->drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame , m_objCurrF, m_pRenderer, SDL_FLIP_NONE);
 	
-	textManger.draw("Kskull", 500, Ground_yPos, 100, 100, m_pRenderer);
-	textManger.draw("Askull", 300, Ground_yPos, 100, 100, m_pRenderer);
+	The_TextMananger::Instance()->draw("Kskull", 500, Ground_yPos, 100, 100, m_pRenderer);
+	The_TextMananger::Instance()->draw("Askull", 300, Ground_yPos, 100, 100, m_pRenderer);
 	
 	SDL_RenderPresent(m_pRenderer);
 }
@@ -191,12 +219,11 @@ void Game::handleEvent()
 				break;
 			}
 			break;
-		case SDL_KEYUP:
-			//m_objState = IDLE;
 
-			m_objCurrFw = Pwalk_FrameW;
-			m_objCurrFh = Pwalk_FrameH;
-			m_objCurrF = 0;
+		case SDL_KEYUP:
+			m_objState = IDLE;
+
+			//std::cout << "dd";
 			break;
 
 		default:
@@ -210,10 +237,10 @@ void Game::clean()
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 
-	textManger.Delet_Texture("Player");
-	textManger.Delet_Texture("Kskull");
-	textManger.Delet_Texture("Askull");
-	textManger.Delet_Texture("BackGround");
+	The_TextMananger::Instance()->Delet_Texture("Player");
+	The_TextMananger::Instance()->Delet_Texture("Kskull");
+	The_TextMananger::Instance()->Delet_Texture("Askull");
+	The_TextMananger::Instance()->Delet_Texture("BackGround");
 
 	SDL_Quit();
 }

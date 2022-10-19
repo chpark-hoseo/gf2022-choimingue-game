@@ -82,3 +82,5 @@ void TextManger::Delet_Texture(std::string id)
 {
 	SDL_DestroyTexture(m_textureMap[id]);
 }
+
+TextManger* TextManger::s_pInstance = NULL;

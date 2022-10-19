@@ -6,9 +6,18 @@
 
 class TextManger
 {
-public:
+private:
 	TextManger() = default;
-	~TextManger() {}
+	static TextManger* s_pInstance;
+
+public:
+	static TextManger* Instance()
+	{
+		if (s_pInstance == NULL)
+			s_pInstance = new TextManger();
+
+		return s_pInstance;
+	}
 
 	// 그림 파일을 가져오는 역할을 진행
 	bool load(const char* fileName, std::string id, SDL_Renderer* pRenderer);
@@ -31,5 +40,6 @@ public:
 
 private:
 	std::map<std::string, SDL_Texture*> m_textureMap;
-};
+
+}typedef The_TextMananger;
 

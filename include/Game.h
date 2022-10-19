@@ -1,7 +1,6 @@
 #pragma once
 #include"game.h"
 #include "main.h"
-#include "TextManger.h"
 
 class Game
 {
@@ -33,14 +32,16 @@ private:
 	SDL_Renderer* m_pRenderer;
 	SDL_Texture* m_pTexture;
 
-	TextManger textManger;
-
 	bool m_bRunning;
 
 	enum State
 	{
 		IDLE, WALK, ATTACK, HIT, DEAD
 	};
+
+	int m_anit_Pw = 0;
+	int m_anit_Pa = 0;
+	int m_anifSpeed = 15;
 
 	// <플레이어가 현재 어떤 상태인지에 따라 달라짐>
 	int m_objState = IDLE;											// 플레이어의 현재 상태
