@@ -47,16 +47,16 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 void Game::update()
 {
 
-	SDL_Delay(8);
+	SDL_Delay(10);
 
 	// IDLE
 	if (m_objState == IDLE) {
-	m_objCurrFw = Pwalk_FrameW;
-	m_objCurrFh = Pwalk_FrameH;
-	m_objCurrF = 0;
+		m_objCurrFw = Pwalk_FrameW;
+		m_objCurrFh = Pwalk_FrameH;
+		m_objCurrF = 0;
 
-	m_anit_Pw = 0;
-	m_anit_Pa = 0;
+		m_anit_Pw = 0;
+		m_anit_Pa = 0;
 	}
 
 	// 움직이기
@@ -66,11 +66,12 @@ void Game::update()
 
 		// 오른쪽 이동일때
 		if (isRight) {
+
 			// 오른쪽 시작점에 도착했고, 끝이 아니라면
 			if (m_CurrPxpos + obj_pWSpeed >= m_BgStartP && m_BgMoveSpeed < m_BgEndP - SCREEN_WIDTH) {
 				m_BgMoveSpeed += 3;
 				obj_pWSpeed = 0;
-				std::cout << m_BgMoveSpeed << std::endl;
+				//std::cout << m_BgMoveSpeed << std::endl;
 
 				// 몬스터의 이동
 				m_AxSk_Speed = 3;
@@ -81,7 +82,6 @@ void Game::update()
 			else if (m_BgMoveSpeed >= m_BgEndP - SCREEN_WIDTH && m_CurrPxpos < SCREEN_WIDTH - Pwalk_FrameW) {
 				m_BgMoveSpeed += 0;
 				obj_pWSpeed = 3;
-				//std::cout << m_CurrPxpos << std::endl;
 			}
 
 			// 플레이어가 배경의 끝에 도달했을때
@@ -93,8 +93,9 @@ void Game::update()
 			else {
 				obj_pWSpeed = 3;
 			}
-		m_CurrPxpos += obj_pWSpeed;
-		m_objCurrF = (m_anit_Pw / 100) % 8;
+
+			m_CurrPxpos += obj_pWSpeed;
+			m_objCurrF = (m_anit_Pw / 100) % 8;
 
 		}
 
@@ -121,7 +122,7 @@ void Game::update()
 	}
 
 	// 공격하기
-	else {
+	else if (m_objState == ATTACK) {
 		if (m_CurrPxpos <= m_AxSk_xPos && m_CurrPxpos + PAtt_FrameW >= m_AxSk_xPos && m_objCurrF >= 3)
 		{
 			m_AxSk_State = HIT;
@@ -131,11 +132,13 @@ void Game::update()
 			if (!m_AxSkHp)
 				The_TextMananger::Instance()->Delet_Texture("Askull");
 		}
-			
+
 
 		m_anit_Pa += m_anifSpeed;
 		m_objCurrF = (m_anit_Pa / 100) % 6;
 	}
+	else
+		return;
 
 	// 점프하기
 	if (isJump) {
@@ -238,9 +241,18 @@ void Game::handleEvent()
 			break;
 
 		case SDL_KEYUP:
-			m_objState = IDLE;
+			if (m_objState == WALK && isJump) {
+					m_objState = WALK;
+			}
 
-			//std::cout << "dd";
+			else
+				m_objState = IDLE;
+
+			if (SDL_GetKeyName(gm_event.key.keysym.sym) == "Right" || SDL_GetKeyName(gm_event.key.keysym.sym) == "Left") {
+				std::cout << SDL_GetKeyName(gm_event.key.keysym.sym) << std::endl ;
+				m_objState = IDLE;
+			}
+
 			break;
 
 		default:
