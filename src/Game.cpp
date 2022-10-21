@@ -243,15 +243,16 @@ void Game::handleEvent()
 		case SDL_KEYUP:
 			if (m_objState == WALK && isJump) {
 					m_objState = WALK;
+
+				if (gm_event.key.keysym.sym == SDLK_RIGHT ||
+					gm_event.key.keysym.sym == SDLK_LEFT)
+				{
+					m_objState = IDLE;
+				}
 			}
 
 			else
 				m_objState = IDLE;
-
-			if (SDL_GetKeyName(gm_event.key.keysym.sym) == "Right" || SDL_GetKeyName(gm_event.key.keysym.sym) == "Left") {
-				std::cout << SDL_GetKeyName(gm_event.key.keysym.sym) << std::endl ;
-				m_objState = IDLE;
-			}
 
 			break;
 
