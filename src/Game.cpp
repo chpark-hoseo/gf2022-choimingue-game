@@ -26,6 +26,9 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 	}
 
+	m_GmObj.load(100, 100, m_DogW, m_DogH, "Dog");
+	m_GmPl.load(300, 300, m_DogW, m_DogH, "Dog");
+
 	return m_bRunning;
 }
 
@@ -34,6 +37,8 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 void Game::update()
 {
 	// 게임 진행 내용
+	m_GmObj.update();
+	m_GmPl.update();
 }
 
 void Game::renderer()
@@ -42,7 +47,8 @@ void Game::renderer()
 
 	SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
 
-	TheTextureManager::get_Instance()->draw("Dog", 0, 0, m_DogW, m_DogH, m_pRenderer);
+	m_GmObj.draw(m_pRenderer);
+	m_GmPl.draw(m_pRenderer);
 
 	SDL_RenderPresent(m_pRenderer);
 }

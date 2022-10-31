@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
         g_game->handleEvent();
         g_game->update();
         g_game->renderer();
+        SDL_Delay(10);
     }
 
     g_game->clean();

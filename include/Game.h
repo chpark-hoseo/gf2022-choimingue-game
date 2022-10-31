@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 #include "TextManger.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Game
 {
@@ -28,12 +30,15 @@ public:
 	void clean();
 
 private:
-	SDL_Window* m_pWindow;
-	SDL_Renderer* m_pRenderer;
-	bool m_bRunning;
+	SDL_Window* m_pWindow;					// 윈도창 생성 변수
+	SDL_Renderer* m_pRenderer;				// 그림창 생성 변수 
+	bool m_bRunning;						// 게임이 정상 작동하는지 변수
+
+	GameObject m_GmObj;						// 게임 오브젝트 객체
+	Player m_GmPl;							// 플레이어 오브젝트 객체
 
 	const char* adr_Dog = "assets/animate-alpha.png";				// 캐릭터의 그림 주소
-	const int m_DogW = 128;
-	const int m_DogH = 98;
-	int m_DogCurrFrame = 0;
+	const int m_DogW = 128;											// 강아지의 가로 스프라이트 길이, 128
+	const int m_DogH = 98;											// 강아지의 세로 스프라이트 길이, 98
+	int m_DogCurrFrame = 0;											// 강아지의 현재 프레임, 0
 };
