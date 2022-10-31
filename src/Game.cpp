@@ -26,19 +26,27 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 	}
 
+	if (!TheTextureManager::get_Instance()->load(adr_monster, "Monster", m_pRenderer)) {
+		return false;
+	}
+
 	m_GmObj.load(100, 100, m_DogW, m_DogH, "Dog");
 	m_GmPl.load(300, 300, m_DogW, m_DogH, "Dog");
 
+	m_GmMonster_slow.load(200, 150, m_MonstW, m_MonstH, "Monster");
+	m_GmMonster_fast.load(300, 200, m_MonstW, m_MonstH, "Monster");
+
 	return m_bRunning;
 }
-
-// 참고 자료 : https://gamdekong.tistory.com/173
 
 void Game::update()
 {
 	// 게임 진행 내용
 	m_GmObj.update();
 	m_GmPl.update();
+
+	m_GmMonster_slow.update(SCREEN_WIDTH, m_slowSpeed);
+	m_GmMonster_fast.update(SCREEN_WIDTH, m_fastSpeed);
 }
 
 void Game::renderer()
@@ -49,6 +57,9 @@ void Game::renderer()
 
 	m_GmObj.draw(m_pRenderer);
 	m_GmPl.draw(m_pRenderer);
+
+	m_GmMonster_slow.draw(m_pRenderer);
+	m_GmMonster_fast.draw(m_pRenderer);
 
 	SDL_RenderPresent(m_pRenderer);
 }
