@@ -37,8 +37,8 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 void Game::update()
 {
 	// 게임 진행 내용
-	//m_GmObj.update();
-	//m_GmPl.update();
+	m_GmObj.update();
+	m_GmPl.update();
 }
 
 void Game::renderer()
@@ -47,8 +47,8 @@ void Game::renderer()
 
 	SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
 
-	//m_GmObj.draw(m_pRenderer);
-	//m_GmPl.draw(m_pRenderer);
+	m_GmObj.draw(m_pRenderer);
+	m_GmPl.draw(m_pRenderer);
 
 	SDL_RenderPresent(m_pRenderer);
 }
