@@ -23,13 +23,18 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
+	// 배경
+	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
+		return false;
+
+	Game_Bg->load(30, "BackGround");
+
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
 
-	// 그림
-	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
-		return false;
+	player.load(0, Ground_yPos, Pwalk_FrameW, Pwalk_FrameH, "Player");
+	player.setBgData(Game_Bg);
 
 	// 칼든 병사
 	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
@@ -49,116 +54,9 @@ void Game::update()
 
 	SDL_Delay(10);
 
-	// IDLE
-	if (m_objState == IDLE) {
-		m_objCurrFw = Pwalk_FrameW;
-		m_objCurrFh = Pwalk_FrameH;
-		m_objCurrF = 0;
-
-		m_anit_Pw = 0;
-		m_anit_Pa = 0;
-	}
-
-	// 움직이기
-	else if (m_objState == WALK) {
-
-		m_anit_Pw += m_anifSpeed;
-
-		// 오른쪽 이동일때
-		if (isRight) {
-
-			// 오른쪽 시작점에 도착했고, 끝이 아니라면
-			if (m_CurrPxpos + obj_pWSpeed >= m_BgStartP && m_BgMoveSpeed < m_BgEndP - SCREEN_WIDTH) {
-				m_BgMoveSpeed += 3;
-				obj_pWSpeed = 0;
-				//std::cout << m_BgMoveSpeed << std::endl;
-
-				// 몬스터의 이동
-				m_AxSk_Speed = 3;
-				m_AxSk_xPos -= m_AxSk_Speed;
-			}
-
-			// 배경 화면의 끝에 도닥했으나, 플레이어가 배경의 끝에 도달하지 않았을때
-			else if (m_BgMoveSpeed >= m_BgEndP - SCREEN_WIDTH && m_CurrPxpos < SCREEN_WIDTH - Pwalk_FrameW) {
-				m_BgMoveSpeed += 0;
-				obj_pWSpeed = 3;
-			}
-
-			// 플레이어가 배경의 끝에 도달했을때
-			else if (m_CurrPxpos >= SCREEN_WIDTH - Pwalk_FrameW) {
-				obj_pWSpeed = 0;
-			}
-
-			// 그게 아니라, 처음 장소 ~ 출발 장소
-			else {
-				obj_pWSpeed = 3;
-			}
-
-			m_CurrPxpos += obj_pWSpeed;
-			m_objCurrF = (m_anit_Pw / 100) % 8;
-
-		}
-
-		// 왼쪽 이동이라면
-		else {
-
-			// 배경 맨 왼쪽이면 움직임을 막는다.
-			if (m_CurrPxpos + obj_pWSpeed <= 0)
-				obj_pWSpeed = 0;
-
-			// 배경 맨 왼쪽 ~ 시작점에 가기전
-			else if (m_CurrPxpos > 0 && m_CurrPxpos <= m_BgStartP)
-				obj_pWSpeed = -3;
-
-			// 시작점을 넘어선다면, 배경이 움직이지 않도록
-			else {
-				obj_pWSpeed = -3;
-				m_BgMoveSpeed += 0;
-			}
-
-			m_CurrPxpos += obj_pWSpeed;
-			m_objCurrF = (m_anit_Pw / 100) % 8;
-		}
-	}
-
-	// 공격하기
-	else if (m_objState == ATTACK) {
-		if (m_CurrPxpos <= m_AxSk_xPos && m_CurrPxpos + PAtt_FrameW >= m_AxSk_xPos && m_objCurrF >= 3)
-		{
-			m_AxSk_State = HIT;
-			m_AxSkCurrF = (m_anit_Pa / 100) % 7;
-			m_AxSkHp--;
-
-			if (!m_AxSkHp)
-				The_TextMananger::Instance()->Delet_Texture("Askull");
-		}
-
-
-		m_anit_Pa += m_anifSpeed;
-		m_objCurrF = (m_anit_Pa / 100) % 6;
-	}
-	else
-		return;
-
-	// 점프하기
-	if (isJump) {
-
-		// 최대 높이까지 도착하지 않았다면, 올라가기
-		if(Player_yPos > Max_JumpH)
-			Player_yPos -= obj_pJSpeed;
-
-		// 최대 높이의 도달했다면, 떨어지기
-		else {
-			obj_pJSpeed = -obj_pJSpeed;
-			Player_yPos -= obj_pJSpeed;
-		}
-
-		// 땅에 도착했다면, 점프 상태가 아님
-		if (Player_yPos >= Ground_yPos) {
-			isJump = false;
-			obj_pJSpeed = -obj_pJSpeed;
-		}
-	}
+	player.update();
+	Game_Bg->update();
+	
 }
 
 void Game::renderer()
@@ -167,13 +65,8 @@ void Game::renderer()
 	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
-	The_TextMananger::Instance()->drawMove("BackGround", m_BgMoveSpeed, 30, m_pRenderer);
-
-	if (isRight)
-		The_TextMananger::Instance()->drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame, m_objCurrF, m_pRenderer, SDL_FLIP_HORIZONTAL);
-
-	else 
-		The_TextMananger::Instance()->drawFrame("Player", m_CurrPxpos, Player_yPos, m_objCurrFw, m_objCurrFh, m_objState * m_Intv_pFrame , m_objCurrF, m_pRenderer, SDL_FLIP_NONE);
+	Game_Bg->drawMove(m_pRenderer);
+	player.drawFrame(m_pRenderer);
 	
 	//The_TextMananger::Instance()->drawFrame("Kskull", 300, Ground_yPos - 48, 48, 48, 0, 0, m_pRenderer, SDL_FLIP_NONE);
 
@@ -202,37 +95,27 @@ void Game::handleEvent()
 			switch (gm_event.key.keysym.sym)
 			{
 			case SDLK_LEFT: // 왼쪽키, 이동
-				m_objState = WALK;
 
-				obj_pWSpeed = -2;
-				isRight = false;
-
-				m_objCurrFw = Pwalk_FrameW;
-				m_objCurrFh = Pwalk_FrameH;
-				m_objCurrF = 0;
+				player.setState(WALK);
+				player.setData(Pwalk_FrameW, Pwalk_FrameH);
+				player.setWalkData(-2, false);
 				break;
 
 			case SDLK_RIGHT: // 오른쪽키, 이동
-				m_objState = WALK;
-				
-				obj_pWSpeed = 2;
-				isRight = true;
 
-				m_objCurrFw = Pwalk_FrameW;
-				m_objCurrFh = Pwalk_FrameH;
-				m_objCurrF = 0;
+				player.setState(WALK);
+				player.setData(Pwalk_FrameW, Pwalk_FrameH);
+				player.setWalkData(2, true);
 				break;
 
 			case SDLK_a:	// a키, 공격
-				m_objState = ATTACK;
 
-				m_objCurrFw = PAtt_FrameW;
-				m_objCurrFh = PAtt_FrameH;
-				m_objCurrF = 0;
+				player.setState(ATTACK);
+				player.setData(PAtt_FrameW, PAtt_FrameH);
 				break;
 
 			case SDLK_SPACE:
-				isJump = true;
+				player.setIsJump(true);
 				break;
 
 			default:
@@ -241,19 +124,19 @@ void Game::handleEvent()
 			break;
 
 		case SDL_KEYUP:
-			if (m_objState == WALK && isJump) {
-					m_objState = WALK;
+
+			if (player.getState() == WALK && player.getIsJump() == true) {
+
+				player.setState(WALK);
 
 				if (gm_event.key.keysym.sym == SDLK_RIGHT ||
 					gm_event.key.keysym.sym == SDLK_LEFT)
 				{
-					m_objState = IDLE;
+					player.setState(IDLE);
 				}
 			}
-
 			else
-				m_objState = IDLE;
-
+				player.setState(IDLE);
 			break;
 
 		default:

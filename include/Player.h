@@ -1,0 +1,80 @@
+#include "GameObject.h"
+#include "BackGround.h"
+
+#pragma once
+class Player : public GameObject
+{
+public :
+
+	void update();
+
+	void setState(int State);
+	void setData(int FrameW, int FrameH);
+	void setWalkData(int WalkSpeed, int isRight);
+	void setIsJump(int isJump);
+	void setBgData(BackGround* GameBg);
+	
+
+	int getState();
+	int getIsJump();
+	
+	void move();
+	void attack();
+	void jump();
+
+	void drawFrame(SDL_Renderer* m_pRenderer); 
+
+private:
+	enum State
+	{
+		IDLE, WALK, ATTACK, HIT, DEAD
+	};
+
+	BackGround* GameBg;
+
+	// <플레이어가 현재 어떤 상태인지에 따라 달라짐>
+	int mP_State = IDLE;											// 플레이어의 현재 상태
+	int mP_CurrFw = 38;												// 플레이어가 현재 상태에 대한 프레임의 너비
+	int mP_CurrFh = 58;												// 플레이어가 현재 상태에 대한 프레임의 높이
+	int mP_FrameIntv = 75;											// 프레임 마다의 간격
+	int mP_CurrF = 0;												// 플레이어는 현재 몇번째 프레임인지
+
+	// 플레이어의 애니메이션 관련 변수
+	int mP_aniWF = 0;												// 걷기 프레임이 바뀌도록 값을 더해줌
+	int mP_aniAF = 0;												// 공격 프레임이 바뀌도록 값을 더해줌
+	const int mCP_anifSpeed = 15;									// 프레임이 바뀌도록 하는 값
+
+	// <현재 어떤 상황인지 확인함>
+	bool isRight = false;											// 오른쪽 방향인지 확인
+	bool isAttack = false;											// 플레이어가 공격하는지 확인
+	bool isJump = false;											// 플레이어가 점프하는지 확인
+
+	// <이동 관련 변수>
+	int mP_WSpeed = 0;												// 플레이어 속도
+	int mP_Currxpos = 0;											// 현재 플레이어의 x좌표
+	const int mCP_WALKW = 38;										// 플레이어의 이동 프레임 길이, 38
+	const int mCP_WALKH = 58;										//						  높이, 58
+	const int mCP_FULLWALKF = 8;									// 걷기에 총 프레임 수
+
+	// <공격 관련 변수>
+	int mP_CurrAttF = 0;											// 플레이어의 현재 공격 프레임
+	const int mCP_ATTW = 75;										// 플레이어의 공격 프레임 길이, 75
+	const int mCP_ATTH = 75;										//						  높이, 75
+	const int mCP_FULLATTF = 6;									// 걷기에 총 프레임 수
+
+	// <점프 관련 변수>
+	float mP_JSpeed = 1;											// 플레이어의 점프 속도
+	int mP_yPos = 310;												// 플레이어의 y좌표, 초기값 = 지면의 y좌표
+	const int mCB_GYPOS = 310;										// 지면의 y좌표
+	const int mCP_JUMPMAXH = mCB_GYPOS - 60;						// 최대 점프 높이 (지면의 높이 : 310 - 최대 점프 높이 : 45 )
+
+	// <배경 이동>
+	int mB_EndP = 5000;												// 배경이 끝나는 시점
+	int mB_MoveEndP = mB_EndP - SCREEN_WIDTH / 3.0;					// 끝나는 점
+	const int mCB_STARTF = SCREEN_WIDTH / 3.0;						// 배경이 움직이기 시작하는 시점
+
+	int m_AxSk_xPos = 1;
+	int m_AxSk_State = 1;
+	int m_AxSkCurrF = 1;
+	int m_AxSkHp = 1;
+};
