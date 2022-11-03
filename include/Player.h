@@ -56,22 +56,22 @@ private:
 	const int mCP_WALKH = 58;										//						  높이, 58
 	const int mCP_FULLWALKF = 8;									// 걷기에 총 프레임 수
 
+	// <배경 이동 관련 변수>
+	int mBg_End = 5000 - SCREEN_WIDTH;								// 배경의 이동이 끝나는 좌표
+	int mBg_Start = SCREEN_WIDTH / 3.0;								// 배경이 이동이 시작되는 좌표
+	const int mP_MAX_XPOS = SCREEN_WIDTH - mCP_WALKW;				// 플레이어가 움직일 수 있는 최대 좌표
+
 	// <공격 관련 변수>
 	int mP_CurrAttF = 0;											// 플레이어의 현재 공격 프레임
 	const int mCP_ATTW = 75;										// 플레이어의 공격 프레임 길이, 75
 	const int mCP_ATTH = 75;										//						  높이, 75
-	const int mCP_FULLATTF = 6;									// 걷기에 총 프레임 수
+	const int mCP_FULLATTF = 6;										// 걷기에 총 프레임 수
 
 	// <점프 관련 변수>
 	float mP_JSpeed = 1;											// 플레이어의 점프 속도
 	int mP_yPos = 310;												// 플레이어의 y좌표, 초기값 = 지면의 y좌표
 	const int mCB_GYPOS = 310;										// 지면의 y좌표
 	const int mCP_JUMPMAXH = mCB_GYPOS - 60;						// 최대 점프 높이 (지면의 높이 : 310 - 최대 점프 높이 : 45 )
-
-	// <배경 이동>
-	int mB_EndP = 5000;												// 배경이 끝나는 시점
-	int mB_MoveEndP = mB_EndP - SCREEN_WIDTH / 3.0;					// 끝나는 점
-	const int mCB_STARTF = SCREEN_WIDTH / 3.0;						// 배경이 움직이기 시작하는 시점
 
 	int m_AxSk_xPos = 1;
 	int m_AxSk_State = 1;

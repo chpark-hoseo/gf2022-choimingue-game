@@ -27,14 +27,14 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
 		return false;
 
-	Game_Bg->load(30, "BackGround");
+	Game_Bg.load(30, "BackGround");
 
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
 
 	player.load(0, Ground_yPos, Pwalk_FrameW, Pwalk_FrameH, "Player");
-	player.setBgData(Game_Bg);
+	player.setBgData(&Game_Bg);
 
 	// 칼든 병사
 	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
@@ -55,7 +55,7 @@ void Game::update()
 	SDL_Delay(10);
 
 	player.update();
-	Game_Bg->update();
+	Game_Bg.update();
 	
 }
 
@@ -65,7 +65,7 @@ void Game::renderer()
 	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
-	Game_Bg->drawMove(m_pRenderer);
+	Game_Bg.drawMove(m_pRenderer);
 	player.drawFrame(m_pRenderer);
 	
 	//The_TextMananger::Instance()->drawFrame("Kskull", 300, Ground_yPos - 48, 48, 48, 0, 0, m_pRenderer, SDL_FLIP_NONE);

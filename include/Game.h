@@ -34,7 +34,7 @@ private:
 	SDL_Texture* m_pTexture;
 
 	Player player;
-	BackGround* Game_Bg;
+	BackGround Game_Bg;
 
 	bool m_bRunning;
 
@@ -67,7 +67,6 @@ private:
 	int m_AxSkHp = 50;
 	int m_AxSkCurrFh = 47;											// 현재 프레임 간격
 	int m_AxSkCurrF = 0;											// 현재 몇번째 프레임
-
 
 	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소

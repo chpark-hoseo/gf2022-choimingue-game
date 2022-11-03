@@ -70,20 +70,20 @@ void Player::move()
 	// 오른쪽 이동일때
 	if (isRight) {
 
-		// 오른쪽 시작점에 도착했고, 끝이 아니라면
-		if (mP_Currxpos + mP_WSpeed >= mCB_STARTF && GameBg->getXpos()< mB_EndP - SCREEN_WIDTH) {
-			GameBg->setSpeed(3);
+		// 배경이동의 시작점에 도착했고, 마지막 배경 프레임의 도착하지 않았다면
+		if (mP_Currxpos + mP_WSpeed >= mBg_Start && GameBg->getXpos()< mBg_End) {
+			GameBg->setSpeed(10);
 			mP_WSpeed = 0;
 		}
 
-		// 배경 화면의 끝에 도닥했으나, 플레이어가 배경의 끝에 도달하지 않았을때
-		else if (GameBg->getXpos() >= mB_EndP - SCREEN_WIDTH && mP_Currxpos < SCREEN_WIDTH - mCP_WALKW) {
+		// 마지막 배경 프레임의 도착했지만, 스크린에서 더 움직일 수 있다면
+		else if (GameBg->getXpos() >= mBg_End && mP_Currxpos < mP_MAX_XPOS) {
 			GameBg->setSpeed(0);
 			mP_WSpeed = 3;
 		}
 
-		// 플레이어가 배경의 끝에 도달했을때
-		else if (mP_Currxpos >= SCREEN_WIDTH - mCP_WALKW) {
+		// 스크린의 끝의 도닥했다면
+		else if (mP_Currxpos >= mP_MAX_XPOS) {
 			mP_WSpeed = 0;
 		}
 
@@ -101,7 +101,7 @@ void Player::move()
 			mP_WSpeed = 0;
 
 		// 배경 맨 왼쪽 ~ 시작점에 가기전
-		else if (mP_Currxpos > 0 && mP_Currxpos <= mCB_STARTF)
+		else if (mP_Currxpos > 0 && mP_Currxpos <= mBg_Start)
 			mP_WSpeed = -3;
 
 		// 시작점을 넘어선다면, 배경이 움직이지 않도록
