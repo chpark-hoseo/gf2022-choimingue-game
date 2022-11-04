@@ -51,7 +51,6 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 void Game::update()
 {
-
 	// 게임 진행 내용
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game){
 		game->update();
@@ -99,3 +98,5 @@ void Game::clean()
 
 	SDL_Quit();
 }
+
+TheGame* TheGame::s_pInstance = 0;			// 할당해줘야 링크 오류를 막을 수 있음

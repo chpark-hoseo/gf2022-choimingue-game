@@ -7,7 +7,19 @@
 
 class Game
 {
+private:
+	Game(){}
+	static Game* s_pInstance;				// 정적 멤버 변수
+
 public:
+	static Game* getInstace()
+	{
+		if (s_pInstance == NULL)
+			s_pInstance = new Game();
+
+		return s_pInstance;
+	}
+
 	// 윈도우 크기
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 480;
@@ -49,4 +61,5 @@ private:
 	int m_DogCurrFrame = 0;						// 강아지의 현재 프레임, 0
 
 	std::vector<GameObject*> m_gameObjects;		// 다형성으로 자식 객체들을 넣을 변수
-};
+
+}typedef TheGame;
