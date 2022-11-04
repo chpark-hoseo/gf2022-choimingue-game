@@ -1,5 +1,9 @@
-#include "Game.h"
 #include "main.h"
+#include<algorithm>
+
+#include "Game.h"
+#include "Player.h"
+#include "Monster.h"
 
 bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight, int flags)
 {
@@ -30,23 +34,30 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 	}
 
-	m_GmObj.load(100, 100, m_DogW, m_DogH, "Dog");
-	m_GmPl.load(300, 300, m_DogW, m_DogH, "Dog");
+	GameObject* m_GmObj = new GameObject;
+	GameObject* m_player = new Player;
+	GameObject* m_monster = new Monster;
 
-	m_GmMonster_slow.load(200, 150, m_MonstW, m_MonstH, "Monster");
-	m_GmMonster_fast.load(300, 200, m_MonstW, m_MonstH, "Monster");
+	m_GmObj->load(100, 100, m_DogW, m_DogH, "Dog");
+	m_player->load(300, 300, m_DogW, m_DogH, "Dog");
+	//m_monster->load(200, 150, m_MonstW, m_MonstH, "Monster");
+
+	m_gameObjects.push_back(m_GmObj);
+	m_gameObjects.push_back(m_player);
+	//m_gameObjects.push_back(m_monster);
 
 	return m_bRunning;
 }
 
 void Game::update()
 {
-	// 게임 진행 내용
-	m_GmObj.update();
-	m_GmPl.update();
+	for (int i = 0; i < m_gameObjects.size(); i++)
+		m_gameObjects[i]->update();
 
-	m_GmMonster_slow.update(SCREEN_WIDTH, m_slowSpeed);
-	m_GmMonster_fast.update(SCREEN_WIDTH, m_fastSpeed);
+	// 게임 진행 내용
+	//for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game){
+	//	game->update();
+	//	});
 }
 
 void Game::renderer()
@@ -55,11 +66,12 @@ void Game::renderer()
 
 	SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
 
-	m_GmObj.draw(m_pRenderer);
-	m_GmPl.draw(m_pRenderer);
+	for (int i = 0; i < m_gameObjects.size(); i++)
+		m_gameObjects[i]->draw(m_pRenderer);
 
-	m_GmMonster_slow.draw(m_pRenderer);
-	m_GmMonster_fast.draw(m_pRenderer);
+	//for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game) {
+	//	game->draw(m_pRenderer);
+	//	});
 
 	SDL_RenderPresent(m_pRenderer);
 }

@@ -1,10 +1,9 @@
 #pragma once
 #include "main.h"
 #include "TextManger.h"
+#include "Vector"
 
 #include "GameObject.h"
-#include "Player.h"
-#include "Monster.h"
 
 class Game
 {
@@ -36,12 +35,6 @@ private:
 	SDL_Renderer* m_pRenderer;				// 그림창 생성 변수 
 	bool m_bRunning;						// 게임이 정상 작동하는지 변수
 
-	GameObject m_GmObj;						// 게임 오브젝트 객체
-
-	Player m_GmPl;							// 플레이어 오브젝트 객체
-	Monster m_GmMonster_slow;				// 몬스터 오브젝트 객체 - 1번째
-	Monster m_GmMonster_fast;				// 몬스터 오브젝트 객체 - 2번째
-
 	const char* adr_Dog = "assets/animate-alpha.png";				// 캐릭터의 그림 주소
 	const char* adr_monster = "assets/Dogge.png";					// 몬스터의 그림 주소
 
@@ -54,4 +47,6 @@ private:
 	const int m_DogH = 98;						// 강아지의 세로 스프라이트 길이, 98
 
 	int m_DogCurrFrame = 0;						// 강아지의 현재 프레임, 0
+
+	std::vector<GameObject*> m_gameObjects;		// 다형성으로 자식 객체들을 넣을 변수
 };
