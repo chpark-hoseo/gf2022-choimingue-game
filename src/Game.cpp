@@ -40,24 +40,22 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_GmObj->load(100, 100, m_DogW, m_DogH, "Dog");
 	m_player->load(300, 300, m_DogW, m_DogH, "Dog");
-	//m_monster->load(200, 150, m_MonstW, m_MonstH, "Monster");
+	m_monster->load(200, 150, m_MonstW, m_MonstH, "Monster");
 
 	m_gameObjects.push_back(m_GmObj);
 	m_gameObjects.push_back(m_player);
-	//m_gameObjects.push_back(m_monster);
+	m_gameObjects.push_back(m_monster);
 
 	return m_bRunning;
 }
 
 void Game::update()
 {
-	for (int i = 0; i < m_gameObjects.size(); i++)
-		m_gameObjects[i]->update();
 
 	// 게임 진행 내용
-	//for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game){
-	//	game->update();
-	//	});
+	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game){
+		game->update();
+		});
 }
 
 void Game::renderer()
@@ -66,12 +64,9 @@ void Game::renderer()
 
 	SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
 
-	for (int i = 0; i < m_gameObjects.size(); i++)
-		m_gameObjects[i]->draw(m_pRenderer);
-
-	//for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game) {
-	//	game->draw(m_pRenderer);
-	//	});
+	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game) {
+		game->draw(m_pRenderer);
+		});
 
 	SDL_RenderPresent(m_pRenderer);
 }
