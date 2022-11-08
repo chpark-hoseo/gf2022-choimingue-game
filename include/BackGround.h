@@ -5,11 +5,9 @@
 class BackGround : public GameObject
 {
 public:
-	// 그려질 위치와, 태그를 받아옴
-	void load(int y, std::string textureID);
 
 	// 그림을 그림, drawMove
-	void drawMove(SDL_Renderer* pRenderer);
+	void draw(SDL_Renderer* pRenderer);
 
 	// 플레이어 객체에게서 배경의 속도를 가져옴
 	void setSpeed(int MoveSpeed);

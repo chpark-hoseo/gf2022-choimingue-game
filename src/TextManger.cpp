@@ -39,7 +39,7 @@ void TextManger::draw(std::string id, const int Screen_xPos, const int Screen_yP
 	SDL_RenderCopyEx(pRenderer, m_textureMap[id], &src, &dis, 0, NULL, flip);
 }
 
-void TextManger::drawMove(std::string id, const int Screen_xPos, const int Screen_yPos,
+void TextManger::drawMove(std::string id, int Scr_xPos, const int Screen_yPos,
 	SDL_Renderer* pRenderer, SDL_RendererFlip flip)
 {
 	SDL_Rect src;
@@ -47,7 +47,7 @@ void TextManger::drawMove(std::string id, const int Screen_xPos, const int Scree
 
 	SDL_QueryTexture(m_textureMap[id], NULL, NULL, &src.w, &src.h);
 
-	src.x = Screen_xPos;
+	src.x = Scr_xPos;
 	src.y = 0;
 
 	dis.w = src.w = game.SCREEN_WIDTH;

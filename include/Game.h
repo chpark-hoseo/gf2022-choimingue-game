@@ -2,6 +2,7 @@
 #include"game.h"
 #include "main.h"
 #include "Player.h"
+#include "vector"
 
 class Game
 {
@@ -33,9 +34,6 @@ private:
 	SDL_Renderer* m_pRenderer;
 	SDL_Texture* m_pTexture;
 
-	Player player;
-	BackGround Game_Bg;
-
 	bool m_bRunning;
 
 	enum State
@@ -44,20 +42,11 @@ private:
 	};
 
 	// <플레이어의 이동 관련 변수>
-	const int Pwalk_FrameW = 38;									// 플레이어의 이동 프레임 길이, 38
-	const int Pwalk_FrameH = 58;									//						  높이, 58
-
-	// <플레이어의 공격 관련 변수>
-	const int PAtt_FrameW = 75;										// 플레이어의 공격 프레임 길이, 75
-	const int PAtt_FrameH = 75;										//						  높이, 75
+	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
+	const int Pwalk_FrameH = 58;									//								 , 58
 
 	// <플레이어의 점프 관련 변수>
-	const int Ground_yPos = 310;									// 지면의 y좌표
-
-	// <배경 이동>
-	int m_BgMoveSpeed = 0;											// 배경이 움직이는 속도
-	int m_BgEndP = 5000;											// 배경이 끝나는 시점
-	int m_BgMoveEndP = m_BgEndP - SCREEN_WIDTH / 3.0;				// 끝나는 점
+	const int Ground_yPos = 380;									// 지면의 y좌표
 
 	// <도끼병 관련 변수>
 	int m_AxSk_Speed = 0;											// 도끼병의 다가오는 속도
@@ -72,4 +61,6 @@ private:
 	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소
 	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
 	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
+
+	std::vector<GameObject*> m_gameObjects;
 };

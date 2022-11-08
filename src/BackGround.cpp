@@ -2,12 +2,6 @@
 #include"TextManger.h"
 #include <iostream>
 
-void BackGround::load(int y, std::string textureID)
-{
-	m_y = y;
-	m_textureID = textureID;
-}
-
 void BackGround::setSpeed(int MoveSpeed)
 {
 	mBg_MoveSpeed = MoveSpeed;
@@ -28,7 +22,7 @@ int BackGround::getBg_Start()
 	return mBg_START;
 }
 
-void BackGround::drawMove(SDL_Renderer* pRenderer)
+void BackGround::draw(SDL_Renderer* pRenderer)
 {
 	The_TextMananger::Instance()->drawMove(m_textureID, mBg_CurrXpos, m_y, pRenderer);
 }

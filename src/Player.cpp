@@ -150,7 +150,7 @@ void Player::jump()
 	}
 }
 
-void Player::drawFrame(SDL_Renderer* m_pRenderer)
+void Player::draw(SDL_Renderer* m_pRenderer)
 {
 	if (isRight)
 		The_TextMananger::Instance()->drawFrame("Player", mP_Currxpos, mP_yPos, mP_CurrFw, mP_CurrFh, mP_State * mP_FrameIntv, mP_CurrF, m_pRenderer, SDL_FLIP_HORIZONTAL);

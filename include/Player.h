@@ -14,7 +14,6 @@ public :
 	void setIsJump(int isJump);
 	void setBgData(BackGround* GameBg);
 	
-
 	int getState();
 	int getIsJump();
 	
@@ -22,7 +21,7 @@ public :
 	void attack();
 	void jump();
 
-	void drawFrame(SDL_Renderer* m_pRenderer); 
+	void draw(SDL_Renderer* m_pRenderer);
 
 private:
 	enum State
@@ -45,7 +44,7 @@ private:
 	const int mCP_anifSpeed = 15;									// 프레임이 바뀌도록 하는 값
 
 	// <현재 어떤 상황인지 확인함>
-	bool isRight = false;											// 오른쪽 방향인지 확인
+	bool isRight = true;											// 오른쪽 방향인지 확인
 	bool isAttack = false;											// 플레이어가 공격하는지 확인
 	bool isJump = false;											// 플레이어가 점프하는지 확인
 

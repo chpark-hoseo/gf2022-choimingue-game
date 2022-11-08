@@ -27,7 +27,7 @@ public:
 		SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	// 플레이어의 움직임에 따라 배경의 원본 그림이 움직임
-	void drawMove(std::string id, const int Screen_xPos, const int Screen_yPos,
+	void drawMove(std::string id, int Scr_xPos, const int Screen_yPos,
 		SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	// 애니매이션 작업을 할 그림
