@@ -65,7 +65,7 @@ private:
 	const int mCP_ATT_FULLCNT = 6;								// 걷기에 총 프레임 수
 
 	// <점프 관련 변수>
-	float mP_JSpeed = 1;											// 플레이어의 점프 속도
+	float mP_JSpeed = 2;											// 플레이어의 점프 속도
 	int mP_yPos = 310;												// 플레이어의 y좌표, 초기값 = 지면의 y좌표
 	const int mCB_GYPOS = 310;										// 지면의 y좌표
 	const int mCP_JUMPMAXH = mCB_GYPOS - 60;						// 최대 점프 높이 (지면의 높이 : 310 - 최대 점프 높이 : 45 )

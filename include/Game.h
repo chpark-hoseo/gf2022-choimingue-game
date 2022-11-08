@@ -1,6 +1,7 @@
 #pragma once
 #include"game.h"
 #include "GameObject.h"
+#include "BackGround.h"
 #include "vector"
 
 class Game
@@ -55,17 +56,14 @@ private:
 
 	bool m_bRunning;
 
-	enum State
-	{
-		IDLE, WALK, ATTACK, HIT, DEAD
-	};
+	BackGround m_GmBg;
 
 	// <플레이어의 대한 기본 정보>
 	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
 	const int Pwalk_FrameH = 58;									//								 , 58
 
 	// <초기 땅의 좌표>
-	const int Ground_yPos = 380;									// 지면의 y좌표
+	const int Ground_yPos = 330;									// 지면의 y좌표
 
 	// <도끼병 관련 변수>
 	int m_AxSk_Speed = 0;											// 도끼병의 다가오는 속도

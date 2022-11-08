@@ -18,7 +18,7 @@ public:
 	void clean();
 
 private:
-	InputHandler() {}
+	InputHandler() { m_keystates = NULL; }
 	static InputHandler* s_pInstance;
 	const Uint8* m_keystates;
 

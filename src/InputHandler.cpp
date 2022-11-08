@@ -14,12 +14,10 @@ void InputHandler::update()
 
 		if (event.type == SDL_KEYUP) {
 			m_keystates = SDL_GetKeyboardState(0);
-			std::cout << "Up" << std::endl;
 		}
 
 		if (event.type == SDL_KEYDOWN) {
 			m_keystates = SDL_GetKeyboardState(0);
-			std::cout << "Down" << std:: endl;
 		}
 	}
 }

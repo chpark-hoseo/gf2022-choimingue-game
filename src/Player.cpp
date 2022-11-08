@@ -33,28 +33,28 @@ void Player::update()
 
 void Player::handleInput()
 {
-	std::cout << mP_State;
-
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
 		setData(mCP_WALKW, mCP_WALKH);
 		mP_State = WALK;
 		isRight = true;
-		mP_WSpeed = 3;
 	}
-
 	else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
 		setData(mCP_WALKW, mCP_WALKH);
 		mP_State = WALK;
 		isRight = false;
-		mP_WSpeed = -3;
 	}
 
-	else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_KP_A)) {
+	else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_A)) {
 		setData(mCP_AttackW, mCP_AttackH);
 		mP_State = ATTACK;
 	}
+
+	else {
+		setData(mCP_WALKW, mCP_WALKH);
+		mP_State = IDLE;
+	}
 	
-	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_KP_SPACE)) {
+	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE)) {
 		isJump = true;
 	}
 }
@@ -76,16 +76,19 @@ void Player::move()
 	// 오른쪽 이동일때
 	if (isRight) {
 
-		// 배경이동의 시작점에 도착했고, 마지막 배경 프레임의 도착하지 않았다면
-		if (mP_Currxpos + mP_WSpeed >= mBg_Start && GameBg->getXpos()< mBg_End) {
-			GameBg->setSpeed(10);
+		// 배경이동의 시작점에 도착했고, 마지막 배경 프레임의 도착하지 않았다면 // GameBg->getXpos() => 100, GameBg->setSpeed(0) => //0
+		if (mP_Currxpos + mP_WSpeed >= mBg_Start && GameBg->getXpos() < mBg_End) {
+			GameBg->setSpeed(3);
+
+			std::cout << GameBg->getXpos();
+
 			mP_WSpeed = 0;
 		}
 
 		// 마지막 배경 프레임의 도착했지만, 스크린에서 더 움직일 수 있다면
 		else if (GameBg->getXpos() >= mBg_End && mP_Currxpos < mP_MAX_XPOS) {
 			GameBg->setSpeed(0);
-			mP_WSpeed = 3;
+			mP_WSpeed = 2;
 		}
 
 		// 스크린의 끝의 도닥했다면
@@ -95,7 +98,7 @@ void Player::move()
 
 		// 그게 아니라, 처음 장소 ~ 출발 장소
 		else {
-			mP_WSpeed = 3;
+			mP_WSpeed = 2;
 		}
 	}
 
@@ -108,17 +111,17 @@ void Player::move()
 
 		// 배경 맨 왼쪽 ~ 시작점에 가기전
 		else if (mP_Currxpos > 0 && mP_Currxpos <= mBg_Start)
-			mP_WSpeed = -3;
+			mP_WSpeed = -2;
 
 		// 시작점을 넘어선다면, 배경이 움직이지 않도록
 		else {
-			mP_WSpeed = -3;
 			GameBg->setSpeed(0);
+			mP_WSpeed = -2;
 		}
+	}
 
 		mP_Currxpos += mP_WSpeed;
-		mP_CurrF = (mP_aniWF / 100) % 8;
-	}
+		mP_CurrF = (mP_aniWF / 105) % 8;
 }
 
 void Player::attack()
