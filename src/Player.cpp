@@ -1,5 +1,6 @@
 #include"Player.h"
 #include"TextManger.h"
+
 #include <iostream>
 
 void Player::update()

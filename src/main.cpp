@@ -1,22 +1,19 @@
 ﻿#include "Game.h"
 #include <main.h>
 
-Game* g_game = 0;
-
 int main(int argc, char* argv[])
 {
-    g_game = new Game();
 
-    g_game->init("Chapter 2", 100, 100, g_game->SCREEN_WIDTH, g_game->SCREEN_HEIGHT, 0);
+    TheGame::Instance()->init("Chapter 2", 100, 100, TheGame::Instance()->SCREEN_WIDTH, TheGame::Instance()->SCREEN_HEIGHT, 0);
 
-    while (g_game->running())
+    while (TheGame::Instance()->running())
     {
-        g_game->handleEvent();
-        g_game->update();
-        g_game->renderer();
+        TheGame::Instance()->handleEvent();
+        TheGame::Instance()->update();
+        TheGame::Instance()->renderer();
     }
 
-    g_game->clean();
+    TheGame::Instance()->clean();
 
     return 0;
 }

@@ -1,12 +1,31 @@
 #pragma once
 #include"game.h"
-#include "main.h"
-#include "Player.h"
+#include "GameObject.h"
 #include "vector"
 
 class Game
 {
+private:
+	Game() { 
+		m_pWindow = NULL;
+		m_pRenderer = NULL;
+		m_pTexture = NULL;
+		m_bRunning = false;
+	}
+	static Game* s_pInstatance;
+
 public:
+	// 싱글턴 패턴
+	static Game* Instance()
+	{
+		if (s_pInstatance == NULL) {
+			s_pInstatance = new Game();
+		}
+		return s_pInstatance;
+	}
+
+	SDL_Renderer* getRenderer() const;
+
 	// 윈도우 크기
 	const int SCREEN_WIDTH = 1024;
 	const int SCREEN_HEIGHT = 480;
@@ -41,11 +60,11 @@ private:
 		IDLE, WALK, ATTACK, HIT, DEAD
 	};
 
-	// <플레이어의 이동 관련 변수>
+	// <플레이어의 대한 기본 정보>
 	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
 	const int Pwalk_FrameH = 58;									//								 , 58
 
-	// <플레이어의 점프 관련 변수>
+	// <초기 땅의 좌표>
 	const int Ground_yPos = 380;									// 지면의 y좌표
 
 	// <도끼병 관련 변수>
@@ -63,4 +82,4 @@ private:
 	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
 
 	std::vector<GameObject*> m_gameObjects;
-};
+}typedef TheGame;

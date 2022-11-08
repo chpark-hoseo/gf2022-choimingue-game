@@ -3,6 +3,11 @@
 #include "TextManger.h"
 #include <algorithm>
 
+SDL_Renderer* Game::getRenderer() const
+{
+	return m_pRenderer;
+}
+
 bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight, int flags)
 {
 	// 윈도우를 생성
@@ -167,3 +172,5 @@ void Game::clean()
 
 	SDL_Quit();
 }
+
+Game* Game::s_pInstatance = 0;

@@ -1,7 +1,6 @@
 #include "TextManger.h"
 #include "Game.h"
-
-Game game;
+#include "main.h"
 
 bool TextManger::load(const char* fileName, std::string id, SDL_Renderer* pRenderer)
 {
@@ -50,7 +49,7 @@ void TextManger::drawMove(std::string id, int Scr_xPos, const int Screen_yPos,
 	src.x = Scr_xPos;
 	src.y = 0;
 
-	dis.w = src.w = game.SCREEN_WIDTH;
+	dis.w = src.w = TheGame::Instance()->SCREEN_WIDTH;
 	dis.h = src.h;
 
 	dis.x = 0;
