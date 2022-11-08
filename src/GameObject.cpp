@@ -27,11 +27,6 @@ void GameObject::update()
 
 }
 
-void GameObject::move()
-{
-
-}
-
 void GameObject::clean()
 {
     The_TextMananger::Instance()->Delet_Texture(m_textureID);

@@ -5,18 +5,16 @@
 class Player : public GameObject
 {
 public :
+	Player(BackGround* GameBg) {
+		this->GameBg = GameBg;
+	}
 
 	void update();
+	void handleInput();
 
-	void setState(int State);
 	void setData(int FrameW, int FrameH);
-	void setWalkData(int WalkSpeed, int isRight);
-	void setIsJump(int isJump);
 	void setBgData(BackGround* GameBg);
-	
-	int getState();
-	int getIsJump();
-	
+
 	void move();
 	void attack();
 	void jump();
@@ -53,7 +51,7 @@ private:
 	int mP_Currxpos = 0;											// 현재 플레이어의 x좌표
 	const int mCP_WALKW = 38;										// 플레이어의 이동 프레임 길이, 38
 	const int mCP_WALKH = 58;										//						  높이, 58
-	const int mCP_FULLWALKF = 8;									// 걷기에 총 프레임 수
+	const int mCP_WALK_FULLCNT = 8;									// 걷기에 총 프레임 수
 
 	// <배경 이동 관련 변수>
 	int mBg_End = 5000 - SCREEN_WIDTH;								// 배경의 이동이 끝나는 좌표
@@ -62,9 +60,9 @@ private:
 
 	// <공격 관련 변수>
 	int mP_CurrAttF = 0;											// 플레이어의 현재 공격 프레임
-	const int mCP_ATTW = 75;										// 플레이어의 공격 프레임 길이, 75
-	const int mCP_ATTH = 75;										//						  높이, 75
-	const int mCP_FULLATTF = 6;										// 걷기에 총 프레임 수
+	const int mCP_AttackW = 75;										// 플레이어의 공격 프레임 길이, 75
+	const int mCP_AttackH = 75;										//						  높이, 75
+	const int mCP_ATT_FULLCNT = 6;								// 걷기에 총 프레임 수
 
 	// <점프 관련 변수>
 	float mP_JSpeed = 1;											// 플레이어의 점프 속도

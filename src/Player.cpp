@@ -1,10 +1,13 @@
 #include"Player.h"
 #include"TextManger.h"
+#include"InputHandler.h"
 
 #include <iostream>
 
 void Player::update()
 {
+	handleInput();
+
 	if (mP_State == IDLE) {
 		setData(mCP_WALKW, mCP_WALKH);
 		mP_aniWF = 0;
@@ -15,12 +18,12 @@ void Player::update()
 		move();
 		mP_aniWF += mCP_anifSpeed;
 		mP_Currxpos += mP_WSpeed;
-		mP_CurrF = (mP_aniWF / 100) % mCP_FULLWALKF;
+		mP_CurrF = (mP_aniWF / 100) % mCP_WALK_FULLCNT;
 	}
 	else if (mP_State == ATTACK) {
 		attack();
 		mP_aniAF += mCP_anifSpeed;
-		mP_CurrF = (mP_aniAF / 100) % mCP_FULLATTF;
+		mP_CurrF = (mP_aniAF / 100) % mCP_ATT_FULLCNT;
 	}
 
 	if (isJump) {
@@ -28,9 +31,32 @@ void Player::update()
 	}
 }
 
-void Player::setState(int State)
+void Player::handleInput()
 {
-	mP_State = State;
+	std::cout << mP_State;
+
+	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
+		setData(mCP_WALKW, mCP_WALKH);
+		mP_State = WALK;
+		isRight = true;
+		mP_WSpeed = 3;
+	}
+
+	else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
+		setData(mCP_WALKW, mCP_WALKH);
+		mP_State = WALK;
+		isRight = false;
+		mP_WSpeed = -3;
+	}
+
+	else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_KP_A)) {
+		setData(mCP_AttackW, mCP_AttackH);
+		mP_State = ATTACK;
+	}
+	
+	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_KP_SPACE)) {
+		isJump = true;
+	}
 }
 
 void Player::setData(int FrameW, int FrameH)
@@ -40,30 +66,9 @@ void Player::setData(int FrameW, int FrameH)
 	mP_CurrF = 0;
 }
 
-void Player::setWalkData(int WalkSpeed, int isRight)
-{
-	mP_WSpeed = WalkSpeed;
-	this->isRight = isRight;
-}
-
-void Player::setIsJump(int isJump)
-{
-	this->isJump = isJump;
-}
-
 void Player::setBgData(BackGround* GameBg)
 {
 	this->GameBg = GameBg;
-}
-
-int Player::getState()
-{
-	return mP_State;
-}
-
-int Player::getIsJump()
-{
-	return isJump;
 }
 
 void Player::move()

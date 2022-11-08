@@ -9,7 +9,6 @@ private:
 	Game() { 
 		m_pWindow = NULL;
 		m_pRenderer = NULL;
-		m_pTexture = NULL;
 		m_bRunning = false;
 	}
 	static Game* s_pInstatance;
@@ -48,10 +47,11 @@ public:
 	// 화면 지우기
 	void clean();
 
+	void quit();
+
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
-	SDL_Texture* m_pTexture;
 
 	bool m_bRunning;
 

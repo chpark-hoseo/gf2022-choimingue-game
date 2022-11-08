@@ -5,7 +5,6 @@
 class BackGround : public GameObject
 {
 public:
-
 	// 그림을 그림, drawMove
 	void draw(SDL_Renderer* pRenderer);
 

@@ -1,6 +1,11 @@
-#include "Game.h"
 #include "main.h"
+#include "Game.h"
+
+#include "InputHandler.h"
 #include "TextManger.h"
+#include "BackGround.h"
+#include "Player.h"
+
 #include <algorithm>
 
 SDL_Renderer* Game::getRenderer() const
@@ -31,15 +36,15 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	// 배경
 
-	GameObject* m_GmBg = new GameObject();
-	GameObject* m_player = new GameObject();
+	GameObject* m_GmBg = new BackGround();
+	GameObject* m_player = new Player();
 
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
 
 	m_player->load(0, Ground_yPos, Pwalk_FrameW, Pwalk_FrameH, "Player");
-	//m_player(&Game_Bg);
+	//m_player.
 
 	// 칼든 병사
 	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
@@ -96,9 +101,14 @@ bool Game::running()
 	return m_bRunning;
 }
 
+void Game::quit()
+{
+	m_bRunning = false;
+}
+
 void Game::handleEvent()
 {
-	SDL_Event gm_event;
+	/*SDL_Event gm_event;
 
 	while (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
 		switch (gm_event.type)
@@ -158,6 +168,9 @@ void Game::handleEvent()
 			break;
 		}
 	}
+	*/
+
+	TheInputHandler::Instance()->update();
 }
 
 void Game::clean()
@@ -171,6 +184,8 @@ void Game::clean()
 		});
 
 	SDL_Quit();
+
+	TheInputHandler::Instance()->clean();
 }
 
 Game* Game::s_pInstatance = 0;
