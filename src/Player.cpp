@@ -12,18 +12,19 @@ void Player::update()
 		setData(mCP_WALKW, mCP_WALKH);
 		mP_aniWF = 0;
 		mP_aniAF = 0;
+		GameBg->setSpeed(0);
 	}
 
 	else if (mP_State == WALK) {
 		move();
 		mP_aniWF += mCP_anifSpeed;
 		mP_Currxpos += mP_WSpeed;
-		mP_CurrF = (mP_aniWF / 100) % mCP_WALK_FULLCNT;
+		mP_CurrF = (mP_aniWF / 105) % mCP_WALK_FULLCNT;
 	}
 	else if (mP_State == ATTACK) {
 		attack();
 		mP_aniAF += mCP_anifSpeed;
-		mP_CurrF = (mP_aniAF / 100) % mCP_ATT_FULLCNT;
+		mP_CurrF = (mP_aniAF / 105) % mCP_ATT_FULLCNT;
 	}
 
 	if (isJump) {
@@ -66,21 +67,14 @@ void Player::setData(int FrameW, int FrameH)
 	mP_CurrF = 0;
 }
 
-void Player::setBgData(BackGround* GameBg)
-{
-	this->GameBg = GameBg;
-}
-
 void Player::move()
 {
 	// 오른쪽 이동일때
-	if (isRight) {
+	if (isRight ) {
 
 		// 배경이동의 시작점에 도착했고, 마지막 배경 프레임의 도착하지 않았다면 // GameBg->getXpos() => 100, GameBg->setSpeed(0) => //0
 		if (mP_Currxpos + mP_WSpeed >= mBg_Start && GameBg->getXpos() < mBg_End) {
 			GameBg->setSpeed(3);
-
-			std::cout << GameBg->getXpos();
 
 			mP_WSpeed = 0;
 		}
@@ -121,7 +115,7 @@ void Player::move()
 	}
 
 		mP_Currxpos += mP_WSpeed;
-		mP_CurrF = (mP_aniWF / 105) % 8;
+		mP_CurrF = (mP_aniWF / 105) % mCP_ATT_FULLCNT;
 }
 
 void Player::attack()

@@ -36,21 +36,20 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	// 배경
 
-	GameObject* m_player = new Player(&m_GmBg);
-	GameObject* m_GmBg = new BackGround();
+	BackGround* m_GmBg = new BackGround();
+	GameObject* m_player = new Player(m_GmBg); 
 
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
 
 	m_player->load(0, 0, Pwalk_FrameW, Pwalk_FrameH, "Player");
-	//m_player.
 
 	// 칼든 병사
 	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
 		return false;
 
-	//도끼 병사
+	//도끼 병사 [&]auto 
 	if (!The_TextMananger::Instance()->load(adr_Askull, "Askull", m_pRenderer))
 		return false;
 
