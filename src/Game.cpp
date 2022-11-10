@@ -34,10 +34,8 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	// 배경
-
-	BackGround* m_GmBg = new BackGround();
-	GameObject* m_player = new Player(m_GmBg); 
+	Player* m_player = new Player(); 
+	BackGround* m_GmBg = new BackGround(m_player);
 
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
@@ -49,7 +47,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
 		return false;
 
-	//도끼 병사 [&]auto 
+	//도끼 병사
 	if (!The_TextMananger::Instance()->load(adr_Askull, "Askull", m_pRenderer))
 		return false;
 
@@ -64,13 +62,10 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	return m_bRunning;
 }
 
-// 참고 자료 : https://gamdekong.tistory.com/173
-
 void Game::update()
 {
 
 	SDL_Delay(10);
-
 
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto game)
 		{
@@ -107,68 +102,6 @@ void Game::quit()
 
 void Game::handleEvent()
 {
-	/*SDL_Event gm_event;
-
-	while (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
-		switch (gm_event.type)
-		{
-		case SDL_QUIT:							// 사용자가 종료를 원할시 종료
-			m_bRunning = false;
-			break;
-
-		case SDL_KEYDOWN:
-			switch (gm_event.key.keysym.sym)
-			{
-			case SDLK_LEFT: // 왼쪽키, 이동
-				
-				//player.setState(WALK);
-				//player.setData(Pwalk_FrameW, Pwalk_FrameH);
-				//player.setWalkData(-2, false);
-				break;
-
-			case SDLK_RIGHT: // 오른쪽키, 이동
-
-				//player.setState(WALK);
-				//player.setData(Pwalk_FrameW, Pwalk_FrameH);
-				//player.setWalkData(2, true);
-				break;
-
-			case SDLK_a:	// a키, 공격
-
-				//player.setState(ATTACK);
-				//player.setData(PAtt_FrameW, PAtt_FrameH);
-				break;
-
-			case SDLK_SPACE:
-				//player.setIsJump(true);
-				break;
-
-			default:
-				break;
-			}
-			break;
-
-		case SDL_KEYUP:
-
-			//if (player.getState() == WALK && player.getIsJump() == true) {
-			if(1){
-				//player.setState(WALK);
-				if (gm_event.key.keysym.sym == SDLK_RIGHT ||
-					gm_event.key.keysym.sym == SDLK_LEFT)
-				{
-					//player.setState(IDLE);
-				}
-			}
-			else
-				//player.setState(IDLE);
-			break;
-
-		default:
-			break;
-		}
-	}
-	*/
-
 	TheInputHandler::Instance()->update();
 }
 

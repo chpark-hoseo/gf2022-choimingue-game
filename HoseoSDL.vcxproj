@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameCharacter.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\BackGround.cpp" />
     <ClCompile Include="src\Monster.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="src\TextManger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\GameCharacter.h" />
     <ClInclude Include="include\BackGround.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Game.h" />

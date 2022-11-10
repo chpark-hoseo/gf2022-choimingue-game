@@ -13,6 +13,11 @@ public:
 	virtual ~GameObject() {}
 
 protected:
+	enum State
+	{
+		IDLE, WALK, ATTACK, HIT, DIE
+	};
+
 	std::string m_textureID;
 
 	int m_x;

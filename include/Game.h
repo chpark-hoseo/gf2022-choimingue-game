@@ -1,17 +1,12 @@
 #pragma once
 #include"game.h"
 #include "GameObject.h"
-#include "BackGround.h"
 #include "vector"
 
 class Game
 {
 private:
-	Game() { 
-		m_pWindow = NULL;
-		m_pRenderer = NULL;
-		m_bRunning = false;
-	}
+	Game() {}
 	static Game* s_pInstatance;
 
 public:
@@ -51,12 +46,10 @@ public:
 	void quit();
 
 private:
-	SDL_Window* m_pWindow;
-	SDL_Renderer* m_pRenderer;
+	SDL_Window* m_pWindow = NULL;
+	SDL_Renderer* m_pRenderer = NULL;
 
-	bool m_bRunning;
-
-	BackGround m_GmBg;
+	bool m_bRunning = false;
 
 	// <플레이어의 대한 기본 정보>
 	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
