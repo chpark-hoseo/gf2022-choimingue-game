@@ -1,14 +1,15 @@
 #pragma once
-#include "GameObject.h"
+#include"SDLGameObject.h"
 
-class Monster : public GameObject
+class Monster : public SDLGameObject
 {
 public:
+	Monster(LoaderParams* pParam);
+
 	void update();
+	void clean();
 
 private:
-	void suttleRun();
-	int m_objRightW;								// 스프라이트 오른쪽 끝에 좌표 (x좌표 + 스프라이트 길이)
 
 	int obj_Speed = 2;								// 몬스터 객체의 스피드
 	bool isRight = true;

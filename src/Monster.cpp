@@ -1,27 +1,24 @@
+#include"main.h"
+
 #include "Monster.h"
+
+#include "TextManger.h"
+
+Monster::Monster(LoaderParams* pParam)
+    :SDLGameObject(pParam)
+{
+
+}
 
 void Monster::update()
 {
-    suttleRun();
+    m_x++;
+    m_y++;
+
+    m_currFrame = ((SDL_GetTicks() / 100) % 6);
 }
 
-void Monster::suttleRun()
+void Monster::clean()
 {
-    m_objRightW = m_width + m_x;
-
-    if (isRight) {
-        m_x += obj_Speed;
-
-        // 오른쪽 진행중, 화면 끝에 도달했다면
-        if (m_objRightW >= SCREEN_WIDTH)
-            isRight = false;
-    }
-    else {
-        m_x -= obj_Speed;
-
-        // 왼쪽 진행중, 화면 끝에 도닥했다면
-        if (m_x <= 0)
-            isRight = true;
-    }
-
+    TheTextureManager::get_Instance()->Destory_T(m_textureID);
 }

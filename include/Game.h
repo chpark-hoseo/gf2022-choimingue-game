@@ -42,6 +42,8 @@ public:
 	// 화면 지우기
 	void clean();
 
+	SDL_Renderer* getRenderer();
+
 private:
 	SDL_Window* m_pWindow;					// 윈도창 생성 변수
 	SDL_Renderer* m_pRenderer;				// 그림창 생성 변수 

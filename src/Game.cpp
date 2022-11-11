@@ -4,6 +4,12 @@
 #include "Game.h"
 #include "Player.h"
 #include "Monster.h"
+#include"LoaderParams.h"
+
+SDL_Renderer* Game::getRenderer()
+{
+	return m_pRenderer;
+}
 
 bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight, int flags)
 {
@@ -34,17 +40,11 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 	}
 
-	GameObject* m_GmObj = new GameObject;
-	GameObject* m_player = new Player;
-	GameObject* m_monster = new Monster;
+	Player* m_Player = new Player(new LoaderParams(100,100, m_DogW, m_DogH, "Dog"));
+	Monster* m_Monster = new Monster(new LoaderParams(200, 200, m_DogW, m_DogH, "Dog"));
 
-	m_GmObj->load(100, 100, m_DogW, m_DogH, "Dog");
-	m_player->load(300, 300, m_DogW, m_DogH, "Dog");
-	m_monster->load(200, 150, m_MonstW, m_MonstH, "Monster");
-
-	m_gameObjects.push_back(m_GmObj);
-	m_gameObjects.push_back(m_player);
-	m_gameObjects.push_back(m_monster);
+	m_gameObjects.push_back(m_Player);
+	m_gameObjects.push_back(m_Monster);
 
 	return m_bRunning;
 }
@@ -64,7 +64,7 @@ void Game::renderer()
 	SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
 
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto& game) {
-		game->draw(m_pRenderer);
+		game->draw();
 		});
 
 	SDL_RenderPresent(m_pRenderer);

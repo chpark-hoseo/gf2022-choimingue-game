@@ -1,9 +1,12 @@
 #pragma once
-#include "GameObject.h"
+#include "SDLGameObject.h"
 
-class Player : public GameObject
+class Player : public SDLGameObject
 {
 public:
+	Player(LoaderParams* pParams);
+
 	void update();
+	void clean();
 };
 
