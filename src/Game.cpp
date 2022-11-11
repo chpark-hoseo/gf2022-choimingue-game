@@ -3,8 +3,10 @@
 
 #include "InputHandler.h"
 #include "TextManger.h"
+
 #include "BackGround.h"
 #include "Player.h"
+#include "Monster.h"
 
 #include <algorithm>
 
@@ -34,8 +36,9 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	Player* m_player = new Player(); 
-	BackGround* m_GmBg = new BackGround(m_player);
+	Player* m_player = new Player();
+	Monster* m_monster = new Monster();
+	BackGround* m_GmBg = new BackGround();
 
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
@@ -55,9 +58,11 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 
 	m_GmBg->load(0, 50, SCREEN_WIDTH, SCREEN_HEIGHT,"BackGround");
+	m_GmBg->setPlayerData(m_player);
 
 	m_gameObjects.push_back(m_GmBg);
 	m_gameObjects.push_back(m_player);
+	m_gameObjects.push_back(m_monster);
 
 	return m_bRunning;
 }

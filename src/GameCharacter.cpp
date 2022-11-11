@@ -31,9 +31,9 @@ void GameCharacter::clean()
     The_TextMananger::Instance()->Delet_Texture(m_textureID);
 }
 
-void GameCharacter::setData(int FrameW, int FrameH)
+void GameCharacter::setData(int framew, int frameh)
 {
-    m_CurrFw = FrameW;
-    m_CurrFh = FrameH;
+    m_CurrFw = framew;
+    m_CurrFh = frameh;
     m_CurrF = 0;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class GameCharacter : GameObject
+class GameCharacter : public GameObject
 {
 public:
 	virtual void load(int x, int y, int width, int height, std::string textureID);
@@ -9,7 +9,7 @@ public:
 	virtual void update();
 	virtual void clean();
 
-	virtual void setData(int FrameW, int FrameH);
+	void setData(int FrameW, int FrameH);
 
 protected:
 	enum State
@@ -45,7 +45,7 @@ protected:
 	const int m_DIEW;											// 공격 프레임 길이
 	const int m_DIEH;											// 공격 프레임 높이
 
-	// <몬스터의 스탯>
+	// <스탯>
 	int m_hp;													// 체력
 	int m_damage;												// 데미지 
 	int m_WSpeed;												// 움직이는 속도

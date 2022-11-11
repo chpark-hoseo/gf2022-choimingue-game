@@ -1,7 +1,7 @@
 #pragma
 #include "GameCharacter.h"
 
-class Monster : GameCharacter
+class Monster : public GameCharacter
 {
 public:
 	void draw(SDL_Renderer* pRenderer);

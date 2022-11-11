@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "GameCharacter.h"
 
-class Player : public GameObject
+class Player : public GameCharacter
 {
 public :
 	void update();
@@ -9,7 +9,6 @@ public :
 	void draw(SDL_Renderer* m_pRenderer);
 
 	void setSpeed(int P_WSpeed);									// 플레이어의 스피드값을 변경시킴 (Bg객체애서 사용)
-	void setData(int FrameW, int FrameH);
 	
 	int getXpos();													// 플레이어의 x 좌표를 가져옴
 	bool getIsRight();												// 플레이어의 방향을 확인

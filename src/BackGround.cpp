@@ -7,6 +7,11 @@ void BackGround::setSpeed(int MoveSpeed)
 	mBg_MoveSpeed = MoveSpeed;
 }
 
+void BackGround::setPlayerData(Player* player)
+{
+	this->player = player;
+}
+
 void BackGround::move_byPlayer()
 {
 	if (player->getIsRight() && player->getIsMove()) {

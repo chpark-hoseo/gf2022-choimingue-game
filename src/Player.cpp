@@ -77,13 +77,6 @@ void Player::setSpeed(int P_WSpeed) {
 	m_WSpeed = P_WSpeed;
 }
 
-void Player::setData(int FrameW, int FrameH)
-{
-	m_CurrFw = FrameW;
-	m_CurrFh = FrameH;
-	m_CurrF = 0;
-}
-
 int Player::getXpos() {
 	return m_Currxpos;
 }

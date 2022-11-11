@@ -6,9 +6,6 @@
 class BackGround : public GameObject
 {
 public:
-	BackGround(Player* player) {
-		this->player = player;
-	}
 
 	// 그림을 그림, drawMove
 	void draw(SDL_Renderer* pRenderer);
@@ -19,6 +16,8 @@ public:
 	void move_byPlayer();
 
 	void update();
+
+	void setPlayerData(Player* player);
 
 private:
 	Player* player;

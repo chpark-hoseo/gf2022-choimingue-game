@@ -10,13 +10,9 @@ public:
 	virtual void update();
 	virtual void clean();
 
-	virtual ~GameObject() {}
+	//virtual ~GameObject() {}
 
 protected:
-	enum State
-	{
-		IDLE, WALK, ATTACK, HIT, DIE
-	};
 
 	std::string m_textureID;
 
