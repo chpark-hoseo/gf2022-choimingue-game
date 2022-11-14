@@ -3,9 +3,12 @@
 #include "Game.h"
 
 SDLGameObject::SDLGameObject(LoaderParams* pParam)
-	:GameObject(pParam), m_position(pParam->getX(), pParam->getY())
+	:GameObject(pParam),
+	m_position(pParam->getX(),pParam->getY()), 
+	m_velocity(0,0),
+	m_acceleration(0,0)
 {
-	
+
 	m_width = pParam->getWidth();
 	m_height = pParam->getHeight();
 	m_textureID = pParam->getTextID();
@@ -24,6 +27,6 @@ void SDLGameObject::draw()
 
 void SDLGameObject::update()
 {
-	m_position.setX(m_position.getX() + 1);
-	m_position.setY(m_position.getY() + 1);
+	m_velocity += m_acceleration;
+	m_position += m_velocity;
 }

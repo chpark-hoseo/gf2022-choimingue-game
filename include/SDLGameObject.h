@@ -19,6 +19,8 @@ protected:
 	int m_currRow, m_currFrame;
 	std::string m_textureID;
 
-	Vector2D m_position;
+	Vector2D m_position;					// 위치벡터
+	Vector2D m_velocity;					// 일정 속도
+	Vector2D m_acceleration;				// 가속도
 };
 

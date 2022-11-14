@@ -11,8 +11,10 @@ Player::Player(LoaderParams* pParams)
 
 void Player::update()
 {
-	m_position.setX(m_position.getX() - 1);
 	m_currFrame = ((SDL_GetTicks() / 100) % 6);
+	
+	m_velocity.setX(1);
+	SDLGameObject::update();
 }
 
 void Player::clean()
