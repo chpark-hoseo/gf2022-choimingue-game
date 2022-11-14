@@ -3,10 +3,8 @@
 #include "Game.h"
 
 SDLGameObject::SDLGameObject(LoaderParams* pParam)
-	:GameObject(pParam)
+	:GameObject(pParam), m_position(pParam->getX(), pParam->getY())
 {
-	m_x = pParam->getX();
-	m_y = pParam->getY();
 	
 	m_width = pParam->getWidth();
 	m_height = pParam->getHeight();
@@ -18,5 +16,14 @@ SDLGameObject::SDLGameObject(LoaderParams* pParam)
 
 void SDLGameObject::draw()
 {
-	TheTextureManager::get_Instance()->drawFrame(m_textureID, m_x, m_y, m_width, m_height, m_currRow, m_currFrame, TheGame::getInstace()->getRenderer());
+	TheTextureManager::get_Instance()->drawFrame(m_textureID, 
+		(int)m_position.getX(), (int)m_position.getY(),
+		m_width, m_height, m_currRow, m_currFrame,
+		TheGame::getInstace()->getRenderer());
+}
+
+void SDLGameObject::update()
+{
+	m_position.setX(m_position.getX() + 1);
+	m_position.setY(m_position.getY() + 1);
 }

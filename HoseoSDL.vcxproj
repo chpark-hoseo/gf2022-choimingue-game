@@ -143,12 +143,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\SDLGameObject.cpp" />
-    <ClCompile Include="src\LoaderParams.cpp" />
     <ClCompile Include="src\Monster.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\TextManger.cpp" />
+    <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameObject.h" />
@@ -159,6 +159,7 @@
     <ClInclude Include="include\Monster.h" />
     <ClInclude Include="include\LoaderParams.h" />
     <ClInclude Include="include\SDLGameObject.h" />
+    <ClInclude Include="include\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
