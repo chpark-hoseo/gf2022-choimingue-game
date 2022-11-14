@@ -3,6 +3,7 @@
 
 #include "InputHandler.h"
 #include "TextManger.h"
+#include "LoaderParams.h"
 
 #include "BackGround.h"
 #include "Player.h"
@@ -36,15 +37,14 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	Player* m_player = new Player();
-	Monster* m_monster = new Monster();
-	BackGround* m_GmBg = new BackGround();
+	Player* m_player = new Player(new LoaderParams(0, 0, Pwalk_FrameW, Pwalk_FrameH, "Player"));
+	Monster* m_monster = new Monster(new LoaderParams(50, 0, 48, 50, "Monster"));
+	BackGround* m_GmBg = new BackGround(new LoaderParams(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, "BackGround"));
+
 
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
-
-	m_player->load(0, 0, Pwalk_FrameW, Pwalk_FrameH, "Player");
 
 	// 칼든 병사
 	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
@@ -57,7 +57,6 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
 		return false;
 
-	m_GmBg->load(0, 50, SCREEN_WIDTH, SCREEN_HEIGHT,"BackGround");
 	m_GmBg->setPlayerData(m_player);
 
 	m_gameObjects.push_back(m_GmBg);
@@ -86,7 +85,7 @@ void Game::renderer()
 
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto game)
 		{
-			game->draw(m_pRenderer);
+			game->draw();
 		});
 	
 	//The_TextMananger::Instance()->drawFrame("Kskull", 300, Ground_yPos - 48, 48, 48, 0, 0, m_pRenderer, SDL_FLIP_NONE);

@@ -1,9 +1,12 @@
 #pragma once
+
 #include "GameCharacter.h"
 
 class Player : public GameCharacter
 {
 public :
+	Player(LoaderParams* pParams);
+
 	void update();
 	void handleInput();
 	void draw(SDL_Renderer* m_pRenderer);
@@ -19,39 +22,12 @@ public :
 
 protected:
 
-	// <플레이어가 현재 어떤 상태인지에 따라 달라짐>
-	int m_State = IDLE;												// 현재 상태
-	int m_CurrFw = 38;												// 현재 상태에 대한 프레임의 너비
-	int m_CurrFh = 58;												// 현재 상태에 대한 프레임의 높이
-	int m_FrameIntv = 75;											// 프레임 마다의 간격
-	int m_CurrF = 0;												// 현재 몇번째 프레임인지
-
-	// 플레이어의 애니메이션 관련 변수
-	int m_aniWF = 0;												// 걷기 프레임이 바뀌도록 값을 더해줌
-	int m_aniAF = 0;												// 공격 프레임이 바뀌도록 값을 더해줌
-	const int m_ANISpeed = 15;										// 프레임이 바뀌도록 하는 값 (const값, 15)
+	int m_CurrAttF = 0;												// 현재 공격 프레임
 
 	// <현재 어떤 상황인지 확인함>
 	bool isRight = true;											// 오른쪽 방향인지 확인
 	bool isAttack = false;											// 공격하는지 확인
 	bool isJump = false;											// 점프하는지 확인
-
-	// <기본 상태 관련 변수>
-	const int m_IDLEW = 38;											// 기본 상태 프레임 길이(const값, 38)
-	const int m_IDLEH = 58;											// 기본 상태 프레임 높이(const값, 58)
-
-	// <이동 관련 변수>
-	int m_WSpeed = 0;												// 움직이는 속도
-	int m_Currxpos = 0;												// 현재 x좌표
-	const int m_WALKW = 38;											// 이동 프레임 길이(const값, 38)
-	const int m_WALKH = 58;											// 이동 프레임 높이(const값, 58)
-	const int m_WALK_FullCnt = 8;									// 걷기 총 프레임 수(const값, 8)
-
-	// <공격 관련 변수>
-	int m_CurrAttF = 0;												// 현재 공격 프레임
-	const int m_ATTW = 75;											// 공격 프레임 길이(const값, 75)
-	const int m_ATTH = 75;											// 공격 프레임 높이(const값, 75)
-	const int m_ATT_FullCnt = 6;									// 공격의 총 프레임수, 8 (const값, 6)
 
 	// <점프 관련 변수>
 	const int mBG_YPOS = 330;										// 지면의 y좌표 (const값, 330)

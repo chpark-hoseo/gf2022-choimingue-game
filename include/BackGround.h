@@ -1,11 +1,16 @@
 #pragma once
 #include<SDL2/SDL.h>
-#include"GameObject.h"
-#include"Player.h"
 
-class BackGround : public GameObject
+#include "SDLGameObject.h"
+#include "Player.h"
+
+#include "LoaderParams.h"
+
+class BackGround : public SDLGameObject
 {
+
 public:
+	BackGround(LoaderParams* pParams);
 
 	// 그림을 그림, drawMove
 	void draw(SDL_Renderer* pRenderer);
@@ -20,7 +25,7 @@ public:
 	void setPlayerData(Player* player);
 
 private:
-	Player* player;
+	Player* player = NULL;
 	const int mP_WalkW = 38;				// 플레이어 걷기 프레임의 길이
 	const int mP_WalkSpeed = 3;
 

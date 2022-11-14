@@ -34,6 +34,8 @@ public:
 	// 화면 띄우기
 	void renderer();
 
+	SDL_Renderer* getRenderer() { return m_pRenderer; }
+
 	// 정상작동중인지 확인
 	bool running();
 

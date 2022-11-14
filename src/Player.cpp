@@ -1,8 +1,40 @@
 #include"Player.h"
+
+
 #include"TextManger.h"
 #include"InputHandler.h"
+#include "Vector2D.h"
 
 #include <iostream>
+
+Player::Player(LoaderParams* pParams) : 
+	GameCharacter(pParams)
+{
+	m_State = IDLE;
+	m_CurrFw = 38;
+	m_CurrFh = 58;
+	m_FrameIntv = 75;
+	m_CurrF = 0;
+
+	// 애니메이션 관련 변수
+	m_aniWF = 0;
+	m_aniAF = 0;
+
+	// <기본 상태 관련 변수>
+	m_IDLEW = 38;
+	m_IDLEH = 58;
+
+	// <이동 관련 변수>
+	m_Currxpos = 0;
+	m_WALKW = 38;
+	m_WALKH = 58;
+	m_WALK_FullCnt = 8;
+
+	// <스탯>
+	m_hp = 100;
+	m_damage = 20;
+	m_WSpeed = 0;
+}
 
 void Player::update()
 {

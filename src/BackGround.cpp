@@ -1,6 +1,13 @@
 #include "BackGround.h"
 #include"TextManger.h"
+
 #include <iostream>
+
+BackGround::BackGround(LoaderParams* pParams)
+	:SDLGameObject(pParams) 
+{
+
+}
 
 void BackGround::setSpeed(int MoveSpeed)
 {

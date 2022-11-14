@@ -1,13 +1,15 @@
 #pragma once
-#include "GameObject.h"
+#include"SDLGameObject.h"
+#include "LoaderParams.h"
 
-class GameCharacter : public GameObject
+class GameCharacter : public SDLGameObject
 {
 public:
-	virtual void load(int x, int y, int width, int height, std::string textureID);
-	virtual void draw(SDL_Renderer* pRenderer);
-	virtual void update();
-	virtual void clean();
+	GameCharacter(LoaderParams* pParams);
+
+	virtual void draw() {}
+	virtual void update(){}
+	virtual void clean(){}
 
 	void setData(int FrameW, int FrameH);
 
@@ -24,26 +26,35 @@ protected:
 	int m_FrameIntv;											// 프레임 마다의 간격
 	int m_CurrF;												// 현재 몇번째 프레임인지
 
+	// 애니메이션 관련 변수
+	int m_aniWF = 0;											// 걷기 프레임이 바뀌도록 값을 더해줌
+	int m_aniAF = 0;											// 공격 프레임이 바뀌도록 값을 더해줌
+	const int m_ANISpeed = 15;									// 프레임이 바뀌도록 하는 값
+
 	// <기본 상태 관련 변수>
-	const int m_IDLEW;											// 기본 상태 프레임 길이
-	const int m_IDLEH;											// 기본 상태 프레임 높이
+	int m_IDLEW;												// 기본 상태 프레임 길이
+	int m_IDLEH;												// 기본 상태 프레임 높이
 
 	// <이동 관련 변수>
 	int m_Currxpos;												// 현재 x좌표
-	const int m_WALKW;											// 이동 프레임 길이
-	const int m_WALKH;											// 이동 프레임 높이
+	int m_WALK_FullCnt;											// 이동에 총 프레임 수
+	int m_WALKW;												// 이동 프레임 길이
+	int m_WALKH;												// 이동 프레임 높이
 
 	// <공격 관련 변수>
-	const int m_ATTW;											// 공격 프레임 길이
-	const int m_ATTH;											// 공격 프레임 높이
+	int m_ATT_FullCnt;											// 공격에 총 프레임 수
+	int m_ATTW;													// 공격 프레임 길이
+	int m_ATTH;													// 공격 프레임 높이
 
 	// <피격 관련 변수>
-	const int m_HITW;											// 공격 프레임 길이
-	const int m_HITH;											// 공격 프레임 높이
+	int m_HIT_FullCnt;											// 피격에 총 프레임 수
+	int m_HITW;													// 피격 프레임 길이
+	int m_HITH;													// 피격 프레임 높이
 
 	// <사망 관련 변수>
-	const int m_DIEW;											// 공격 프레임 길이
-	const int m_DIEH;											// 공격 프레임 높이
+	int m_DIE_FullCnt;											// 죽음에 총 프레임 수
+	int m_DIEW;													// 죽음 프레임 길이
+	int m_DIEH;													// 죽음 프레임 높이
 
 	// <스탯>
 	int m_hp;													// 체력
