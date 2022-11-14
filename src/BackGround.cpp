@@ -1,5 +1,7 @@
 #include "BackGround.h"
+
 #include"TextManger.h"
+#include"Game.h"
 
 #include <iostream>
 
@@ -61,9 +63,11 @@ void BackGround::move_byPlayer()
 	}
 }
 
-void BackGround::draw(SDL_Renderer* pRenderer)
+void BackGround::draw()
 {
-	The_TextMananger::Instance()->drawMove(m_textureID, mBg_CurrXpos, m_y, pRenderer);
+	The_TextMananger::Instance()->drawMove(m_textureID,
+		mBg_CurrXpos, m_y,
+		TheGame::Instance()->getRenderer());
 }
 
 void BackGround::update()

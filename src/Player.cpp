@@ -1,5 +1,5 @@
 #include"Player.h"
-
+#include"Game.h"
 
 #include"TextManger.h"
 #include"InputHandler.h"
@@ -30,6 +30,11 @@ Player::Player(LoaderParams* pParams) :
 	m_WALKH = 58;
 	m_WALK_FullCnt = 8;
 
+	// <공격 관련 변수>
+	m_ATT_FullCnt = 6;
+	m_ATTW = 75;
+	m_ATTH = 75;	
+
 	// <스탯>
 	m_hp = 100;
 	m_damage = 20;
@@ -49,14 +54,16 @@ void Player::update()
 		break;
 
 	case WALK:
-		m_aniWF += m_ANISpeed;
 		m_Currxpos += m_WSpeed;
+
+		m_aniWF += m_ANISpeed;
 		m_CurrF = (m_aniWF / 105) % m_WALK_FullCnt;
 		break;
 
 	case ATTACK:
 		m_aniAF += m_ANISpeed;
 		m_CurrF = (m_aniAF / 90) % m_ATT_FullCnt;
+		std::cout << m_CurrF << std::endl;
 		break;
 
 	default:
@@ -97,12 +104,22 @@ void Player::handleInput()
 	}
 }
 
-void Player::draw(SDL_Renderer* m_pRenderer)
+void Player::draw()
 {
 	if (isRight)
-		The_TextMananger::Instance()->drawFrame("Player", m_Currxpos, m_yPos, m_CurrFw, m_CurrFh, m_State * m_FrameIntv, m_CurrF, m_pRenderer, SDL_FLIP_HORIZONTAL);
+		The_TextMananger::Instance()->drawFrame("Player",
+			m_Currxpos, m_yPos,
+			m_CurrFw, m_CurrFh,
+			m_State * m_FrameIntv, m_CurrF,
+			TheGame::Instance()->getRenderer(),
+			SDL_FLIP_HORIZONTAL);
 	else
-		The_TextMananger::Instance()->drawFrame("Player", m_Currxpos, m_yPos, m_CurrFw, m_CurrFh, m_State * m_FrameIntv, m_CurrF, m_pRenderer, SDL_FLIP_NONE);
+		The_TextMananger::Instance()->drawFrame("Player",
+			m_Currxpos, m_yPos,
+			m_CurrFw, m_CurrFh,
+			m_State * m_FrameIntv, m_CurrF,
+			TheGame::Instance()->getRenderer(),
+			SDL_FLIP_NONE);
 }
 
 void Player::setSpeed(int P_WSpeed) {
@@ -126,10 +143,10 @@ bool Player::getIsMove() {
 
 void Player::attack()
 {
-	if (m_Currxpos <= m_AxSk_xPos && m_Currxpos + m_ATTW >= m_AxSk_xPos && m_CurrAttF >= 3)
+	if (m_Currxpos <= m_AxSk_xPos && m_Currxpos + m_ATTW >= m_AxSk_xPos && m_CurrF >= 3)
 	{
 		m_AxSk_State = HIT;
-		m_AxSkCurrF = (m_CurrAttF / 100) % 7;
+		m_AxSkCurrF = (m_CurrF / 100) % 7;
 		m_AxSkHp--;
 
 		if (!m_AxSkHp)

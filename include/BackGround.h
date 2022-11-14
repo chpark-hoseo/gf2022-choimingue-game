@@ -13,7 +13,7 @@ public:
 	BackGround(LoaderParams* pParams);
 
 	// 그림을 그림, drawMove
-	void draw(SDL_Renderer* pRenderer);
+	void draw();
 
 	// 플레이어 객체에게서 배경의 속도를 가져옴
 	void setSpeed(int MoveSpeed);
@@ -26,11 +26,11 @@ public:
 
 private:
 	Player* player = NULL;
-	const int mP_WalkW = 38;				// 플레이어 걷기 프레임의 길이
+	const int mP_WalkW = 38;										// 플레이어 걷기 프레임의 길이
 	const int mP_WalkSpeed = 3;
 
-	int mBg_MoveSpeed = 0;					// 배경이 움직이는 속도
-	int mBg_CurrXpos = 0;					// 배경의 현재 x 좌표
+	int mBg_MoveSpeed = 0;											// 배경이 움직이는 속도
+	int mBg_CurrXpos = 0;											// 배경의 현재 x 좌표
 
 	int mBg_END = 5000 - SCREEN_WIDTH;								// 배경이 움직임이 끝나는 좌표
 	int mBg_START = SCREEN_WIDTH / 3.0;								// 배경이 움직이기 시작하는 좌표

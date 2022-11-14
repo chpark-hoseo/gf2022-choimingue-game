@@ -9,7 +9,7 @@ public :
 
 	void update();
 	void handleInput();
-	void draw(SDL_Renderer* m_pRenderer);
+	void draw();
 
 	void setSpeed(int P_WSpeed);									// 플레이어의 스피드값을 변경시킴 (Bg객체애서 사용)
 	
