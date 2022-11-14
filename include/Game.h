@@ -36,6 +36,8 @@ public:
 	// 정상작동중인지 확인
 	bool running();
 
+	void quit() { m_bRunning = false; }
+
 	// 종료 설정
 	void handleEvent();
 

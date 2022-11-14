@@ -4,7 +4,9 @@
 #include "Game.h"
 #include "Player.h"
 #include "Monster.h"
+
 #include"LoaderParams.h"
+#include"InputHandler.h"
 
 SDL_Renderer* Game::getRenderer()
 {
@@ -77,18 +79,8 @@ bool Game::running()
 
 void Game::handleEvent()
 {
-	SDL_Event gm_event;
 
-	while (SDL_PollEvent(&gm_event)) {			// 이벤트 진행시
-		switch (gm_event.type)
-		{
-		case SDL_QUIT:							// 사용자가 종료를 원할시 종료
-			m_bRunning = false;
-			break;
-		default:
-			break;
-		}
-	}
+	TheInputHandler::Instance()->update();
 }
 
 void Game::clean()
@@ -97,6 +89,8 @@ void Game::clean()
 	SDL_DestroyRenderer(m_pRenderer);
 
 	SDL_Quit();
+
+	TheInputHandler::Instance()->clean();
 }
 
 TheGame* TheGame::s_pInstance = 0;			// 할당해줘야 링크 오류를 막을 수 있음
