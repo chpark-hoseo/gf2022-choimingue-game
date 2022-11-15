@@ -36,6 +36,7 @@ protected:
 	int m_IDLEH;												// 기본 상태 프레임 높이
 
 	// <이동 관련 변수>
+	const int mBG_YPOS = 330;									// 지면의 y좌표 (const값, 330)
 	int m_Currxpos;												// 현재 x좌표
 	int m_WALK_FullCnt;											// 이동에 총 프레임 수
 	int m_WALKW;												// 이동 프레임 길이

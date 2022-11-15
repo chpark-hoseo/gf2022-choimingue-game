@@ -108,14 +108,14 @@ void Player::draw()
 {
 	if (isRight)
 		The_TextMananger::Instance()->drawFrame("Player",
-			m_Currxpos, m_yPos,
+			m_Currxpos, m_yPos - 5,
 			m_CurrFw, m_CurrFh,
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),
 			SDL_FLIP_HORIZONTAL);
 	else
 		The_TextMananger::Instance()->drawFrame("Player",
-			m_Currxpos, m_yPos,
+			m_Currxpos, m_yPos - 5,
 			m_CurrFw, m_CurrFh,
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),

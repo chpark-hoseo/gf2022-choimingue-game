@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BattleManger.cpp" />
     <ClCompile Include="src\SDLGameObject.cpp" />
     <ClCompile Include="src\GameCharacter.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BattleManger.h" />
     <ClInclude Include="include\GameCharacter.h" />
     <ClInclude Include="include\BackGround.h" />
     <ClInclude Include="include\GameObject.h" />
