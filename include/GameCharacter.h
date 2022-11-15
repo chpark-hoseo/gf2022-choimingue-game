@@ -9,9 +9,20 @@ public:
 
 	virtual void draw() {}
 	virtual void update(){}
-	virtual void clean(){}
+	virtual void clean();
 
-	void setData(int FrameW, int FrameH);
+	void setData(int FrameW, int FrameH);						// 현재 상태에 따른 값을 대입해준다.
+	void setHp(int damage);										// 체력이 얼만지 갱신해준다.
+	void setState(int State);									// 현재 상태를 변환시켜 줍니다.
+
+	int getState();												// 현재 상태를 가져온다.
+	int getHp();												// 현재 체력을 가져온다.
+
+	int getXPos();												// x좌표를 가져옴
+	int getATTWidth();											// 공격 프레임의 길이를 가져온다.
+	int getCurrATTF();											// 몇번째 공격 프레임인지 확인
+	int getDamage();											// 데미지가 얼마인지 가져옴
+
 
 protected:
 	enum State
@@ -27,8 +38,10 @@ protected:
 	int m_CurrF;												// 현재 몇번째 프레임인지
 
 	// 애니메이션 관련 변수
-	int m_aniWF = 0;											// 걷기 프레임이 바뀌도록 값을 더해줌
-	int m_aniAF = 0;											// 공격 프레임이 바뀌도록 값을 더해줌
+	int m_aniWF = 0;											// 걷기관련 프레임이 바뀌도록 값을 더해줌
+	int m_aniAF = 0;											// 공격관련 프레임이 바뀌도록 값을 더해줌
+	int m_aniHF = 0;											// 피격관련 프레임이 바뀌도록 값을 더해줌
+	int m_aniDF = 0;											// 죽음관련 프레임이 바뀌도록 값을 더해줌
 	const int m_ANISpeed = 15;									// 프레임이 바뀌도록 하는 값
 
 	// <기본 상태 관련 변수>

@@ -3,6 +3,7 @@
 #include"Game.h"
 
 #include "TextManger.h"
+#include <iostream>
 
 Monster::Monster(LoaderParams* pParams) :
 	GameCharacter(pParams)
@@ -16,6 +17,8 @@ Monster::Monster(LoaderParams* pParams) :
 	// 애니메이션 관련 변수
 	m_aniWF = 0;
 	m_aniAF = 0;
+	m_aniHF = 0;
+	m_aniDF = 0;
 
 	// <기본 상태 관련 변수>
 	m_IDLEW = 48;
@@ -39,15 +42,17 @@ Monster::Monster(LoaderParams* pParams) :
 	m_DIEH = 55;
 
 	// <스탯>
-	m_hp = 100;
-	m_damage = 20;
+	m_hp = 1000;
+	m_damage = 80;
 	m_WSpeed = 1;
+
+	m_y = 0;
 }
 
 void Monster::draw() 
 {
 	The_TextMananger::Instance()->drawFrame("Askull",
-		m_Currxpos, mBG_YPOS,
+		m_Currxpos, mBG_YPOS + m_y,
 		m_CurrFw, m_CurrFh,
 		m_State * m_FrameIntv, m_CurrF,
 		TheGame::Instance()->getRenderer(),
@@ -63,22 +68,19 @@ void Monster::stateMachine()
 {
 	int Dist = m_Currxpos - m_PlayerXPos;
 
-	if (Dist > m_ChaseDist) {
-		m_State = IDLE;
-	}
-	
-	else if (Dist <= m_ChaseDist && Dist > m_AttDist) {
-		m_State = WALK;
-	}
+	if(m_hp >= 0) {
+		if (Dist > m_ChaseDist) {
+			m_State = IDLE;
+		}
 
-	else if (Dist < m_AttDist) {
-		m_State = ATTACK;
-	}
-}
+		else if (Dist <= m_ChaseDist && Dist > m_AttDist) {
+			m_State = WALK;
+		}
 
-void Monster::setHp(int damage)
-{
-	m_hp += damage;
+		else if (Dist < m_AttDist) {
+			m_State = ATTACK;
+		}
+	}
 }
 
 void Monster::update()
@@ -103,20 +105,26 @@ void Monster::update()
 
 	case ATTACK:
 		setData(m_ATTW, m_ATTH);
-		m_aniWF += m_ANISpeed;
-		m_CurrF = (m_aniWF / 105) % m_AllFullCnt;
+		m_aniAF += m_ANISpeed;
+		m_CurrF = (m_aniAF / 150) % m_AllFullCnt;
 		break;
 
 	case HIT:
 		setData(m_HITW, m_HITH);
-		m_aniWF += m_ANISpeed;
-		m_CurrF = (m_aniWF / 105) % m_AllFullCnt;
+		m_aniHF += m_ANISpeed;
+		m_CurrF = (m_aniHF / 105) % m_AllFullCnt;
 		break;
 
 	case DIE:
 		setData(m_DIEW, m_DIEH);
-		m_aniWF += m_ANISpeed;
-		m_CurrF = (m_aniWF / 90) % m_AllFullCnt;
+		m_y = -10;
+		m_aniDF += m_ANISpeed;
+		m_CurrF = (m_aniDF / 330) % m_AllFullCnt;
+
+		deathCount++;
+		if (deathCount >= deathMaxCnt) {
+			clean();
+		}
 		break;
 
 	default:

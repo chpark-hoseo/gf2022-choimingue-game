@@ -4,6 +4,7 @@
 #include "InputHandler.h"
 #include "TextManger.h"
 #include "LoaderParams.h"
+#include "BattleManger.h"
 
 #include "BackGround.h"
 #include "Player.h"
@@ -37,7 +38,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	Monster* m_monster = new Monster(new LoaderParams(400, Ground_yPos, 48, 50, "Monster"));
+	Monster* m_monster = new Monster(new LoaderParams(400, Ground_yPos, 48, 50, "Askull"));
 	Player* m_player = new Player(new LoaderParams(0, Ground_yPos, Pwalk_FrameW, Pwalk_FrameH, "Player"));
 	BackGround* m_GmBg = new BackGround(new LoaderParams(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT, "BackGround"));
 
@@ -58,6 +59,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 
 	m_GmBg->setPlayerData(m_player);
+	TheBattleManger::Instance()->setGameObj(m_player, m_monster);
 
 	m_gameObjects.push_back(m_GmBg);
 	m_gameObjects.push_back(m_player);
@@ -70,6 +72,8 @@ void Game::update()
 {
 
 	SDL_Delay(10);
+
+	TheBattleManger::Instance()->update();
 
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto game)
 		{
@@ -116,6 +120,7 @@ void Game::clean()
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto game)
 		{
 			game->clean();
+			game = NULL;
 		});
 
 	SDL_Quit();

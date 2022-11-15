@@ -36,15 +36,26 @@ Player::Player(LoaderParams* pParams) :
 	m_ATTH = 75;	
 
 	// <½ºÅÈ>
-	m_hp = 100;
-	m_damage = 20;
+	m_hp = 1000;
+	m_damage = 10;
 	m_WSpeed = 0;
 }
 
 void Player::update()
 {
+	while (m_State == HIT)
+	{
+		m_Currxpos--;
+		m_CurrHitTime++;
+		if (m_CurrHitTime >= m_HitTime)
+			break;
+	}
+	m_CurrHitTime = 0;
+
 	handleInput();
 
+	std::cout << m_hp << std::endl;
+	
 	switch (m_State)
 	{
 	case IDLE:
@@ -63,14 +74,12 @@ void Player::update()
 	case ATTACK:
 		m_aniAF += m_ANISpeed;
 		m_CurrF = (m_aniAF / 90) % m_ATT_FullCnt;
-		std::cout << m_CurrF << std::endl;
 		break;
 
 	default:
 		break;
 	}
 	
-
 	if (isJump) {
 		jump();
 	}
@@ -126,9 +135,6 @@ void Player::setSpeed(int P_WSpeed) {
 	m_WSpeed = P_WSpeed;
 }
 
-int Player::getXpos() {
-	return m_Currxpos;
-}
 
 bool Player::getIsRight(){
 	return isRight;
@@ -139,20 +145,6 @@ bool Player::getIsMove() {
 		return true;
 	else
 		return false;
-}
-
-void Player::attack()
-{
-	if (m_Currxpos <= m_AxSk_xPos && m_Currxpos + m_ATTW >= m_AxSk_xPos && m_CurrF >= 3)
-	{
-		m_AxSk_State = HIT;
-		m_AxSkCurrF = (m_CurrF / 100) % 7;
-		m_AxSkHp--;
-
-		if (!m_AxSkHp)
-			return;
-			//The_TextMananger::Instance()->Delet_Texture("Askull");
-	}
 }
 
 void Player::jump()
