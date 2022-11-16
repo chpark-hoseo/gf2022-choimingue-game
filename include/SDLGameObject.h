@@ -10,7 +10,7 @@ class SDLGameObject : public GameObject
 public:
 	SDLGameObject(LoaderParams* pParams);
 	virtual void draw();
-	virtual void update() {}
+	virtual void update();
 	virtual void clean() {}
 	virtual ~SDLGameObject() {}
 
@@ -32,5 +32,6 @@ protected:
 	const int SCREEN_HEIGHT = 480;
 
 	Vector2D m_position;
+	Vector2D m_velocity;
 };
 

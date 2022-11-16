@@ -16,6 +16,8 @@ Player::Player(LoaderParams* pParams) :
 	m_FrameIntv = 75;
 	m_CurrF = 0;
 
+	m_position.setY(mBG_YPOS);
+
 	// 애니메이션 관련 변수
 	m_aniWF = 0;
 	m_aniAF = 0;
@@ -44,7 +46,7 @@ void Player::update()
 {
 	while (m_State == HIT)
 	{
-		m_position.setY(-1);
+		m_velocity.setY(-1);
 		m_CurrHitTime++;
 		if (m_CurrHitTime >= m_HitTime)
 			break;
@@ -52,8 +54,6 @@ void Player::update()
 	m_CurrHitTime = 0;
 
 	handleInput();
-
-	std::cout << m_hp << std::endl;
 	
 	switch (m_State)
 	{
@@ -64,7 +64,7 @@ void Player::update()
 		break;
 
 	case WALK:
-		m_position.setX(m_WSpeed);
+		m_velocity.setX(m_WSpeed);
 
 		m_aniWF += m_ANISpeed;
 		m_CurrF = (m_aniWF / 105) % m_WALK_FullCnt;
@@ -82,6 +82,8 @@ void Player::update()
 	if (isJump) {
 		jump();
 	}
+
+	SDLGameObject::update();
 }
 
 void Player::handleInput()
@@ -148,22 +150,18 @@ bool Player::getIsMove() {
 
 void Player::jump()
 {
-	if (isJump) {
+	std::cout << m_position.getY() << std::endl;
 
-		// 최대 높이까지 도착하지 않았다면, 올라가기
-		if (m_yPos > m_JUMP_MaxH)
-			m_yPos -= m_JSpeed;
+	m_velocity.setY(-m_JSpeed);
 
-		// 최대 높이의 도달했다면, 떨어지기
-		else {
-			m_JSpeed = -m_JSpeed;
-			m_yPos -= m_JSpeed;
-		}
+	if (m_position.getY() <= m_JUMP_MaxH) {
+		m_JSpeed = -m_JSpeed;
+		m_velocity.setY(-m_JSpeed);
+	}
 
-		// 땅에 도착했다면, 점프 상태가 아님
-		if (m_yPos >= mBG_YPOS) {
-			isJump = false;
-			m_JSpeed = -m_JSpeed;
-		}
+	// 땅에 도착했다면, 점프 상태가 아님
+	if (m_position.getY() >= mBG_YPOS) {
+		isJump = false;
+		m_JSpeed = -m_JSpeed;
 	}
 }

@@ -66,12 +66,14 @@ void BackGround::move_byPlayer()
 void BackGround::draw()
 {
 	The_TextMananger::Instance()->drawMove(m_textureID,
-		mBg_CurrXpos, m_position.getY(),
+		m_position.getX(), m_position.getY(),
 		TheGame::Instance()->getRenderer());
 }
 
 void BackGround::update()
 {
 	move_byPlayer();
-	mBg_CurrXpos += mBg_MoveSpeed;
+	m_velocity.setX(mBg_MoveSpeed);
+
+	SDLGameObject::update();
 }

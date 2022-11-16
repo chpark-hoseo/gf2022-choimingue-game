@@ -94,7 +94,7 @@ void Monster::update()
 
 	case WALK:
 		setData(m_WALKW, m_WALKH);
-		m_position.setX(-m_WSpeed);
+		m_velocity.setX(-m_WSpeed);
 
 		m_aniWF += m_ANISpeed;
 		m_CurrF = (m_aniWF / 105) % m_AllFullCnt;
@@ -127,4 +127,6 @@ void Monster::update()
 	default:
 		break;
 	}
+
+	SDLGameObject::update();
 }
