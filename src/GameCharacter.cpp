@@ -41,7 +41,7 @@ int GameCharacter::getHp()
 
 int GameCharacter::getXPos()
 {
-    return m_Currxpos;
+    return m_position.getX();
 }
 
 int GameCharacter::getATTWidth()

@@ -1,5 +1,6 @@
 #pragma once
 #include "string"
+#include "Vector2D.h"
 
 #include "LoaderParams.h"
 #include"GameObject.h"
@@ -13,8 +14,6 @@ public:
 	virtual void clean() {}
 	virtual ~SDLGameObject() {}
 
-	void setData(int framew, int frameh);
-
 protected:
 	enum State
 	{
@@ -23,8 +22,6 @@ protected:
 
 	std::string m_textureID;
 
-	int m_x;
-	int m_y;
 	int m_width;
 	int m_height;
 
@@ -33,5 +30,7 @@ protected:
 
 	const int SCREEN_WIDTH = 1024;
 	const int SCREEN_HEIGHT = 480;
+
+	Vector2D m_position;
 };
 

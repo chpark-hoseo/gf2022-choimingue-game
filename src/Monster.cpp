@@ -25,7 +25,6 @@ Monster::Monster(LoaderParams* pParams) :
 	m_IDLEH = 49;
 
 	// <이동 관련 변수>
-	m_Currxpos = m_x;
 	m_WALKW = 50;
 	m_WALKH = 46;
 
@@ -45,14 +44,12 @@ Monster::Monster(LoaderParams* pParams) :
 	m_hp = 1000;
 	m_damage = 80;
 	m_WSpeed = 1;
-
-	m_y = 0;
 }
 
 void Monster::draw() 
 {
 	The_TextMananger::Instance()->drawFrame("Askull",
-		m_Currxpos, mBG_YPOS + m_y,
+		m_position.getX(), mBG_YPOS + m_position.getY(),
 		m_CurrFw, m_CurrFh,
 		m_State * m_FrameIntv, m_CurrF,
 		TheGame::Instance()->getRenderer(),
@@ -66,7 +63,7 @@ void Monster::setPlayerXPos(int xPos)
 
 void Monster::stateMachine()
 {
-	int Dist = m_Currxpos - m_PlayerXPos;
+	int Dist = m_position.getX() - m_PlayerXPos;
 
 	if(m_hp >= 0) {
 		if (Dist > m_ChaseDist) {
@@ -97,7 +94,7 @@ void Monster::update()
 
 	case WALK:
 		setData(m_WALKW, m_WALKH);
-		m_Currxpos -= m_WSpeed;
+		m_position.setX(-m_WSpeed);
 
 		m_aniWF += m_ANISpeed;
 		m_CurrF = (m_aniWF / 105) % m_AllFullCnt;
@@ -117,7 +114,7 @@ void Monster::update()
 
 	case DIE:
 		setData(m_DIEW, m_DIEH);
-		m_y = -10;
+		m_position.setY(-10);
 		m_aniDF += m_ANISpeed;
 		m_CurrF = (m_aniDF / 330) % m_AllFullCnt;
 

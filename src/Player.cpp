@@ -25,7 +25,6 @@ Player::Player(LoaderParams* pParams) :
 	m_IDLEH = 58;
 
 	// <이동 관련 변수>
-	m_Currxpos = 0;
 	m_WALKW = 38;
 	m_WALKH = 58;
 	m_WALK_FullCnt = 8;
@@ -45,7 +44,7 @@ void Player::update()
 {
 	while (m_State == HIT)
 	{
-		m_Currxpos--;
+		m_position.setY(-1);
 		m_CurrHitTime++;
 		if (m_CurrHitTime >= m_HitTime)
 			break;
@@ -65,7 +64,7 @@ void Player::update()
 		break;
 
 	case WALK:
-		m_Currxpos += m_WSpeed;
+		m_position.setX(m_WSpeed);
 
 		m_aniWF += m_ANISpeed;
 		m_CurrF = (m_aniWF / 105) % m_WALK_FullCnt;
@@ -117,14 +116,14 @@ void Player::draw()
 {
 	if (isRight)
 		The_TextMananger::Instance()->drawFrame("Player",
-			m_Currxpos, m_yPos - 5,
+			m_position.getX(), m_position.getY() - 5,
 			m_CurrFw, m_CurrFh,
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),
 			SDL_FLIP_HORIZONTAL);
 	else
 		The_TextMananger::Instance()->drawFrame("Player",
-			m_Currxpos, m_yPos - 5,
+			m_position.getX(), m_position.getY() - 5,
 			m_CurrFw, m_CurrFh,
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),

@@ -29,5 +29,4 @@ public:
 
 private:
 	float m_x, m_y;
-
 };
