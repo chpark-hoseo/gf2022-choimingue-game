@@ -17,6 +17,8 @@ public :
 	bool getIsRight();												// 플레이어의 방향을 확인
 	bool getIsMove();												// 플레이어가 움직이는지를 확인
 
+	int getSpeed();
+
 	void jump();													// 점프 함수
 
 protected:

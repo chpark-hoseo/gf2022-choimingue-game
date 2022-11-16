@@ -51,7 +51,7 @@ int GameCharacter::getATTWidth()
 
 int GameCharacter::getCurrATTF()
 {
-    return m_CurrF;
+    return m_aniAF;
 }
 
 int GameCharacter::getDamage()

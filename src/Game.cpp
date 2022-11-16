@@ -5,6 +5,7 @@
 #include "TextManger.h"
 #include "LoaderParams.h"
 #include "BattleManger.h"
+#include "InterfaceManger.h"
 
 #include "BackGround.h"
 #include "Player.h"
@@ -58,8 +59,13 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
 		return false;
 
+	if (!The_TextMananger::Instance()->load(adr_GameOver, "GameOver", m_pRenderer))
+		return false;
+
 	m_GmBg->setPlayerData(m_player);
+
 	TheBattleManger::Instance()->setGameObj(m_player, m_monster);
+	TheInterfaceManger::Instance()->setDefaltData(m_player);
 
 	m_gameObjects.push_back(m_GmBg);
 	m_gameObjects.push_back(m_player);
@@ -93,6 +99,8 @@ void Game::renderer()
 		});
 	
 	//The_TextMananger::Instance()->drawFrame("Kskull", 300, Ground_yPos - 48, 48, 48, 0, 0, m_pRenderer, SDL_FLIP_NONE);
+
+	TheInterfaceManger::Instance()->gameOverdraw();
 
 	SDL_RenderPresent(m_pRenderer);
 }

@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\InterfaceManger.cpp" />
     <ClCompile Include="src\BattleManger.cpp" />
     <ClCompile Include="src\SDLGameObject.cpp" />
     <ClCompile Include="src\GameCharacter.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="include\Vector2D.h" />
     <ClInclude Include="include\LoaderParams.h" />
     <ClInclude Include="include\SDLGameObject.h" />
+    <ClInclude Include="include\InterfaceManger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

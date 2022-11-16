@@ -1,5 +1,4 @@
 #pragma once
-#include<SDL2/SDL.h>
 
 #include "SDLGameObject.h"
 #include "Player.h"
@@ -32,8 +31,8 @@ private:
 	int mBg_MoveSpeed = 0;											// 배경이 움직이는 속도
 	int mBg_CurrXpos = 0;											// 배경의 현재 x 좌표
 
-	int mBg_END = 5000 - SCREEN_WIDTH;								// 배경이 움직임이 끝나는 좌표
-	int mBg_START = SCREEN_WIDTH / 3.0;								// 배경이 움직이기 시작하는 좌표
+	const int mBg_END = 5000 - SCREEN_WIDTH;						// 배경이 움직임이 끝나는 좌표
+	const int mBg_START = SCREEN_WIDTH / 3.0;						// 배경이 움직이기 시작하는 좌표
 	const int mP_MAX_XPOS = SCREEN_WIDTH - mP_WalkW;				// 플레이어가 움직일 수 있는 최대 좌표
 };
 

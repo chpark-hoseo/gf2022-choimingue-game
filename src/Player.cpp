@@ -37,23 +37,17 @@ Player::Player(LoaderParams* pParams) :
 	m_ATTH = 75;	
 
 	// <½ºÅÈ>
-	m_hp = 1000;
+	m_hp = 100;
 	m_damage = 10;
-	m_WSpeed = 0;
+	m_WSpeed = 3;
 }
 
 void Player::update()
 {
-	while (m_State == HIT)
-	{
-		m_velocity.setY(-1);
-		m_CurrHitTime++;
-		if (m_CurrHitTime >= m_HitTime)
-			break;
-	}
 	m_CurrHitTime = 0;
 
-	handleInput();
+	if(m_State != DIE)
+		handleInput();
 	
 	switch (m_State)
 	{
@@ -61,6 +55,8 @@ void Player::update()
 		setData(m_IDLEW, m_IDLEH);
 		m_aniWF = 0;
 		m_aniAF = 0;
+
+		m_velocity.setX(0);
 		break;
 
 	case WALK:
@@ -73,7 +69,12 @@ void Player::update()
 	case ATTACK:
 		m_aniAF += m_ANISpeed;
 		m_CurrF = (m_aniAF / 90) % m_ATT_FullCnt;
+
+		m_velocity.setX(0);
 		break;
+
+	case DIE:
+		clean();
 
 	default:
 		break;
@@ -97,18 +98,21 @@ void Player::handleInput()
 		setData(m_WALKW, m_WALKH);
 		m_State = WALK;
 		isRight = false;
+
+		m_WSpeed = -m_WSpeed;
 	}
 
 	else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_A)) {
 		setData(m_ATTW, m_ATTH);
 		m_State = ATTACK;
 	}
-
+	
 	else {
+		std::cout << "¶«";
 		setData(m_WALKW, m_WALKH);
 		m_State = IDLE;
 	}
-	
+
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE)) {
 		isJump = true;
 	}
@@ -118,14 +122,14 @@ void Player::draw()
 {
 	if (isRight)
 		The_TextMananger::Instance()->drawFrame("Player",
-			m_position.getX(), m_position.getY() - 5,
+			m_position.getX(), m_position.getY()-5,
 			m_CurrFw, m_CurrFh,
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),
 			SDL_FLIP_HORIZONTAL);
 	else
 		The_TextMananger::Instance()->drawFrame("Player",
-			m_position.getX(), m_position.getY() - 5,
+			m_position.getX(), m_position.getY()-5,
 			m_CurrFw, m_CurrFh,
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),
@@ -142,16 +146,19 @@ bool Player::getIsRight(){
 }
 
 bool Player::getIsMove() {
-	if(m_State == WALK)
+	if (m_State == WALK) {
 		return true;
+	}
 	else
 		return false;
 }
 
+int Player::getSpeed() {
+	return m_velocity.getX();
+}
+
 void Player::jump()
 {
-	std::cout << m_position.getY() << std::endl;
-
 	m_velocity.setY(-m_JSpeed);
 
 	if (m_position.getY() <= m_JUMP_MaxH) {
@@ -160,8 +167,9 @@ void Player::jump()
 	}
 
 	// ¶¥¿¡ µµÂøÇß´Ù¸é, Á¡ÇÁ »óÅÂ°¡ ¾Æ´Ô
-	if (m_position.getY() >= mBG_YPOS) {
+	if (m_position.getY() + m_velocity.getY() >= mBG_YPOS) {
 		isJump = false;
 		m_JSpeed = -m_JSpeed;
+		m_velocity.setY(0);
 	}
 }

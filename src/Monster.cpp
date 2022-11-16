@@ -41,15 +41,15 @@ Monster::Monster(LoaderParams* pParams) :
 	m_DIEH = 55;
 
 	// <½ºÅÈ>
-	m_hp = 1000;
-	m_damage = 80;
+	m_hp = 100;
+	m_damage = 10;
 	m_WSpeed = 1;
 }
 
 void Monster::draw() 
 {
 	The_TextMananger::Instance()->drawFrame("Askull",
-		m_position.getX(), mBG_YPOS + m_position.getY(),
+		m_position.getX(), m_position.getY(),
 		m_CurrFw, m_CurrFh,
 		m_State * m_FrameIntv, m_CurrF,
 		TheGame::Instance()->getRenderer(),
@@ -65,7 +65,7 @@ void Monster::stateMachine()
 {
 	int Dist = m_position.getX() - m_PlayerXPos;
 
-	if(m_hp >= 0) {
+	if (m_hp > 0) {
 		if (Dist > m_ChaseDist) {
 			m_State = IDLE;
 		}
@@ -78,6 +78,8 @@ void Monster::stateMachine()
 			m_State = ATTACK;
 		}
 	}
+	else if (m_hp < 0 && deathCount == 0)
+		m_position.setY(m_position.getY() - 5);
 }
 
 void Monster::update()
@@ -90,6 +92,7 @@ void Monster::update()
 		setData(m_IDLEW, m_IDLEH);
 		m_aniWF = 0;
 		m_aniAF = 0;
+		m_aniHF = 0;
 		break;
 
 	case WALK:
@@ -102,8 +105,14 @@ void Monster::update()
 
 	case ATTACK:
 		setData(m_ATTW, m_ATTH);
+		m_velocity.setX(0);
+
 		m_aniAF += m_ANISpeed;
 		m_CurrF = (m_aniAF / 150) % m_AllFullCnt;
+
+		if (m_CurrF >= m_AllFullCnt - 1) {
+			m_aniAF = 0;
+		}
 		break;
 
 	case HIT:
@@ -114,7 +123,6 @@ void Monster::update()
 
 	case DIE:
 		setData(m_DIEW, m_DIEH);
-		m_position.setY(-10);
 		m_aniDF += m_ANISpeed;
 		m_CurrF = (m_aniDF / 330) % m_AllFullCnt;
 

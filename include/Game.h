@@ -74,5 +74,7 @@ private:
 	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
 	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
 
+	const char* adr_GameOver = "assets/Big_GameOver.png";				// 게임 오버의 주소
+
 	std::vector<GameObject*> m_gameObjects;
 }typedef TheGame;
