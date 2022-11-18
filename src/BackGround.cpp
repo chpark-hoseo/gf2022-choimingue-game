@@ -11,11 +11,6 @@ BackGround::BackGround(LoaderParams* pParams)
 
 }
 
-void BackGround::setSpeed(int MoveSpeed)
-{
-	mBg_MoveSpeed = MoveSpeed;
-}
-
 void BackGround::setPlayerData(Player* player)
 {
 	this->player = player;
@@ -23,7 +18,6 @@ void BackGround::setPlayerData(Player* player)
 
 void BackGround::move_byPlayer()
 {
-
 	if (player->getIsRight() && player->getIsMove()) {
 		if (player->getXPos() + player->getSpeed() >= mBg_START && mBg_CurrXpos < mBg_END) {
 			mBg_MoveSpeed = 3;
@@ -39,6 +33,7 @@ void BackGround::move_byPlayer()
 
 		// 스크린의 끝의 도닥했다면
 		else if (player->getXPos() + player->getSpeed() >= mP_MAX_XPOS) {
+			mBg_MoveSpeed = 0;
 			player->setSpeed(0);
 		}
 
@@ -64,6 +59,8 @@ void BackGround::move_byPlayer()
 			player->setSpeed(mP_WalkSpeed);
 		}
 	}
+	else
+		mBg_MoveSpeed = 0;
 }
 
 void BackGround::draw()
@@ -76,5 +73,8 @@ void BackGround::draw()
 void BackGround::update()
 {
 	move_byPlayer();
+	
+	std::cout << mBg_MoveSpeed << std::endl;
+
 	mBg_CurrXpos += mBg_MoveSpeed;
 }

@@ -14,9 +14,6 @@ public:
 	// 그림을 그림, drawMove
 	void draw();
 
-	// 플레이어 객체에게서 배경의 속도를 가져옴
-	void setSpeed(int MoveSpeed);
-
 	void move_byPlayer();
 
 	void update();
@@ -25,6 +22,7 @@ public:
 
 private:
 	Player* player = NULL;
+
 	const int mP_WalkW = 38;										// 플레이어 걷기 프레임의 길이
 	const int mP_WalkSpeed = 3;
 

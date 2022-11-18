@@ -108,7 +108,6 @@ void Player::handleInput()
 	}
 	
 	else {
-		std::cout << "¶«";
 		setData(m_WALKW, m_WALKH);
 		m_State = IDLE;
 	}
@@ -127,6 +126,7 @@ void Player::draw()
 			m_State * m_FrameIntv, m_CurrF,
 			TheGame::Instance()->getRenderer(),
 			SDL_FLIP_HORIZONTAL);
+
 	else
 		The_TextMananger::Instance()->drawFrame("Player",
 			m_position.getX(), m_position.getY()-5,
@@ -146,6 +146,7 @@ bool Player::getIsRight(){
 }
 
 bool Player::getIsMove() {
+
 	if (m_State == WALK) {
 		return true;
 	}
