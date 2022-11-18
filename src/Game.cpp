@@ -39,9 +39,9 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	m_bRunning = true;				// 정상작동
 
-	Monster* m_monster = new Monster(new LoaderParams(400, Ground_yPos, 48, 50, "Askull"));
-	Player* m_player = new Player(new LoaderParams(0, Ground_yPos, Pwalk_FrameW, Pwalk_FrameH, "Player"));
 	BackGround* m_GmBg = new BackGround(new LoaderParams(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT, "BackGround"));
+	Monster* m_monster = new Monster(new LoaderParams(400, m_GmBg->getGroundyPos(), 48, 50, "Askull"));
+	Player* m_player = new Player(new LoaderParams(0, m_GmBg->getGroundyPos(), Pwalk_FrameW, Pwalk_FrameH, "Player"));
 
 
 	// 플레이어

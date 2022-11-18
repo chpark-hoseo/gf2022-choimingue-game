@@ -16,6 +16,16 @@ void BackGround::setPlayerData(Player* player)
 	this->player = player;
 }
 
+int BackGround::getBgXpos()
+{
+	return mBg_CurrXpos;
+}
+
+int BackGround::getGroundyPos()
+{
+	return mGround_yPos;
+}
+
 void BackGround::move_byPlayer()
 {
 	if (player->getIsRight() && player->getIsMove()) {
@@ -49,7 +59,9 @@ void BackGround::move_byPlayer()
 		}
 
 		// 배경 맨 왼쪽 ~ 시작점에 가기전
-		else if (player->getXPos() + player->getSpeed() >= 0 && player->getXPos() + player->getSpeed() <= mBg_START) {
+		else if (player->getXPos() + player->getSpeed() >= 0 &&
+			player->getXPos() + player->getSpeed() <= mBg_START) 
+		{
 			player->setSpeed(mP_WalkSpeed);
 		}
 
@@ -73,8 +85,5 @@ void BackGround::draw()
 void BackGround::update()
 {
 	move_byPlayer();
-	
-	std::cout << mBg_MoveSpeed << std::endl;
-
 	mBg_CurrXpos += mBg_MoveSpeed;
 }
