@@ -1,7 +1,9 @@
 #pragma once
 
 #include"BackGround.h"
-#include "SDLGameObject.h"
+#include "Monster.h"
+
+#define kSkull_SponXpos 1500							// Ä®º´»ç°¡ µîÀåÇÏ´Â xÁÂÇ¥
 
 class SponManger
 {
@@ -22,10 +24,9 @@ private:
 	SponManger() = default;
 	static SponManger* s_pInstance;
 
-	BackGround* GmBg;
-	SDLGameObject* GameObj;
+	BackGround* GmBg;									// ¹è°æ °´Ã¼
+	Monster* monster;									// sdl °´Ã¼, ³»º¸³»ÁÜ
 
-	int GmBg_XPos;
-	const int kSkull_SponXpos = 1500;					// Ä®º´»ç°¡ µîÀåÇÏ´Â xÁÂÇ¥
+	int GmBg_XPos;										// ¹è°æÀÇ xÁÂÇ¥
 
 }typedef TheSponManger;
