@@ -9,12 +9,12 @@ void SponManger::setBgData(BackGround* GmBg_Data)
 }
 SDLGameObject* SponManger::addGameobj()
 {
-	sponByGameBg();
+	SponObj = sponByGameBg();
 
 	return monster;
 }
 
-void SponManger::sponByGameBg()
+SDLGameObject* SponManger::sponByGameBg()
 {
 	GmBg_XPos = GmBg->getBgXpos();
 
@@ -23,11 +23,17 @@ void SponManger::sponByGameBg()
 	case kSkull_SponXpos:
 		monster = new Monster(new LoaderParams(400, GmBg->getGroundyPos(), 48, 50, "Kskull"));
 		TheBattleManger::Instance()->setMonsterObj(monster);
+		SponObj = monster;
 		break;
 
 	default:
+		SponObj = NULL;
 		monster = NULL;
 		TheBattleManger::Instance()->setMonsterObj(monster);
 		break;
 	}
+
+	return SponObj;
 }
+
+SponManger* SponManger::s_pInstance = NULL;

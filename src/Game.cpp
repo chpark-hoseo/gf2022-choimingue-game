@@ -6,6 +6,7 @@
 #include "LoaderParams.h"
 #include "BattleManger.h"
 #include "InterfaceManger.h"
+#include "SponManger.h"
 
 #include "BackGround.h"
 #include "Player.h"
@@ -66,6 +67,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 	TheBattleManger::Instance()->setGameObj(m_player, m_monster);
 	TheInterfaceManger::Instance()->setDefaltData(m_player);
+	TheSponManger::Instance()->setBgData(m_GmBg);
 
 	m_gameObjects.push_back(m_GmBg);
 	m_gameObjects.push_back(m_player);
@@ -92,6 +94,9 @@ void Game::renderer()
 
 	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+
+	if(TheSponManger::Instance()->addGameobj() != NULL)
+		m_gameObjects.push_back(TheSponManger::Instance()->addGameobj());
 
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto game)
 		{
