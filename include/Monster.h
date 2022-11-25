@@ -9,6 +9,8 @@ public:
 	void update();
 	void clean();
 
+	void HandleInput();
+
 private:
 
 	int obj_Speed = 2;								// 몬스터 객체의 스피드

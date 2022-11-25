@@ -3,6 +3,7 @@
 #include "Monster.h"
 
 #include "TextManger.h"
+#include "InputHandler.h"
 
 Monster::Monster(LoaderParams* pParam)
     :SDLGameObject(pParam)
@@ -13,9 +14,18 @@ Monster::Monster(LoaderParams* pParam)
 void Monster::update()
 {
     m_currFrame = ((SDL_GetTicks() / 100) % 6);
-    m_acceleration.setX(1);
+    HandleInput();
 
     SDLGameObject::update();
+}
+
+void Monster::HandleInput()
+{
+    if (TheInputHandler::Instance()->getMouseButtonState(TheInputHandler::Instance()->LEFT)) {
+        printf("shoot \n");
+    }
+    Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
+    m_velocity = (*vec - m_position) / 100;
 }
 
 void Monster::clean()
