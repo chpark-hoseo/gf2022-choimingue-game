@@ -128,7 +128,7 @@ void Monster::update()
 
 		deathCount++;
 		if (deathCount >= deathMaxCnt) {
-			clean();
+			//clean();
 		}
 		break;
 

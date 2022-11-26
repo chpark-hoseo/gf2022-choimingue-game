@@ -47,6 +47,9 @@ public:
 
 	void quit();
 
+	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
+	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
+
 private:
 	SDL_Window* m_pWindow = NULL;
 	SDL_Renderer* m_pRenderer = NULL;
@@ -71,8 +74,6 @@ private:
 
 	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소
-	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
-	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
 
 	const char* adr_GameOver = "assets/Big_GameOver.png";				// 게임 오버의 주소
 

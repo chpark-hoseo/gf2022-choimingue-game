@@ -1,7 +1,11 @@
 #include "SponManger.h"
 #include "BattleManger.h"
+#include "TextManger.h"
+#include "Game.h"
 
 #include "Monster.h"
+
+#include <iostream>
 
 void SponManger::setBgData(BackGround* GmBg_Data)
 {
@@ -22,6 +26,14 @@ SDLGameObject* SponManger::sponByGameBg()
 	{
 	case kSkull_SponXpos:
 		monster = new Monster(new LoaderParams(400, GmBg->getGroundyPos(), 48, 50, "Kskull"));
+
+		if (!The_TextMananger::Instance()->load(TheGame::Instance()->adr_Kskull
+			, "Kskull", TheGame::Instance()->getRenderer()))
+		{
+			std::cout << "Error";
+			break;
+		}
+
 		TheBattleManger::Instance()->setMonsterObj(monster);
 		SponObj = monster;
 		break;
@@ -29,7 +41,6 @@ SDLGameObject* SponManger::sponByGameBg()
 	default:
 		SponObj = NULL;
 		monster = NULL;
-		TheBattleManger::Instance()->setMonsterObj(monster);
 		break;
 	}
 
