@@ -8,7 +8,12 @@
 BackGround::BackGround(LoaderParams* pParams)
 	:SDLGameObject(pParams) 
 {
+	m_1stCheckP = m_1stFloor_w - mBg_START - TheGame::Instance()->Pwalk_FrameW;
+	m_2stCheckP = m_2stFloor_w;
+	m_3stCheckP = m_3stFloor_w - mBg_START - TheGame::Instance()->Pwalk_FrameW;
 
+	m_CurrBlock_MaxX = m_1stCheckP;
+	m_CurrBlock_MinX = 0;
 }
 
 void BackGround::setPlayerData(Player* player)
@@ -24,6 +29,10 @@ int BackGround::getBgXpos()
 int BackGround::getGroundyPos()
 {
 	return mGround_yPos;
+}
+int BackGround::getBgSpeed()
+{
+	return mBg_MoveSpeed;
 }
 
 void BackGround::move_byPlayer()
@@ -75,6 +84,40 @@ void BackGround::move_byPlayer()
 		mBg_MoveSpeed = 0;
 }
 
+void BackGround::BlockCheck()
+{
+	m_CurrBlock_MaxX -= mBg_MoveSpeed;
+
+	if (m_CurrBlock_MaxX <= 0) {
+
+		if (AABBCheck()) {
+			mBg_MoveSpeed = 0;
+		}
+		else {
+			player->Add_GroundYpos(m_Floor_h);
+			//m_CurrBlock_MaxX = m_2stChec   kP;
+			CheckYPos -= m_Floor_h;
+		}
+	}
+	else
+		return;
+}
+
+void BackGround::BlockInstall()
+{
+
+}
+
+bool BackGround::AABBCheck()
+{
+	if (player->getYPos() > CheckYPos) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void BackGround::draw()
 {
 	The_TextMananger::Instance()->drawMove(m_textureID,
@@ -83,7 +126,11 @@ void BackGround::draw()
 }
 
 void BackGround::update()
-{
+{ 
+	std::cout << m_CurrBlock_MaxX << "!!" << std::endl;
+
 	move_byPlayer();
+	BlockCheck();
+
 	mBg_CurrXpos += mBg_MoveSpeed;
 }

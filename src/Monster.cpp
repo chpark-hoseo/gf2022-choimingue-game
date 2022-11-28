@@ -38,7 +38,11 @@ Monster::Monster(LoaderParams* pParams) :
 
 	// <»ç¸Á °ü·Ã º¯¼ö>
 	m_DIEW = 80;
-	m_DIEH = 55;
+	m_DIEH = 50;
+
+	// <¹«´ý °ü·Ã º¯¼ö>
+	m_TOMBW = 32;
+	m_TOMBH = 41;
 
 	// <½ºÅÈ>
 	m_hp = 100;
@@ -61,6 +65,11 @@ void Monster::setPlayerXPos(int xPos)
 	m_PlayerXPos = xPos;
 }
 
+void Monster::setBgData(BackGround* backGround)
+{
+	this->backGround = backGround;
+}
+
 void Monster::stateMachine()
 {
 	int Dist = m_position.getX() - m_PlayerXPos;
@@ -78,8 +87,6 @@ void Monster::stateMachine()
 			m_State = ATTACK;
 		}
 	}
-	else if (m_hp < 0 && deathCount == 0)
-		m_position.setY(m_position.getY() - 5);
 }
 
 void Monster::update()
@@ -90,6 +97,7 @@ void Monster::update()
 	{
 	case IDLE:
 		setData(m_IDLEW, m_IDLEH);
+		m_velocity.setX(-backGround->getBgSpeed());
 		m_aniWF = 0;
 		m_aniAF = 0;
 		m_aniHF = 0;
@@ -123,13 +131,20 @@ void Monster::update()
 
 	case DIE:
 		setData(m_DIEW, m_DIEH);
+		m_velocity.setX(-backGround->getBgSpeed());
+
 		m_aniDF += m_ANISpeed;
 		m_CurrF = (m_aniDF / 330) % m_AllFullCnt;
 
 		deathCount++;
 		if (deathCount >= deathMaxCnt) {
-			//clean();
+			m_State = TOMB;
 		}
+		break;
+
+	case TOMB:
+		m_velocity.setX(-backGround->getBgSpeed());
+		setData(m_TOMBW, m_TOMBH);
 		break;
 
 	default:

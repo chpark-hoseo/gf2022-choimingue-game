@@ -29,4 +29,5 @@ private:
 
 	Player* player;
 	Monster* monster;
+
 }typedef TheBattleManger;

@@ -69,6 +69,10 @@ protected:
 	int m_DIEW;													// 죽음 프레임 길이
 	int m_DIEH;													// 죽음 프레임 높이
 
+	// <무덤 관련 변수>
+	int m_TOMBW;												// 무덤 프레임 길이
+	int m_TOMBH;												// 무덤 프레임 길이
+
 	// <스탯>
 	int m_hp;													// 체력
 	int m_damage;												// 데미지 

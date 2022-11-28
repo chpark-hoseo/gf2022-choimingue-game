@@ -64,6 +64,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 
 	m_GmBg->setPlayerData(m_player);
+	m_monster->setBgData(m_GmBg);
 
 	TheBattleManger::Instance()->setGameObj(m_player, m_monster);
 	TheInterfaceManger::Instance()->setDefaltData(m_player);

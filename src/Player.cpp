@@ -158,17 +158,37 @@ int Player::getSpeed() {
 	return m_velocity.getX();
 }
 
+int Player::getYPos()
+{
+	return m_position.getY();
+}
+
+void Player::Add_GroundYpos(int GroundYpos)
+{
+	m_AddYPos = GroundYpos;
+}
+
 void Player::jump()
 {
 	m_velocity.setY(-m_JSpeed);
 
-	if (m_position.getY() <= m_JUMP_MaxH) {
+	if (m_position.getY() < m_JUMP_MaxH) {
 		m_JSpeed = -m_JSpeed;
 		m_velocity.setY(-m_JSpeed);
 	}
 
+	else if (m_position.getY() == m_JUMP_MaxH) {
+		if (m_AddYPos) {
+			m_GroundYpos -= m_AddYPos;
+			m_JUMP_MaxH = m_GroundYpos - 60;
+			m_AddYPos = 0;
+			std::cout << "!!!!!" << std::endl;
+		}
+	}
+		std::cout << m_JUMP_MaxH << std::endl;
+
 	// ¶¥¿¡ µµÂøÇß´Ù¸é, Á¡ÇÁ »óÅÂ°¡ ¾Æ´Ô
-	if (m_position.getY() + m_velocity.getY() >= mBG_YPOS) {
+	if (m_position.getY() + m_velocity.getY() >= m_GroundYpos) {
 		isJump = false;
 		m_JSpeed = -m_JSpeed;
 		m_velocity.setY(0);

@@ -48,20 +48,19 @@ public:
 	void quit();
 
 	const char* adr_Kskull = "assets/KnifeSkull_Idle.png";			// 칼병 병사의 주소
-	const char* adr_Askull = "assets/AxeSkull_Full.png";			// 도끼 병사의 주소
-
-private:
-	SDL_Window* m_pWindow = NULL;
-	SDL_Renderer* m_pRenderer = NULL;
-
-	bool m_bRunning = false;
+	const char* adr_Askull = "assets/AxeSkull_Full2.png";			// 도끼 병사의 주소
 
 	// <플레이어의 대한 기본 정보>
 	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
 	const int Pwalk_FrameH = 58;									//								 , 58
 
-	// <초기 땅의 좌표>
-	const int Ground_yPos = 330;									// 지면의 y좌표
+private:
+
+	SDL_Window* m_pWindow = NULL;
+	SDL_Renderer* m_pRenderer = NULL;
+
+	bool m_bRunning = false;
+
 
 	// <도끼병 관련 변수>
 	int m_AxSk_Speed = 0;											// 도끼병의 다가오는 속도
@@ -73,7 +72,7 @@ private:
 	int m_AxSkCurrF = 0;											// 현재 몇번째 프레임
 
 	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
-	const char* adr_Bg = "assets/Back_Ground2.png";					// 배경 그림의 주소
+	const char* adr_Bg = "assets/Back_Ground3.png";					// 배경 그림의 주소
 
 	const char* adr_GameOver = "assets/Big_GameOver.png";				// 게임 오버의 주소
 

@@ -17,7 +17,7 @@ public:
 protected:
 	enum State
 	{
-		IDLE, WALK, ATTACK, HIT, DIE
+		IDLE, WALK, ATTACK, HIT, DIE, TOMB
 	};
 
 	std::string m_textureID;

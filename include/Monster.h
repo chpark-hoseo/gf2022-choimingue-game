@@ -1,6 +1,6 @@
 #pragma once
 #include "GameCharacter.h"
-#include "Player.h"
+#include "BackGround.h"
 
 class Monster : public GameCharacter
 {
@@ -14,7 +14,10 @@ public:
 	void setPlayerXPos(int xPos);									// 플레이어의 x좌표를 가져온다.
 	void stateMachine();											// 플레이어의 위치에 따른 상태를 알아서 결정한다.
 
+	void setBgData(BackGround* backGround);
+
 private:
+	BackGround* backGround;
 
 	// 몬스터의 애니메이션 관련 변수
 	const int m_AllFullCnt = 7;										// 모든 행동의 프레임은 7
