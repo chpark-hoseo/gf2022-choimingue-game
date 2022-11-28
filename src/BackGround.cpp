@@ -30,6 +30,7 @@ int BackGround::getGroundyPos()
 {
 	return mGround_yPos;
 }
+
 int BackGround::getBgSpeed()
 {
 	return mBg_MoveSpeed;
@@ -95,7 +96,7 @@ void BackGround::BlockCheck()
 		}
 		else {
 			player->Add_GroundYpos(m_Floor_h);
-			//m_CurrBlock_MaxX = m_2stChec   kP;
+			m_CurrBlock_MaxX = m_2stCheckP;
 			CheckYPos -= m_Floor_h;
 		}
 	}
@@ -127,7 +128,7 @@ void BackGround::draw()
 
 void BackGround::update()
 { 
-	std::cout << m_CurrBlock_MaxX << "!!" << std::endl;
+	//std::cout << m_CurrBlock_MaxX << "!!" << std::endl;
 
 	move_byPlayer();
 	BlockCheck();

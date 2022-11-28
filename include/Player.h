@@ -38,6 +38,6 @@ protected:
 	int m_AddYPos = 0;
 
 	// <점프 관련 변수>
-	int m_JUMP_MaxH = m_GroundYpos - 60;						// 최대 점프 높이 (const값, 지면의 높이 : 310 - 최대 점프 높이 : 60 )
+	int m_JUMP_MaxH = m_GroundYpos - 60;							// 최대 점프 높이 (const값, 지면의 높이 : 310 - 최대 점프 높이 : 60 )
 	int m_JSpeed = 2;												// 점프 속도
 };

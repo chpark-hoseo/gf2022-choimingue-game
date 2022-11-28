@@ -80,9 +80,17 @@ void Player::update()
 		break;
 	}
 	
+	if (m_position.getY() > m_GroundYpos)
+	{
+		m_velocity.setY(1);
+	}
+	else
+		m_velocity.setY(0);
+
 	if (isJump) {
 		jump();
 	}
+
 
 	SDLGameObject::update();
 }
