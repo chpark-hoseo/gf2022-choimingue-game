@@ -98,7 +98,7 @@ void BackGround::move_byPlayer()
 void BackGround::BlockCheck()
 {
 
-	if (m_CurrBlock_MaxX <= 0) {
+	if (m_CurrBlock_MaxX <= 0 || m_CurrBlock_MaxX >= m_2stCheckP) {
 
 		if (AABBCheck()) {
 			mBg_MoveSpeed = 0;
@@ -108,15 +108,23 @@ void BackGround::BlockCheck()
 			m_CurrBlock_MaxX = m_2stCheckP;
 			CheckYPos -= m_Floor_h;
 		}
+
+		if (m_CurrBlock_MaxX > m_2stCheckP) {
+			player->Add_GroundYpos(-m_Floor_h);
+
+			std::cout << player->getYPos() << std::endl;
+
+			if (player->getYPos() < player->getGroundYPos())
+			{
+				player->setVeloYpos(1);
+			}
+			else
+				player->setVeloYpos(0);
+		}
 	}
 	else {
 	}
 
-	/*if (m_CurrBlock_MaxX > m_2stCheckP && !IsDown) {
-		player->Add_GroundYpos(-m_Floor_h);
-		m_CurrBlock_MaxX = -50;
-		IsDown = true;
-	}*/
 }
 
 void BackGround::BlockInstall()
@@ -145,7 +153,7 @@ void BackGround::draw()
 void BackGround::update()
 { 
 	m_CurrBlock_MaxX -= DistToDest;
-	std::cout << m_CurrBlock_MaxX << "!!" << std::endl;
+	//std::cout << m_CurrBlock_MaxX << "!!" << std::endl;
 
 	move_byPlayer();
 	BlockCheck();

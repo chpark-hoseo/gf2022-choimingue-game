@@ -80,12 +80,12 @@ void Player::update()
 		break;
 	}
 	
-	if (m_position.getY() > m_GroundYpos)
+	/*if (m_position.getY() > m_GroundYpos)
 	{
 		m_velocity.setY(1);
 	}
 	else
-		m_velocity.setY(0);
+		m_velocity.setY(0);*/
 
 	if (isJump) {
 		jump();
@@ -171,9 +171,19 @@ int Player::getYPos()
 	return m_position.getY();
 }
 
+int Player::getGroundYPos()
+{
+	return m_GroundYpos;
+}
+
 void Player::Add_GroundYpos(int GroundYpos)
 {
 	m_AddYPos = GroundYpos;
+}
+
+void Player::setVeloYpos(int P_veloY)
+{
+	m_velocity.setY(P_veloY);
 }
 
 void Player::jump()

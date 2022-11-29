@@ -18,8 +18,10 @@ public :
 	int getSpeed();
 
 	int getYPos();													// 플레이어의 y 좌표를 가져옴
+	int getGroundYPos();
 
 	void Add_GroundYpos(int GroundYpos);							// 배경의 지면 좌표를 가져옴
+	void setVeloYpos(int P_veloY);
 
 	void jump();													// 점프 함수
 
