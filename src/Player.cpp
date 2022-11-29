@@ -193,7 +193,6 @@ void Player::jump()
 			std::cout << "!!!!!" << std::endl;
 		}
 	}
-		std::cout << m_JUMP_MaxH << std::endl;
 
 	// ¶¥¿¡ µµÂøÇß´Ù¸é, Á¡ÇÁ »óÅÂ°¡ ¾Æ´Ô
 	if (m_position.getY() + m_velocity.getY() >= m_GroundYpos) {

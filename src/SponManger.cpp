@@ -25,14 +25,14 @@ SDLGameObject* SponManger::sponByGameBg()
 	switch (GmBg_XPos)
 	{
 	case kSkull_SponXpos:
-		//monster = new Monster(new LoaderParams(400, GmBg->getGroundyPos(), 48, 50, "Kskull"));
+		monster = new Monster(new LoaderParams(400, GmBg->getGroundyPos(), 48, 50, "Kskull"));
 
-		//if (!The_TextMananger::Instance()->load(TheGame::Instance()->adr_Kskull
-		//	, "Kskull", TheGame::Instance()->getRenderer()))
-		//{
-		//	std::cout << "Error";
-		//	break;
-		//}
+		if (!The_TextMananger::Instance()->load(TheGame::Instance()->adr_Kskull
+			, "Kskull", TheGame::Instance()->getRenderer()))
+		{
+			std::cout << "Error";
+			break;
+		}
 
 		TheBattleManger::Instance()->setMonsterObj(monster);
 		SponObj = monster;

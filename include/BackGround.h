@@ -57,6 +57,8 @@ private:
 	int m_CurrBlock_MaxX;											// 현재 충돌의 최대 x값
 	int m_CurrBlock_MinX;											// 현재 충돌의 최소 x값
 
+	int DistToDest = 0;
+	bool IsDown = false;
+
 	int CheckYPos = mGround_yPos - m_Floor_h;
 };
-
