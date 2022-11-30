@@ -41,7 +41,6 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	m_bRunning = true;				// 정상작동
 
 	BackGround* m_GmBg = new BackGround(new LoaderParams(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT, "BackGround"));
-	ASkull* m_Askull = new ASkull(new LoaderParams(400, m_GmBg->getGroundyPos(), 48, 50, "Askull"));
 	Player* m_player = new Player(new LoaderParams(0, m_GmBg->getGroundyPos(), Pwalk_FrameW, Pwalk_FrameH, "Player"));
 
 
@@ -49,13 +48,6 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
 
-	// 칼든 병사
-	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
-		return false;
-
-	//도끼 병사
-	if (!The_TextMananger::Instance()->load(adr_Askull, "Askull", m_pRenderer))
-		return false;
 
 	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
 		return false;
@@ -64,15 +56,13 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 		return false;
 
 	m_GmBg->setPlayerData(m_player);
-	m_Askull->setBgData(m_GmBg);
 
-	TheBattleManger::Instance()->setGameObj(m_player, m_Askull);
+	TheBattleManger::Instance()->setGamePlayer(m_player);
 	TheInterfaceManger::Instance()->setDefaltData(m_player);
 	TheSponManger::Instance()->setBgData(m_GmBg);
 
 	m_gameObjects.push_back(m_GmBg);
 	m_gameObjects.push_back(m_player);
-	m_gameObjects.push_back(m_Askull);
 
 	return m_bRunning;
 }

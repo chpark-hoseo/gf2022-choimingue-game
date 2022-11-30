@@ -25,9 +25,9 @@ void Monster::setPlayerXPos(int xPos)
 	m_PlayerXPos = xPos;
 }
 
-void Monster::setBgData(BackGround* backGround)
+void Monster::setBgSpeed(int Bg_Speed)
 {
-	this->backGround = backGround;
+	this->Bg_Speed = Bg_Speed;
 }
 
 void Monster::stateMachine()
@@ -57,7 +57,7 @@ void Monster::update()
 	{
 	case IDLE:
 		setData(m_IDLEW, m_IDLEH);
-		m_velocity.setX(-backGround->getBgSpeed());
+		m_velocity.setX(-Bg_Speed);
 		m_aniWF = 0;
 		m_aniAF = 0;
 		m_aniHF = 0;
@@ -91,7 +91,7 @@ void Monster::update()
 
 	case DIE:
 		setData(m_DIEW, m_DIEH);
-		m_velocity.setX(-backGround->getBgSpeed());
+		m_velocity.setX(-Bg_Speed);
 
 		m_aniDF += m_ANISpeed;
 		m_CurrF = (m_aniDF / 330) % m_AllFullCnt;
@@ -103,7 +103,7 @@ void Monster::update()
 		break;
 
 	case TOMB:
-		m_velocity.setX(-backGround->getBgSpeed());
+		m_velocity.setX(-Bg_Speed);
 		setData(m_TOMBW, m_TOMBH);
 		break;
 

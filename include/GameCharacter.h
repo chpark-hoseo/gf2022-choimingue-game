@@ -24,6 +24,10 @@ public:
 	int getDamage();											// 데미지가 얼마인지 가져옴
 
 
+	// <기본 상태 관련 변수>
+	int m_IDLEW;												// 기본 상태 프레임 길이
+	int m_IDLEH;												// 기본 상태 프레임 높이
+
 protected:
 	enum State
 	{
@@ -43,10 +47,6 @@ protected:
 	int m_aniHF = 0;											// 피격관련 프레임이 바뀌도록 값을 더해줌
 	int m_aniDF = 0;											// 죽음관련 프레임이 바뀌도록 값을 더해줌
 	const int m_ANISpeed = 15;									// 프레임이 바뀌도록 하는 값
-
-	// <기본 상태 관련 변수>
-	int m_IDLEW;												// 기본 상태 프레임 길이
-	int m_IDLEH;												// 기본 상태 프레임 높이
 
 	// <이동 관련 변수>
 	const int mBG_YPOS = 330;									// 지면의 y좌표 (const값, 330)

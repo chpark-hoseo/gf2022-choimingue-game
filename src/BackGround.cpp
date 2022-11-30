@@ -107,6 +107,7 @@ void BackGround::BlockCheck()
 			player->Add_GroundYpos(m_Floor_h);
 			m_CurrBlock_MinX = m_2stCheckP;
 			CheckYPos -= m_Floor_h;
+			mGround_yPos -= m_Floor_h;
 			std::cout << "Not";
 		}
 	}
@@ -159,7 +160,7 @@ void BackGround::update()
 { 
 	m_CurrBlock_MinX -= DistToDest;
 
-	std::cout << m_CurrBlock_MinX;
+	//std::cout << m_CurrBlock_MinX;
 
 	move_byPlayer();
 	BlockCheck();

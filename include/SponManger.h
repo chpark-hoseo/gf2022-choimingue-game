@@ -5,8 +5,6 @@
 #include "KSkull.h"
 #include"SDLGameObject.h"
 
-#define kSkull_SponXpos 1500							// 칼병사가 등장하는 x좌표
-
 class SponManger
 {
 public :
@@ -20,9 +18,14 @@ public :
 
 	void setBgData(BackGround* GmBg_Data);				// 배경 객체를 가져옴
 	SDLGameObject* addGameobj();						// 배경 위치에 따라 만들어진 객체를 Game에서 추가해줌
-	SDLGameObject* sponByGameBg();								// 배경 위치에 따라 객체를 만듬
+	SDLGameObject* sponByGameBg();						// 배경 위치에 따라 객체를 만듬
 	
 private:
+	enum MonsterSponXpos
+	{
+		aSkull_SponXpos = 9, kSkull_SponXpos = 1500
+	};
+
 	SponManger() = default;
 	static SponManger* s_pInstance;
 
@@ -33,5 +36,12 @@ private:
 	SDLGameObject* SponObj;								// 이 모든것을 하나로 묶어줌
 
 	int GmBg_XPos;										// 배경의 x좌표
+	
+	const int Askull_defaultXpos = 400;
+	const int Askull_IdleW = 48;
+	const int Askull_IdleH = 49;
+
+	const int Kskull_IdleW = 51;
+	const int Kskull_IdleH = 49;
 
 }typedef TheSponManger;

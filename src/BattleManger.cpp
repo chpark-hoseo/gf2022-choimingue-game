@@ -1,10 +1,9 @@
 #include "BattleManger.h"
 #include "iostream"
 
-void BattleManger::setGameObj(Player* player, Monster* monster)
+void BattleManger::setGamePlayer(Player* player)
 {
 	this->player = player;
-	this->monster = monster;
 }
 
 void BattleManger::setMonsterObj(Monster* monster)

@@ -23,9 +23,7 @@ public :
 	void Add_GroundYpos(int GroundYpos);							// 배경의 지면 좌표를 가져옴
 	void setVeloYpos(int P_veloY);
 
-	void jump();													// 점프 함수
-
-protected:
+private:
 	int m_CurrHitTime = 0;											// 현재 피격 되는 시간
 	int m_CurrAttF = 0;												// 현재 공격 프레임
 

@@ -7,9 +7,9 @@ KSkull::KSkull(LoaderParams* pParams)
 	monster_Name = "Kskull";
 
 	m_State = 0;
-	m_CurrFw = 48;
+	m_CurrFw = 51;
 	m_CurrFh = 49;
-	m_FrameIntv = 55;
+	m_FrameIntv = 53;
 	m_CurrF = 0;
 
 	// 애니메이션 관련 변수
@@ -43,8 +43,8 @@ KSkull::KSkull(LoaderParams* pParams)
 	m_TOMBH = 41;
 
 	// <스탯>
-	m_hp = 100;
-	m_damage = 10;
+	m_hp = 150;
+	m_damage = 8;
 	m_WSpeed = 1;
 }
 

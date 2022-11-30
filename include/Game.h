@@ -47,7 +47,7 @@ public:
 
 	void quit();
 
-	const char* adr_Kskull = "assets/KnifeSkull.png";			// 칼병 병사의 주소
+	const char* adr_Kskull = "assets/KnifeSkull_V2.png";			// 칼병 병사의 주소
 	const char* adr_Askull = "assets/AxeSkull_Full2.png";			// 도끼 병사의 주소
 
 	// <플레이어의 대한 기본 정보>
