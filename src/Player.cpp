@@ -80,12 +80,12 @@ void Player::update()
 		break;
 	}
 	
-	/*if (m_position.getY() > m_GroundYpos)
+	if (m_position.getY() > m_GroundYpos)
 	{
 		m_velocity.setY(1);
 	}
 	else
-		m_velocity.setY(0);*/
+		m_velocity.setY(0);
 
 	if (isJump) {
 		jump();
@@ -188,9 +188,10 @@ void Player::setVeloYpos(int P_veloY)
 
 void Player::jump()
 {
-	m_velocity.setY(-m_JSpeed);
+	if(m_position.getY() >= m_JUMP_MaxH)
+		m_velocity.setY(-m_JSpeed);
 
-	if (m_position.getY() < m_JUMP_MaxH) {
+	else if (m_position.getY() < m_JUMP_MaxH) {
 		m_JSpeed = -m_JSpeed;
 		m_velocity.setY(-m_JSpeed);
 	}
