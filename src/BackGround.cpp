@@ -101,11 +101,13 @@ void BackGround::BlockCheck()
 	if (m_CurrBlock_MinX<= 0) {
 		if (AABBCheck()) {
 			mBg_MoveSpeed = 0;
+			std::cout << "block";
 		}
 		else {
 			player->Add_GroundYpos(m_Floor_h);
 			m_CurrBlock_MinX = m_2stCheckP;
 			CheckYPos -= m_Floor_h;
+			std::cout << "Not";
 		}
 	}
 
