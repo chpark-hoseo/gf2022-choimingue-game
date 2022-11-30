@@ -8,12 +8,12 @@
 BackGround::BackGround(LoaderParams* pParams)
 	:SDLGameObject(pParams) 
 {
-	m_1stCheckP = m_1stFloor_w - TheGame::Instance()->Pwalk_FrameW;
-	m_2stCheckP = m_2stFloor_w;
-	m_3stCheckP = m_3stFloor_w - mBg_START - TheGame::Instance()->Pwalk_FrameW;
+	m_1stCheckP = m_1stFloor_w - mP_WalkW;
+	m_2stCheckP = m_2stFloor_w - mP_WalkW;
+	m_3stCheckP = m_3stFloor_w - mP_WalkW;
 
-	m_CurrBlock_MaxX = m_1stCheckP;
-	m_CurrBlock_MinX = 0;
+	m_CurrBlock_MinX = m_1stCheckP;
+	m_CurrBlock_MaxX = m_CurrBlock_MinX + Pwalk_FrameW;
 }
 
 void BackGround::setPlayerData(Player* player)
@@ -98,47 +98,50 @@ void BackGround::move_byPlayer()
 void BackGround::BlockCheck()
 {
 
-	if (m_CurrBlock_MaxX <= 0 || m_CurrBlock_MaxX >= m_2stCheckP) {
-
+	if (m_CurrBlock_MinX<= 0) {
 		if (AABBCheck()) {
 			mBg_MoveSpeed = 0;
 		}
 		else {
 			player->Add_GroundYpos(m_Floor_h);
-			m_CurrBlock_MaxX = m_2stCheckP;
+			m_CurrBlock_MinX = m_2stCheckP;
 			CheckYPos -= m_Floor_h;
 		}
-
-		if (m_CurrBlock_MaxX > m_2stCheckP) {
-			player->Add_GroundYpos(-m_Floor_h);
-
-			std::cout << player->getYPos() << std::endl;
-
-			if (player->getYPos() < player->getGroundYPos())
-			{
-				player->setVeloYpos(1);
-			}
-			else
-				player->setVeloYpos(0);
-		}
-	}
-	else {
 	}
 
+	if (m_CurrBlock_MinX > m_2stCheckP) {
+		m_CurrBlock_MinX = 0;
+		player->Add_GroundYpos(-m_Floor_h);
+	}
 }
 
-void BackGround::BlockInstall()
+void BackGround::BlockInstall(int MapFloor)
 {
+	switch (MapFloor)
+	{
+	case FirstFloor:
+		m_CurrBlock_MinX = m_2stFloor_w;
+		m_CurrBlock_MaxX = m_CurrBlock_MinX + Pwalk_FrameW;
+		break;
 
+	case SecondFloor:
+		m_CurrBlock_MinX = m_3stFloor_w;
+		m_CurrBlock_MaxX = m_CurrBlock_MinX + Pwalk_FrameW;
+		break;
+
+	default:
+		break;
+	}
 }
 
 bool BackGround::AABBCheck()
 {
-	if (player->getYPos() > CheckYPos) {
+	if (player->getYPos() > CheckYPos ) {
 		DistToDest = 0;
 		return true;
 	}
 	else {
+		std::cout << "Don't block" << std::endl;
 		return false;
 	}
 }
@@ -152,7 +155,9 @@ void BackGround::draw()
 
 void BackGround::update()
 { 
-	m_CurrBlock_MaxX -= DistToDest;
+	m_CurrBlock_MinX -= DistToDest;
+
+	std::cout << m_CurrBlock_MinX;
 
 	move_byPlayer();
 	BlockCheck();

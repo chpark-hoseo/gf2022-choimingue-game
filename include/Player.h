@@ -26,9 +26,6 @@ public :
 	void jump();													// 점프 함수
 
 protected:
-
-
-	const int m_HitTime = 10;										// 피격 받은 판정 시간
 	int m_CurrHitTime = 0;											// 현재 피격 되는 시간
 	int m_CurrAttF = 0;												// 현재 공격 프레임
 
@@ -41,6 +38,5 @@ protected:
 	int m_AddYPos = 0;
 
 	// <점프 관련 변수>
-	int m_JUMP_MaxH = m_GroundYpos - 60;							// 최대 점프 높이 (const값, 지면의 높이 : 310 - 최대 점프 높이 : 60 )
-	int m_JSpeed = 2;												// 점프 속도
+	const float m_JumpSpeed = 3.5;
 };

@@ -26,10 +26,15 @@ public:
 
 	// <지형 충돌과 관련된 함수>
 	void BlockCheck();
-	void BlockInstall();
+	void BlockInstall(int MapFloor);
 	bool AABBCheck();
 
 private:
+	enum Floor
+	{
+		FirstFloor = 1, SecondFloor, ThirdFloor
+	};
+
 	Player* player = NULL;
 
 	const int mP_WalkW = 38;										// 플레이어 걷기 프레임의 길이
@@ -56,6 +61,8 @@ private:
 
 	int m_CurrBlock_MaxX;											// 현재 충돌의 최대 x값
 	int m_CurrBlock_MinX;											// 현재 충돌의 최소 x값
+
+	const int Pwalk_FrameW = 38;
 
 	int DistToDest = 0;
 	bool IsDown = false;

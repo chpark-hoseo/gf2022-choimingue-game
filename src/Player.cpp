@@ -80,18 +80,27 @@ void Player::update()
 		break;
 	}
 	
-	/*if (m_position.getY() > m_GroundYpos)
+
+	if (m_position.getY() < m_GroundYpos)
 	{
-		m_velocity.setY(1);
-	}
-	else
-		m_velocity.setY(0);*/
+		m_accel.setY(0.1);
+		isJump = false;
 
-	if (isJump) {
-		jump();
 	}
 
+	if (m_AddYPos != 0) {
+		m_GroundYpos -= m_AddYPos;
+		m_AddYPos = 0;
+	}
 
+	if(m_position.getY() > m_GroundYpos) {
+		m_accel.setY(0);
+		m_velocity.setY(0);
+		m_position.setY(m_GroundYpos);
+	}
+
+	std::cout << ", " <<m_GroundYpos <<std::endl;
+	
 	SDLGameObject::update();
 }
 
@@ -121,7 +130,7 @@ void Player::handleInput()
 	}
 
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE)) {
-		isJump = true;
+		m_accel.setY(-m_JumpSpeed);
 	}
 }
 
@@ -184,29 +193,4 @@ void Player::Add_GroundYpos(int GroundYpos)
 void Player::setVeloYpos(int P_veloY)
 {
 	m_velocity.setY(P_veloY);
-}
-
-void Player::jump()
-{
-	m_velocity.setY(-m_JSpeed);
-
-	if (m_position.getY() < m_JUMP_MaxH) {
-		m_JSpeed = -m_JSpeed;
-		m_velocity.setY(-m_JSpeed);
-	}
-
-	else if (m_position.getY() == m_JUMP_MaxH) {
-		if (m_AddYPos) {
-			m_GroundYpos -= m_AddYPos;
-			m_JUMP_MaxH = m_GroundYpos - 60;
-			m_AddYPos = 0;
-		}
-	}
-
-	// ¶¥¿¡ µµÂøÇß´Ù¸é, Á¡ÇÁ »óÅÂ°¡ ¾Æ´Ô
-	if (m_position.getY() + m_velocity.getY() >= m_GroundYpos) {
-		isJump = false;
-		m_JSpeed = -m_JSpeed;
-		m_velocity.setY(0);
-	}
 }
