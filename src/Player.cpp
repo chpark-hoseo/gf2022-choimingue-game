@@ -200,7 +200,6 @@ void Player::jump()
 			m_GroundYpos -= m_AddYPos;
 			m_JUMP_MaxH = m_GroundYpos - 60;
 			m_AddYPos = 0;
-			std::cout << "!!!!!" << std::endl;
 		}
 	}
 

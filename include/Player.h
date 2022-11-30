@@ -27,6 +27,7 @@ public :
 
 protected:
 
+
 	const int m_HitTime = 10;										// 피격 받은 판정 시간
 	int m_CurrHitTime = 0;											// 현재 피격 되는 시간
 	int m_CurrAttF = 0;												// 현재 공격 프레임

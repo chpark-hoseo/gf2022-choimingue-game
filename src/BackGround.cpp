@@ -153,7 +153,6 @@ void BackGround::draw()
 void BackGround::update()
 { 
 	m_CurrBlock_MaxX -= DistToDest;
-	//std::cout << m_CurrBlock_MaxX << "!!" << std::endl;
 
 	move_byPlayer();
 	BlockCheck();

@@ -1,7 +1,8 @@
 #pragma once
 
 #include"BackGround.h"
-#include "Monster.h"
+#include "ASkull.h"
+#include "KSkull.h"
 #include"SDLGameObject.h"
 
 #define kSkull_SponXpos 1500							// Ä®º´»ç°¡ µîÀåÇÏ´Â xÁÂÇ¥
@@ -26,7 +27,8 @@ private:
 	static SponManger* s_pInstance;
 
 	BackGround* GmBg;									// ¹è°æ °´Ã¼
-	Monster* monster;									// ¸ó½ºÅÍ °´Ã¼
+	ASkull* m_ASkull;									// µµ³¢ ¸ó½ºÅÍ °´Ã¼
+	KSkull* m_KSkull;									// Ä® ¸ó½ºÅÍ °´Ã¼
 
 	SDLGameObject* SponObj;								// ÀÌ ¸ðµç°ÍÀ» ÇÏ³ª·Î ¹­¾îÁÜ
 

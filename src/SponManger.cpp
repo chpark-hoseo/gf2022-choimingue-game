@@ -15,7 +15,7 @@ SDLGameObject* SponManger::addGameobj()
 {
 	SponObj = sponByGameBg();
 
-	return monster;
+	return SponObj;
 }
 
 SDLGameObject* SponManger::sponByGameBg()
@@ -25,7 +25,7 @@ SDLGameObject* SponManger::sponByGameBg()
 	switch (GmBg_XPos)
 	{
 	case kSkull_SponXpos:
-		monster = new Monster(new LoaderParams(400, GmBg->getGroundyPos(), 48, 50, "Kskull"));
+		m_KSkull = new KSkull(new LoaderParams(400, GmBg->getGroundyPos() -26, 48, 50, "Kskull"));
 
 		if (!The_TextMananger::Instance()->load(TheGame::Instance()->adr_Kskull
 			, "Kskull", TheGame::Instance()->getRenderer()))
@@ -34,13 +34,15 @@ SDLGameObject* SponManger::sponByGameBg()
 			break;
 		}
 
-		TheBattleManger::Instance()->setMonsterObj(monster);
-		SponObj = monster;
+		TheBattleManger::Instance()->setMonsterObj(m_KSkull);
+		m_KSkull->setBgData(GmBg);
+		SponObj = m_KSkull;
 		break;
 
 	default:
 		SponObj = NULL;
-		monster = NULL;
+		m_ASkull = NULL;
+		m_KSkull = NULL;
 		break;
 	}
 
