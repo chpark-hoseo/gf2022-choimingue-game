@@ -30,6 +30,11 @@ void Monster::setBgSpeed(int Bg_Speed)
 	this->Bg_Speed = Bg_Speed;
 }
 
+int Monster::getSate()
+{
+	return m_State;
+}
+
 void Monster::stateMachine()
 {
 	int Dist = m_position.getX() - m_PlayerXPos;
@@ -65,7 +70,7 @@ void Monster::update()
 
 	case WALK:
 		setData(m_WALKW, m_WALKH);
-		m_velocity.setX(-m_WSpeed);
+		m_velocity.setX(-m_WSpeed - Bg_Speed);
 
 		m_aniWF += m_ANISpeed;
 		m_CurrF = (m_aniWF / 105) % m_AllFullCnt;

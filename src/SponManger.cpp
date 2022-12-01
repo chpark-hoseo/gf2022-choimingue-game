@@ -14,7 +14,6 @@ void SponManger::setBgData(BackGround* GmBg_Data)
 SDLGameObject* SponManger::addGameobj()
 {
 	SponObj = sponByGameBg();
-	std::cout << GmBg->getBgSpeed() << std::endl;
 
 	return SponObj;
 }
@@ -42,9 +41,7 @@ SDLGameObject* SponManger::sponByGameBg()
 		}
 
 		TheBattleManger::Instance()->setMonsterObj(m_ASkull);
-		m_ASkull->setBgSpeed(GmBg->getBgSpeed());
 		SponObj = m_ASkull;
-
 		break;
 
 	case kSkull_SponXpos:
@@ -60,15 +57,25 @@ SDLGameObject* SponManger::sponByGameBg()
 		}
 
 		TheBattleManger::Instance()->setMonsterObj(m_KSkull);
-		m_KSkull->setBgSpeed(GmBg->getBgSpeed());
 		SponObj = m_KSkull;
-
 		break;
 
 	default:
 		SponObj = NULL;
-		m_ASkull = NULL;
-		m_KSkull = NULL;
+
+		if (m_ASkull != NULL) {
+			m_ASkull->setBgSpeed(GmBg->getBgSpeed());
+			
+			if (m_ASkull->getXPos() < 0 )
+				m_ASkull = NULL;
+		}
+
+		else if (m_KSkull != NULL) {
+			m_KSkull->setBgSpeed(GmBg->getBgSpeed());
+
+			if (m_KSkull->getXPos() < 0)
+				m_KSkull = NULL;
+		}
 		break;
 	}
 

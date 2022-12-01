@@ -23,7 +23,7 @@ public :
 private:
 	enum MonsterSponXpos
 	{
-		aSkull_SponXpos = 9, kSkull_SponXpos = 1500
+		aSkull_SponXpos = 3, kSkull_SponXpos = 1500
 	};
 
 	SponManger() = default;

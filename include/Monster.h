@@ -14,7 +14,9 @@ public:
 	void setPlayerXPos(int xPos);									// 플레이어의 x좌표를 가져온다.
 	void stateMachine();											// 플레이어의 위치에 따른 상태를 알아서 결정한다.
 
-	void setBgSpeed(int Bg_Speed);
+	// <스폰 매니저에서 사용>
+	void setBgSpeed(int Bg_Speed);									// 배경의 속도를 가져옵니다
+	int getSate();													// 몬스터의 상태를 가져옴
 
 private:
 

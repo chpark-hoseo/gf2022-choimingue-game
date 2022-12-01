@@ -28,11 +28,12 @@ public:
 	int m_IDLEW;												// 기본 상태 프레임 길이
 	int m_IDLEH;												// 기본 상태 프레임 높이
 
-protected:
 	enum State
 	{
 		IDLE, WALK, ATTACK, HIT, DIE
 	};
+
+protected:
 
 	// <몬스터가 현재 어떤 상태인지에 따라 달라짐>
 	int m_State;												// 현재 상태
