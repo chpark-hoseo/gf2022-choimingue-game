@@ -32,7 +32,7 @@ public:
 private:
 	enum Floor
 	{
-		FirstFloor = 1, SecondFloor, ThirdFloor
+		 FirstFloor =1, SecondFloor, ThirdFloor
 	};
 
 	Player* player = NULL;
@@ -51,21 +51,23 @@ private:
 
 	const int m_1stFloor_w = 1111;									// 첫번째 블록의 길이
 	const int m_2stFloor_w = 1711;									// 두번째 블록의 길이
-	const int m_3stFloor_w = 1216;									// 세번째 블록의 길이
+	const int m_3stFloor_w = 1228;									// 세번째 블록의 길이
 
 	int m_1stCheckP;												// 첫번째 충돌 지점
 	int m_2stCheckP;												// 두번째 충돌 지점
 	int m_3stCheckP;												// 세번째 충돌 지점
 
 	const int m_Floor_h = 26;										// 블록마다의 길이
+	const int m_Final_FloorH = 51;
 
 	int m_CurrBlock_MaxX;											// 현재 충돌의 최대 x값
 	int m_CurrBlock_MinX;											// 현재 충돌의 최소 x값
 
-	const int Pwalk_FrameW = 38;
-
-	int DistToDest = 0;
+	int DistToDest = 0;												// 목적지까지의 거리값을 변경해주는값
+	
+	int FloorState = 1;												// 현재 층수, 기본값 = 1
+	int m_CurrCheckP = m_2stFloor_w;								// 현재 충돌 체크 범위
 	bool IsDown = false;
 
-	int CheckYPos = mGround_yPos - m_Floor_h;
+	int CheckYPos = mGround_yPos - m_Floor_h;						// 다음 충돌체크할 y값의 좌표
 };

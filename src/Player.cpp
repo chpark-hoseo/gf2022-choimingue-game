@@ -99,7 +99,7 @@ void Player::update()
 		m_position.setY(m_GroundYpos);
 	}
 
-	//std::cout << ", " <<m_GroundYpos <<std::endl;
+	std::cout <<m_GroundYpos <<std::endl;
 	
 	SDLGameObject::update();
 }
