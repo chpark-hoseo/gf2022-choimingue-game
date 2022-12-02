@@ -52,6 +52,8 @@ void BackGround::move_byPlayer()
 			mBg_MoveSpeed = 0;
 			DistToDest = mP_WalkSpeed;
 			player->setSpeed(mP_WalkSpeed);
+
+			std::cout << "Still Walk " << std::endl;
 		}
 
 		// 스크린의 끝의 도닥했다면
@@ -101,18 +103,24 @@ void BackGround::move_byPlayer()
 void BackGround::BlockCheck()
 {
 	// 3층 충돌 지점을 도닥했을때,
-	if (FloorState == ThirdFloor 
+	if (FloorState == ThirdFloor
 		&& m_CurrBlock_MinX <= m_3stCheckP - SCREEN_WIDTH / 3) {
 
+		FloorState = DownFloor;
+	}
+
+	if(FloorState >= DownFloor){
 		if (m_CurrBlock_MinX <= 0 && !IsDown)
 		{
 			player->Add_GroundYpos(-m_Final_FloorH);
+			BlockInstall(FloorState);
 			IsDown = true;
 		}
 
-		else if (DistToDest)
+		else if (m_CurrBlock_MinX > m_CurrCheckP)
 		{
 			player->setSpeed(0);
+			m_CurrBlock_MinX = m_CurrCheckP;
 		}
 	}
 
@@ -169,6 +177,10 @@ void BackGround::BlockInstall(int MapFloor)
 		m_CurrCheckP = m_3stFloor_w;
 		break;
 
+	case DownFloor:
+		m_CurrBlock_MinX = SCREEN_WIDTH - SCREEN_WIDTH / 3;
+		m_CurrCheckP = SCREEN_WIDTH - SCREEN_WIDTH / 3;
+
 	default:
 		break;
 	}
@@ -195,7 +207,7 @@ void BackGround::update()
 { 
 	m_CurrBlock_MinX -= DistToDest;
 
-	//std::cout << m_CurrBlock_MinX << std::endl;
+	std::cout << m_CurrBlock_MinX << ", " << m_CurrCheckP << std::endl;
 
 	move_byPlayer();
 	BlockCheck();

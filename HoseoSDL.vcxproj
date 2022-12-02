@@ -142,6 +142,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ColliderManger.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="src\ASkull.cpp" />
     <ClCompile Include="src\KSkull.cpp" />
     <ClCompile Include="src\SponManger.cpp" />
@@ -159,6 +161,7 @@
     <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColliderManger.h" />
     <ClInclude Include="include\ASkull.h" />
     <ClInclude Include="include\BattleManger.h" />
     <ClInclude Include="include\GameCharacter.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="include\InterfaceManger.h" />
     <ClInclude Include="include\SponManger.h" />
     <ClInclude Include="include\KSkull.h" />
+    <ClInclude Include="Item.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

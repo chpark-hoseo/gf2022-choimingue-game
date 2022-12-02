@@ -32,7 +32,7 @@ public:
 private:
 	enum Floor
 	{
-		 FirstFloor =1, SecondFloor, ThirdFloor
+		 FirstFloor =1, SecondFloor, ThirdFloor, DownFloor
 	};
 
 	Player* player = NULL;
@@ -58,7 +58,7 @@ private:
 	int m_3stCheckP;												// 세번째 충돌 지점
 
 	const int m_Floor_h = 26;										// 블록마다의 길이
-	const int m_Final_FloorH = 51;
+	const int m_Final_FloorH = 52;
 
 	int m_CurrBlock_MaxX;											// 현재 충돌의 최대 x값
 	int m_CurrBlock_MinX;											// 현재 충돌의 최소 x값
