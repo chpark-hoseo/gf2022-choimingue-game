@@ -2,6 +2,7 @@
 #include "BattleManger.h"
 #include "TextManger.h"
 #include "Game.h"
+#include "ColliderManger.h"
 
 #include "Monster.h"
 
@@ -22,23 +23,12 @@ SDLGameObject* SponManger::sponByGameBg()
 {
 	GmBg_XPos = GmBg->getBgXpos();
 
-	//std::cout << GmBg_XPos << std::endl;
-
 	switch (GmBg_XPos)
 	{
 	case aSkull_SponXpos:
-
-		//std::cout << GmBg_XPos;
 		m_ASkull = new ASkull(new LoaderParams(TheGame::Instance()->SCREEN_WIDTH,  GmBg->getGroundyPos(),
 											Askull_IdleW, Askull_IdleH,
 											"Askull"));
-		
-		if (!The_TextMananger::Instance()->load(TheGame::Instance()->adr_Askull
-			, "Askull", TheGame::Instance()->getRenderer()))
-		{
-			std::cout << "Askull_Error";
-			break;
-		}
 
 		TheBattleManger::Instance()->setMonsterObj(m_ASkull);
 		SponObj = m_ASkull;
@@ -49,15 +39,20 @@ SDLGameObject* SponManger::sponByGameBg()
 											Kskull_IdleW, Kskull_IdleH,
 											"Kskull"));
 
-		if (!The_TextMananger::Instance()->load(TheGame::Instance()->adr_Kskull
-			, "Kskull", TheGame::Instance()->getRenderer()))
-		{
-			std::cout << "Kskull_Error";
-			break;
-		}
-
 		TheBattleManger::Instance()->setMonsterObj(m_KSkull);
 		SponObj = m_KSkull;
+		break;
+
+	case TBox_SponXpos:
+		std::cout << GmBg->getGroundyPos();
+
+		m_TBox = new Item(new LoaderParams(TheGame::Instance()->SCREEN_WIDTH, GmBg->getGroundyPos(),
+											TBox_FrameW, TBox_FrameH,
+											"TBox"));
+		m_TBox->setItemType(m_TBox->TBox);
+		m_TBox->setGroundYPos(GmBg->getGroundyPos());
+		ColliderManger::Instance()->setItemData(m_TBox);
+		SponObj = m_TBox;
 		break;
 
 	default:
@@ -75,6 +70,10 @@ SDLGameObject* SponManger::sponByGameBg()
 
 			if (m_KSkull->getXPos() < 0)
 				m_KSkull = NULL;
+		}
+
+		else if (m_TBox != NULL){
+			m_TBox->setBgSpeed(GmBg->getBgSpeed());
 		}
 		break;
 	}

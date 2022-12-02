@@ -60,10 +60,10 @@
     <ClCompile Include="src\ASkull.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="src\Item.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ColliderManger.cpp">
+    <ClCompile Include="src\ColliderManger.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,10 +119,10 @@
     <ClInclude Include="include\ASkull.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="include\Item.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderManger.h">
+    <ClInclude Include="include\ColliderManger.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

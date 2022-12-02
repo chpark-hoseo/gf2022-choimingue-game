@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
 
-    TheGame::Instance()->init("Chapter 2", 100, 100, TheGame::Instance()->SCREEN_WIDTH, TheGame::Instance()->SCREEN_HEIGHT, 0);
+    TheGame::Instance()->init("Zelda_Game", 100, 100, TheGame::Instance()->SCREEN_WIDTH, TheGame::Instance()->SCREEN_HEIGHT, 0);
 
     while (TheGame::Instance()->running())
     {

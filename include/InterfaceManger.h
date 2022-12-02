@@ -4,6 +4,11 @@
 class InterfaceManger
 {
 public:
+	enum ItemType
+	{
+		TBox = 0
+	};
+
 	static InterfaceManger* Instance()
 	{
 		if (s_pInstance == NULL)
@@ -13,8 +18,8 @@ public:
 	}
 
 	void setDefaltData(Player* player);
-
 	void gameOverdraw();
+	void gameEndingdraw();
 
 private:
 	InterfaceManger() = default;

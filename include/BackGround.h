@@ -39,7 +39,7 @@ private:
 
 	const int mP_WalkW = 38;										// 플레이어 걷기 프레임의 길이
 	const int mP_WALKH = 58;
-	const int mP_WalkSpeed = 3;
+	//int mP_WalkSpeed = 0;											// 플레이어의 속도
 	
 	int mBg_MoveSpeed = 0;											// 배경이 움직이는 속도
 	int mBg_CurrXpos = 0;											// 배경의 현재 x 좌표

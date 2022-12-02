@@ -3,6 +3,7 @@
 #include"BackGround.h"
 #include "ASkull.h"
 #include "KSkull.h"
+#include "Item.h"
 #include"SDLGameObject.h"
 
 class SponManger
@@ -23,7 +24,7 @@ public :
 private:
 	enum MonsterSponXpos
 	{
-		aSkull_SponXpos = 3, kSkull_SponXpos = 1500
+		aSkull_SponXpos = 3, kSkull_SponXpos = 1500, TBox_SponXpos = 3900
 	};
 
 	SponManger() = default;
@@ -32,16 +33,19 @@ private:
 	BackGround* GmBg;									// ¹è°æ °´Ã¼
 	ASkull* m_ASkull;									// µµ³¢ ¸ó½ºÅÍ °´Ã¼
 	KSkull* m_KSkull;									// Ä® ¸ó½ºÅÍ °´Ã¼
+	Item* m_TBox;										// ¾ÆÀÌÅÛ °´Ã¼
 
 	SDLGameObject* SponObj;								// ÀÌ ¸ðµç°ÍÀ» ÇÏ³ª·Î ¹­¾îÁÜ
 
 	int GmBg_XPos;										// ¹è°æÀÇ xÁÂÇ¥
-	
-	const int Askull_defaultXpos = 400;
+
 	const int Askull_IdleW = 48;
 	const int Askull_IdleH = 49;
 
 	const int Kskull_IdleW = 51;
 	const int Kskull_IdleH = 49;
+
+	const int TBox_FrameH = 70;
+	const int TBox_FrameW = 70;
 
 }typedef TheSponManger;

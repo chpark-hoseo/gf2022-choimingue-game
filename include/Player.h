@@ -19,11 +19,12 @@ public :
 
 	int getYPos();													// 플레이어의 y 좌표를 가져옴
 	int getGroundYPos();
-
 	void Add_GroundYpos(int GroundYpos);							// 배경의 지면 좌표를 가져옴
-	void setVeloYpos(int P_veloY);
+
+	int getWalkW();													// 걷는 프레임의 길이를 반환
 
 private:
+	int const MoveSpeed = 3;										// 걷기 속도 (수치값)
 	int m_CurrHitTime = 0;											// 현재 피격 되는 시간
 	int m_CurrAttF = 0;												// 현재 공격 프레임
 

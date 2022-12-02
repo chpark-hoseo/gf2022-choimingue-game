@@ -47,34 +47,26 @@ public:
 
 	void quit();
 
-	const char* adr_Kskull = "assets/KnifeSkull_V2.png";			// 칼병 병사의 주소
-	const char* adr_Askull = "assets/AxeSkull_Full2.png";			// 도끼 병사의 주소
-
 	// <플레이어의 대한 기본 정보>
-	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
-	const int Pwalk_FrameH = 58;									//								 , 58
 
 private:
+	const int Pwalk_FrameW = 38;									// 플레이어 기본 상태 Idle의 길이, 38
+	const int Pwalk_FrameH = 58;									//								 , 58
 
 	SDL_Window* m_pWindow = NULL;
 	SDL_Renderer* m_pRenderer = NULL;
 
 	bool m_bRunning = false;
 
-
-	// <도끼병 관련 변수>
-	int m_AxSk_Speed = 0;											// 도끼병의 다가오는 속도
-	int m_AxSk_xPos = 500;											// 도끼병의 x 좌표
-	int m_AxSk_State = 0;											// 현재 도끼병의 상태
-
-	int m_AxSkHp = 50;
-	int m_AxSkCurrFh = 47;											// 현재 프레임 간격
-	int m_AxSkCurrF = 0;											// 현재 몇번째 프레임
-
 	const char* adr_Char = "assets/Zelda_Walk+Attack.png";			// 젤다의 그림 주소
 	const char* adr_Bg = "assets/Back_Ground3.png";					// 배경 그림의 주소
+	const char* adr_GameOver = "assets/Big_GameOver.png";			// 게임 오버의 주소
+	const char* adr_GameEnding = "assets/GameEnding_Version3.png";	// 게임 클리어 주소
 
-	const char* adr_GameOver = "assets/Big_GameOver.png";				// 게임 오버의 주소
+	// <SponManger에서 생성>
+	const char* adr_Kskull = "assets/KnifeSkull_V2.png";			// 칼병 병사의 주소
+	const char* adr_Askull = "assets/AxeSkull_Full2.png";			// 도끼 병사의 주소
+	const char* adr_TBox = "assets/Treasure_Box_Small.png";
 
 	std::vector<GameObject*> m_gameObjects;
 }typedef TheGame;

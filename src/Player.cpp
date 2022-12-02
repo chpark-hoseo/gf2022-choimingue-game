@@ -39,12 +39,11 @@ Player::Player(LoaderParams* pParams) :
 	// <스탯>
 	m_hp = 100;
 	m_damage = 10;
-	m_WSpeed = 3;
+	m_WSpeed = 0;			// 대입값
 }
 
 void Player::update()
 {
-	m_CurrHitTime = 0;
 
 	if(m_State != DIE)
 		handleInput();
@@ -99,7 +98,7 @@ void Player::update()
 		m_position.setY(m_GroundYpos);
 	}
 
-	//std::cout <<m_GroundYpos <<std::endl;
+	std::cout << m_WSpeed <<std::endl;
 	
 	SDLGameObject::update();
 }
@@ -172,7 +171,7 @@ bool Player::getIsMove() {
 }
 
 int Player::getSpeed() {
-	return m_velocity.getX();
+	return MoveSpeed;
 }
 
 int Player::getYPos()
@@ -190,7 +189,7 @@ void Player::Add_GroundYpos(int GroundYpos)
 	m_AddYPos = GroundYpos;
 }
 
-void Player::setVeloYpos(int P_veloY)
+int Player::getWalkW()
 {
-	m_velocity.setY(P_veloY);
+	return m_WALKW;
 }

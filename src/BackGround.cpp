@@ -41,8 +41,8 @@ void BackGround::move_byPlayer()
 	if (player->getIsRight() && player->getIsMove()) {
 		// 배경의 시작점을 넘어섰고, 배경의 끝에는 도달하지 않았다면
 		if (player->getXPos() >= mBg_START && mBg_CurrXpos < mBg_END) {
-			mBg_MoveSpeed = mP_WalkSpeed;
-			DistToDest = mP_WalkSpeed;
+			mBg_MoveSpeed = player->getSpeed();
+			DistToDest = player->getSpeed();
 
 			player->setSpeed(0);
 		}
@@ -50,10 +50,10 @@ void BackGround::move_byPlayer()
 		// 마지막 배경 프레임의 도착했지만, 스크린에서 더 움직일 수 있다면
 		else if (mBg_CurrXpos > mBg_END && player->getXPos() + player->getSpeed() < mP_MAX_XPOS) {
 			mBg_MoveSpeed = 0;
-			DistToDest = mP_WalkSpeed;
-			player->setSpeed(mP_WalkSpeed);
+			DistToDest = player->getSpeed();
+			player->setSpeed(player->getSpeed());
 
-			std::cout << "Still Walk " << std::endl;
+			//std::cout << "Still Walk " << std::endl;
 		}
 
 		// 스크린의 끝의 도닥했다면
@@ -65,8 +65,8 @@ void BackGround::move_byPlayer()
 
 		// 그게 아니라, 처음 장소 ~ 출발 장소
 		else {
-			DistToDest = mP_WalkSpeed;
-			player->setSpeed(mP_WalkSpeed);
+			DistToDest = player->getSpeed();
+			player->setSpeed(player->getSpeed());
 
 		}
 	}
@@ -81,15 +81,15 @@ void BackGround::move_byPlayer()
 		else if (player->getXPos() > 0 &&
 			player->getXPos() < mBg_START) 
 		{
-			DistToDest = -mP_WalkSpeed;
-			player->setSpeed(mP_WalkSpeed);
+			DistToDest = -player->getSpeed();
+			player->setSpeed(player->getSpeed());
 		}
 
 		// 시작점을 넘어선다면, 배경이 움직이지 않도록
 		else {
 			mBg_MoveSpeed = 0;
-			DistToDest = -mP_WalkSpeed;
-			player->setSpeed(mP_WalkSpeed);
+			DistToDest = -player->getSpeed();
+			player->setSpeed(player->getSpeed());
 
 		}
 	}
@@ -114,6 +114,7 @@ void BackGround::BlockCheck()
 		{
 			player->Add_GroundYpos(-m_Final_FloorH);
 			BlockInstall(FloorState);
+			mGround_yPos += m_Final_FloorH;
 			IsDown = true;
 		}
 
@@ -206,8 +207,6 @@ void BackGround::draw()
 void BackGround::update()
 { 
 	m_CurrBlock_MinX -= DistToDest;
-
-	std::cout << m_CurrBlock_MinX << ", " << m_CurrCheckP << std::endl;
 
 	move_byPlayer();
 	BlockCheck();

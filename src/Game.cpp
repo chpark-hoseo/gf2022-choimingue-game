@@ -7,6 +7,7 @@
 #include "BattleManger.h"
 #include "InterfaceManger.h"
 #include "SponManger.h"
+#include "ColliderManger.h"
 
 #include "BackGround.h"
 #include "Player.h"
@@ -43,16 +44,32 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	BackGround* m_GmBg = new BackGround(new LoaderParams(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT, "BackGround"));
 	Player* m_player = new Player(new LoaderParams(0, m_GmBg->getGroundyPos(), Pwalk_FrameW, Pwalk_FrameH, "Player"));
 
-
 	// 플레이어
 	if (!The_TextMananger::Instance()->load(adr_Char, "Player", m_pRenderer))
 		return false;
 
-
+	// 배경
 	if (!The_TextMananger::Instance()->load(adr_Bg, "BackGround", m_pRenderer))
 		return false;
 
+	//Kskull
+	if (!The_TextMananger::Instance()->load(adr_Kskull, "Kskull", m_pRenderer))
+		return false;
+
+	//ASkull
+	if (!The_TextMananger::Instance()->load(adr_Askull, "Askull", m_pRenderer))
+		return false;
+
+	// 보물상자 로딩
+	if (!The_TextMananger::Instance()->load(adr_TBox, "TBox", m_pRenderer))
+		return false;
+
+	// 게임 오버
 	if (!The_TextMananger::Instance()->load(adr_GameOver, "GameOver", m_pRenderer))
+		return false;
+
+	// 게임 엔딩
+	if (!The_TextMananger::Instance()->load(adr_GameEnding, "GameEnding", m_pRenderer))
 		return false;
 
 	m_GmBg->setPlayerData(m_player);
@@ -60,6 +77,7 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 	TheBattleManger::Instance()->setGamePlayer(m_player);
 	TheInterfaceManger::Instance()->setDefaltData(m_player);
 	TheSponManger::Instance()->setBgData(m_GmBg);
+	TheColiiderManger::Instance()->setPlayerData(m_player);
 
 	m_gameObjects.push_back(m_GmBg);
 	m_gameObjects.push_back(m_player);
@@ -94,9 +112,8 @@ void Game::renderer()
 			game->draw();
 		});
 	
-	//The_TextMananger::Instance()->drawFrame("Kskull", 300, Ground_yPos - 48, 48, 48, 0, 0, m_pRenderer, SDL_FLIP_NONE);
-
 	TheInterfaceManger::Instance()->gameOverdraw();
+	TheInterfaceManger::Instance()->gameEndingdraw();
 
 	SDL_RenderPresent(m_pRenderer);
 }
