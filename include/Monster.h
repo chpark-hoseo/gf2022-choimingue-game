@@ -1,6 +1,5 @@
 #pragma once
 #include "GameCharacter.h"
-#include "BackGround.h"
 
 class Monster : public GameCharacter
 {

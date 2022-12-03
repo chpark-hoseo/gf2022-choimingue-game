@@ -2,7 +2,7 @@
 
 #include"TextManger.h"
 #include"Game.h"
-#include "ColliderManger.h"
+//#include "ColliderManger.h"
 
 #include"iostream"
 

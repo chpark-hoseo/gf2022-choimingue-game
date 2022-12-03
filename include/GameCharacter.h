@@ -1,6 +1,5 @@
 #pragma once
 #include"SDLGameObject.h"
-#include "LoaderParams.h"
 
 class GameCharacter : public SDLGameObject
 {
