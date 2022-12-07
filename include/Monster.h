@@ -23,7 +23,7 @@ private:
 	const int m_AllFullCnt = 7;										// 모든 행동의 프레임은 7
 	
 	// 몬스터의 상태 변환과 관련된 변수
-	const int deathMaxCnt = 150;
+	const int deathMaxCnt = 135;
 	int deathCount = 0;
 	int m_PlayerXPos = 0;											// 플레이어의 x 좌표를 받아옴
 	

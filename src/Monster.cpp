@@ -73,7 +73,7 @@ void Monster::update()
 		m_velocity.setX(-m_WSpeed - Bg_Speed);
 
 		m_aniWF += m_ANISpeed;
-		m_CurrF = (m_aniWF / 105) % m_AllFullCnt;
+		m_CurrF = (m_aniWF / 90) % m_AllFullCnt;
 		break;
 
 	case ATTACK:
@@ -81,7 +81,7 @@ void Monster::update()
 		m_velocity.setX(0);
 
 		m_aniAF += m_ANISpeed;
-		m_CurrF = (m_aniAF / 150) % m_AllFullCnt;
+		m_CurrF = (m_aniAF / 120) % m_AllFullCnt;
 
 		if (m_CurrF >= m_AllFullCnt - 1) {
 			m_aniAF = 0;
@@ -91,7 +91,7 @@ void Monster::update()
 	case HIT:
 		setData(m_HITW, m_HITH);
 		m_aniHF += m_ANISpeed;
-		m_CurrF = (m_aniHF / 105) % m_AllFullCnt;
+		m_CurrF = (m_aniHF / 90) % m_AllFullCnt;
 		break;
 
 	case DIE:
@@ -99,7 +99,7 @@ void Monster::update()
 		m_velocity.setX(-Bg_Speed);
 
 		m_aniDF += m_ANISpeed;
-		m_CurrF = (m_aniDF / 330) % m_AllFullCnt;
+		m_CurrF = (m_aniDF / 300) % m_AllFullCnt;
 
 		deathCount++;
 		if (deathCount >= deathMaxCnt) {

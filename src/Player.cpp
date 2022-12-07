@@ -62,12 +62,12 @@ void Player::update()
 		m_velocity.setX(m_WSpeed);
 
 		m_aniWF += m_ANISpeed;
-		m_CurrF = (m_aniWF / 105) % m_WALK_FullCnt;
+		m_CurrF = (m_aniWF / 90) % m_WALK_FullCnt;
 		break;
 
 	case ATTACK:
 		m_aniAF += m_ANISpeed;
-		m_CurrF = (m_aniAF / 90) % m_ATT_FullCnt;
+		m_CurrF = (m_aniAF / 75) % m_ATT_FullCnt;
 
 		m_velocity.setX(0);
 		break;

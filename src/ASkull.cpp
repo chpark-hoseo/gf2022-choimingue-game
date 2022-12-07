@@ -44,7 +44,7 @@ ASkull::ASkull(LoaderParams* pParams) :
 	// <½ºÅÈ>
 	m_hp = 100;
 	m_damage = 10;
-	m_WSpeed = 1;
+	m_WSpeed = 2;
 }
 
 void ASkull::update()

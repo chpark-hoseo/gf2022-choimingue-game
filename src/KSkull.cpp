@@ -45,7 +45,7 @@ KSkull::KSkull(LoaderParams* pParams)
 	// <½ºÅÈ>
 	m_hp = 150;
 	m_damage = 8;
-	m_WSpeed = 1;
+	m_WSpeed = 2;
 }
 
 void KSkull::update()

@@ -87,8 +87,8 @@ bool Game::init(const char* Stitle, int xpos, int ypos, int Swidth, int Sheight,
 
 void Game::update()
 {
-
-	SDL_Delay(10);
+	if (TheSponManger::Instance()->addGameobj() != NULL)
+		m_gameObjects.push_back(TheSponManger::Instance()->addGameobj());
 
 	TheBattleManger::Instance()->update();
 
@@ -103,9 +103,6 @@ void Game::renderer()
 
 	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-
-	if(TheSponManger::Instance()->addGameobj() != NULL)
-		m_gameObjects.push_back(TheSponManger::Instance()->addGameobj());
 
 	for_each(m_gameObjects.begin(), m_gameObjects.end(), [&](auto game)
 		{

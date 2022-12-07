@@ -24,7 +24,7 @@ public :
 	int getWalkW();													// 걷는 프레임의 길이를 반환
 
 private:
-	int const MoveSpeed = 3;										// 걷기 속도 (수치값)
+	int const MoveSpeed = 4;										// 걷기 속도 (수치값)
 	int m_CurrHitTime = 0;											// 현재 피격 되는 시간
 	int m_CurrAttF = 0;												// 현재 공격 프레임
 
