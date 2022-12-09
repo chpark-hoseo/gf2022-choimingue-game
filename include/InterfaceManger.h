@@ -22,7 +22,7 @@ public:
 	void gameEndingdraw();
 
 private:
-	InterfaceManger() = default;
+	InterfaceManger() = default; 
 	static InterfaceManger* s_pInstance;
 	
 	Player* player = NULL;

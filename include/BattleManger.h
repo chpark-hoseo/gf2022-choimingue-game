@@ -28,6 +28,6 @@ private:
 	static BattleManger* s_pInstance;
 
 	Player* player;
-	Monster* monster;
+	Monster* monster;	
 
 }typedef TheBattleManger;

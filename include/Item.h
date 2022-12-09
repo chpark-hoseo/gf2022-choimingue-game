@@ -32,7 +32,7 @@ private:
 	const int m_TBox_FrameH = 70;
 	const int m_TBox_FrameW = 70;
 
-	int m_GroundYpos;								// ¶¥ÀÇ yÁÂÇ¥
+	int m_GroundYpos;							// ¶¥ÀÇ yÁÂÇ¥
 
 	int m_CurrItem_Type;						// ÇöÀç ¾ÆÀÌÅÛÀÇ Á¾·ù¸¦ °¡Á®¿Â´Ù.
 };
