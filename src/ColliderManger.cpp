@@ -33,19 +33,14 @@ bool ColliderManger::AABBCheck()
 	setDefaultData();
 
 	if (item != NULL) {
-		//std::cout << objPosition.aMax_x << ", " << objPosition.bMin_x << std::endl;
-		//std::cout << objPosition.aMin_y << ", " << objPosition.bMax_y << std::endl;
 
 		if (objPosition.aMax_x <= objPosition.bMin_x) {
-			//std::cout << "1. 충돌x" << std::endl;
 			return false;
 		}
 		if (objPosition.aMin_y >= objPosition.bMax_y) {
-			//std::cout << "2. 충돌x" << std::endl;
 			return false;
 		}
 		else {
-			//std::cout << "충돌!!!!" << std::endl;
 			return true;
 		}
 	}

@@ -37,9 +37,6 @@ void BattleManger::update()
 
 				if (monster->getHp() <= 0)
 					monster->setState(DIE);
-
-				std::cout << "Monster Hp : ";
-				std::cout << monster->getHp() << std::endl;;
 			}
 		}
 
@@ -55,9 +52,6 @@ void BattleManger::update()
 
 				if (player->getHp() <= 0)
 					player->setState(DIE);
-
-				std::cout << "Player Hp : ";
-				std::cout << player->getHp() << std::endl;;
 			}
 		}
 	}

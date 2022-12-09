@@ -38,7 +38,7 @@ Player::Player(LoaderParams* pParams) :
 
 	// <스탯>
 	m_hp = 100;
-	m_damage = 10;
+	m_damage = 20;
 	m_WSpeed = 0;			// 대입값
 }
 

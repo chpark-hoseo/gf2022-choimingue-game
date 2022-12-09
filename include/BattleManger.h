@@ -14,7 +14,7 @@ public:
 		return s_pInstance;
 	}
 
-	void setGamePlayer(Player* player);				// 초반의 플레이어와 몬스터의 데이터를 가져옴
+	void setGamePlayer(Player* player);								// 초반의 플레이어와 몬스터의 데이터를 가져옴
 	void setMonsterObj(Monster* monster);							// 몬스터가 스폰될때, 그 객체를 가져옴
 	void update();
 

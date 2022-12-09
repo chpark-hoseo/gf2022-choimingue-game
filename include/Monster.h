@@ -15,7 +15,7 @@ public:
 
 	// <스폰 매니저에서 사용>
 	void setBgSpeed(int Bg_Speed);									// 배경의 속도를 가져옵니다
-	int getSate();													// 몬스터의 상태를 가져옴
+	int getSate();													// 몬스터의 상태를 반환
 
 private:
 

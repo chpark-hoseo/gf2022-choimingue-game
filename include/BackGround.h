@@ -49,7 +49,7 @@ private:
 	const int mBg_START = SCREEN_WIDTH / 3.0;						// 배경이 움직이기 시작하는 좌표
 	const int mP_MAX_XPOS = SCREEN_WIDTH - mP_WalkW;				// 플레이어가 움직일 수 있는 최대 좌표
 
-	const int m_1stFloor_w = 1111;									// 첫번째 블록의 길이
+	const int m_1stFloor_w = 1101;									// 첫번째 블록의 길이
 	const int m_2stFloor_w = 1711;									// 두번째 블록의 길이
 	const int m_3stFloor_w = 1228;									// 세번째 블록의 길이
 
